@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HSK Immersive Reading Assistant</title>
+    
+    <!-- LOAD DATA FROM GITHUB GIST VIA STATICALLY CDN -->
+    
+            
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            padding: 20px;
+        }
+        .container { max-width: 800px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 30px; }
+        h1 { color: var(--primary); margin-bottom: 10px; }
+        .tabs { display: flex; gap: 10px; justify-content: center; margin-bottom: 25px; flex-wrap: wrap; }
+        .tab {
+            padding: 10px 20px;
+            border: 1px solid var(--border);
+            background: var(--card-bg);
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .tab.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+        .story-item, .chapter-item {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .story-item:hover, .chapter-item:hover { background: #f1f5f9; border-radius: 8px; }
+        .story-item h3 { color: var(--primary); margin-bottom: 5px; font-size: 20px; }
+        .btn-back {
+            display: inline-block;
+            padding: 8px 16px;
+            background: var(--border);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-bottom: 20px;
+            margin-right: 10px;
+        }
+        .btn-back:hover { background: #cbd5e1; }
+        .word { display: inline-block; margin: 0 3px; padding: 0px 4px; cursor: pointer; border-radius: 4px; font-size: 24px; font-weight: 500; }
+        .word:hover { background: #e0e7ff; color: var(--primary); }
+        .word.active { background: var(--primary); color: white; }
+        .sentence-block { margin-bottom: 30px; padding-bottom: 10px; border-bottom: 1px dashed #f1f5f9; cursor: pointer; }
+        .sentence-translation {
+            display: none;
+            font-size: 15px;
+            color: var(--text-light);
+            margin-top: 8px;
+            font-style: italic;
+        }
+        .sentence-block.show-translation .sentence-translation {
+            display: block;
+        }
+        .tooltip {
+            position: absolute;
+            background: #1e293b;
+            color: white;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 15px;
+            display: none;
+            z-index: 100;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 250px;
+        }
+        .tooltip .pinyin { display: block; color: #38bdf8; font-weight: bold; margin-bottom: 4px; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>HSK Immersive Stories</h1>
+            <p style="color: var(--text-light)">Emotional books with deep plots tailored to your Chinese level</p>
+        </header>
+        <div class="tabs" id="levels"></div>
+        <main id="content" class="card"></main>
+    </div>
+    <div class="tooltip" id="tooltip"></div>
+<script src="stories.js"></script>
+    
+</script>
+
+    <!-- APP LOGIC SCRIPT -->
+    <script>
+        const tabsEl = document.getElementById("levels");
+        const contentEl = document.getElementById("content");
+        const tooltipEl = document.getElementById("tooltip");
+        let currentLevel = 1;
+        let activeWord = null;
+
+        for (let i = 1; i <= 6; i++) {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = `tab ${i === 1 ? 'active' : ''}`;
+            btn.textContent = `HSK ${i}`;
+            btn.onclick = () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                btn.classList.add('active');
+                currentLevel = i;
+                renderStoriesList();
+            };
+            tabsEl.appendChild(btn);
+        }
+
+        function renderStoriesList() {
+            hideTooltip();
+            contentEl.innerHTML = "";
+            const levelStories = (typeof STORIES !== 'undefined' && STORIES[currentLevel]) ? STORIES[currentLevel] : [];
+            
+            if (levelStories.length === 0) {
+                contentEl.innerHTML = `<p style="color: var(--text-light); text-align: center;">No books here yet.</p>`;
+                return;
+            }
+
+            levelStories.forEach((book) => {
+                const item = document.createElement("div");
+                item.className = "story-item";
+                item.innerHTML = `
+                    <h3>📖 ${book.title}</h3>
+                    <p style="font-size: 15px; color: var(--text-light); margin-top: 5px;">${book.description}</p>
+                    <p style="font-size: 13px; color: var(--primary); margin-top: 5px; font-weight: bold;">Chapters: ${book.chapters.length}</p>
+                `;
+                item.onclick = () => renderChaptersList(book);
+                contentEl.appendChild(item);
+            });
+        }
+
+        function renderChaptersList(book) {
+            contentEl.innerHTML = "";
+            const backBtn = document.createElement("button");
+            backBtn.className = "btn-back";
+            backBtn.textContent = "← Back to Books";
+            backBtn.onclick = renderStoriesList;
+            contentEl.appendChild(backBtn);
+
+            const title = document.createElement("h2");
+            title.style.margin = "10px 0 20px 0";
+            title.textContent = book.title;
+            contentEl.appendChild(title);
+
+            book.chapters.forEach((chapter) => {
+                const item = document.createElement("div");
+                item.className = "chapter-item";
+                item.innerHTML = `<h3>${chapter.title}</h3>`;
+                item.onclick = () => renderChapterContent(book, chapter);
+                contentEl.appendChild(item);
+            });
+        }
+
+        function renderChapterContent(book, chapter) {
+            contentEl.innerHTML = "";
+            
+            const backBtn = document.createElement("button");
+            backBtn.className = "btn-back";
+            backBtn.textContent = "← Chapters List";
+            backBtn.onclick = () => renderChaptersList(book);
+            contentEl.appendChild(backBtn);
+
+            const title = document.createElement("h2");
+            title.style.marginBottom = "5px";
+            title.style.color = "var(--primary)";
+            title.textContent = chapter.title;
+            contentEl.appendChild(title);
+
+            const sub = document.createElement("p");
+            sub.style.color = "var(--text-light)";
+            sub.style.marginBottom = "30px";
+            sub.textContent = `${chapter.pinyin || ''} — ${chapter.translation || ''}`;
+            contentEl.appendChild(sub);
+
+            chapter.sentences.forEach(s => {
+                const block = document.createElement("div");
+                block.className = "sentence-block";
+
+                // Toggle English translation when clicking empty space
+                block.addEventListener("click", (e) => {
+                    if (e.target.closest(".word")) return;
+                    block.classList.toggle("show-translation");
+                });
+
+                const line = document.createElement("div");
+                s.words.forEach(w => {
+                    const span = document.createElement("span");
+                    span.className = "word";
+                    span.textContent = w.w;
+                    if (w.p && w.e) {
+                        span.dataset.pinyin = w.p;
+                        span.dataset.meaning = w.e;
+                        span.onclick = (e) => {
+                            e.stopPropagation();
+                            showTooltip(span);
+                        };
+                    }
+                    line.appendChild(span);
+                });
+
+                block.appendChild(line);
+
+                const translation = document.createElement("span");
+                translation.className = "sentence-translation";
+                translation.textContent = s.en;
+                block.appendChild(translation);
+
+                contentEl.appendChild(block);
+            });
+        }
+
+        function showTooltip(wordEl) {
+            tooltipEl.innerHTML = `<span class="pinyin">${wordEl.dataset.pinyin}</span><span>${wordEl.dataset.meaning}</span>`;
+            tooltipEl.style.display = "block";
+            const rect = wordEl.getBoundingClientRect();
+            tooltipEl.style.left = `${rect.left + window.scrollX + (rect.width / 2) - (tooltipEl.offsetWidth / 2)}px`;
+            tooltipEl.style.top = `${rect.top + window.scrollY - tooltipEl.offsetHeight - 8}px`;
+            if (activeWord) activeWord.classList.remove("active");
+            activeWord = wordEl;
+            wordEl.classList.add("active");
+        }
+
+        function hideTooltip() {
+            tooltipEl.style.display = "none";
+            if (activeWord) { activeWord.classList.remove("active"); activeWord = null; }
+        }
+
+        document.addEventListener("click", hideTooltip);
+        window.addEventListener("resize", hideTooltip);
+        window.onload = () => { renderStoriesList(); };
+    </script>
+</body>
+</html>
