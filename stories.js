@@ -1486,6 +1486,25 @@ const STORIES = {
     }
 
 
-]
+] ,
+  "2": [
+    {
+      "id": "hsk2_neighbors_light",
+      "title": "邻居的爱",
+      "description": "一个关于尊重老人、帮助邻居和社区温暖的故事。虽然事情很小，但是爱让大家都快乐。",
+      "chapters": [
+        {
+          "title": "第一章：晚上的灯",
+          "sentences": [
+            { "en": "Next to my home lives an old grandma.", "words": [ { "w": "我", "p": "wǒ", "e": "I/me" }, { "w": "家", "p": "jiā", "e": "home/family" }, { "w": "旁边", "p": "pángbiān", "e": "next to/beside" }, { "w": "住着", "p": "zhùzhe", "e": "lives" }, { "w": "一位", "p": "yí wèi", "e": "one (polite measure word for people)" }, { "w": "老奶奶", "p": "lǎonǎinai", "e": "old grandma" }, { "w": "。", "p": "", "e": "" } ] },
+            { "en": "She lives alone, and her health is not very good.", "words": [ { "w": "她", "p": "tā", "e": "she/her" }, { "w": "一个人", "p": "yí gè rén", "e": "alone/one person" }, { "w": "住", "p": "zhù", "e": "to live" }, { "w": "，", "p": "", "e": "" }, { "w": "身体", "p": "shēntǐ", "e": "health/body" }, { "w": "不", "p": "bù", "e": "not" }, { "w": "太", "p": "tài", "e": "too/very" }, { "w": "好", "p": "hǎo", "e": "good/well" }, { "w": "。", "p": "", "e": "" } ] },
+            { "en": "Every night, the light in her home turns off very late.", "words": [ { "w": "每天", "p": "měitiān", "e": "every day" }, { "w": "晚上", "p": "wǎnshang", "e": "night/evening" }, { "w": "，", "p": "", "e": "" }, { "w": "她", "p": "tā", "e": "she/her" }, { "w": "家", "p": "jiā", "e": "home" }, { "w": "的", "p": "de", "e": "possessive particle" }, { "w": "灯", "p": "dēng", "e": "light/lamp" }, { "w": "很", "p": "hěn", "e": "very" }, { "w": "晚", "p": "wǎn", "e": "late" }, { "w": "才", "p": "cái", "e": "only then" }, { "w": "关", "p": "guān", "e": "to turn off" }, { "w": "。", "p": "", "e": "" } ] },
+            { "en": "Mom said to me: 'Grandma helped us before, so we should also help her now.'", "words": [ { "w": "妈妈", "p": "māma", "e": "mom" }, { "w": "对", "p": "duì", "e": "to/toward" }, { "w": "我", "p": "wǒ", "e": "me" }, { "w": "说", "p": "shuō", "e": "to say" }, { "w": "：", "p": "", "e": "" }, { "w": "“", "p": "", "e": "" }, { "w": "奶奶", "p": "nǎinai", "e": "grandma" }, { "w": "以前", "p": "yǐqián", "e": "before" }, { "w": "帮助", "p": "bāngzhù", "e": "to help" }, { "w": "过", "p": "guo", "e": "past experience particle" }, { "w": "我们", "p": "wǒmen", "e": "us/we" }, { "w": "，", "p": "", "e": "" }, { "w": "所以", "p": "suǒyǐ", "e": "so/therefore" }, { "w": "我们", "p": "wǒmen", "e": "we/us" }, { "w": "现在", "p": "xiànzài", "e": "now" }, { "w": "也", "p": "yě", "e": "also" }, { "w": "要", "p": "yào", "e": "should/must" }, { "w": "帮助", "p": "bāngzhù", "e": "to help" }, { "w": "她", "p": "tā", "e": "her" }, { "w": "。", "p": "", "e": "" }, { "w": "”", "p": "", "e": "" } ] },
+            { "en": "I understood: helping others is a happy thing.", "words": [ { "w": "我", "p": "wǒ", "e": "I" }, { "w": "懂", "p": "dǒng", "e": "to understand" }, { "w": "了", "p": "le", "e": "particle indicating change" }, { "w": "：", "p": "", "e": "" }, { "w": "帮助", "p": "bāngzhù", "e": "to help" }, { "w": "别人", "p": "biéren", "e": "others" }, { "w": "是", "p": "shì", "e": "is" }, { "w": "一件", "p": "yí jiàn", "e": "a piece/one thing" }, { "w": "快乐", "p": "kuàilè", "e": "happy" }, { "w": "的", "p": "de", "e": "possessive/modifying particle" }, { "w": "事情", "p": "shìqing", "e": "thing/matter" }, { "w": "。", "p": "", "e": "" } ] }
+          ]
+        }
+      ]
+    }
+  ]
 
 };
