@@ -12,14 +12,17 @@ let activeWord = null;
 // ==========================================
 // 2. INITIALIZATION (Tabs)
 // ==========================================
-// Создаем 7 вкладок (от 1 до 7)
+// Цвета от зеленого к красному + золотой для Free Reading
+const tabColors = ['#22c55e', '#84cc16', '#eab308', '#f97316', '#ef4444', '#b91c1c', '#f59e0b'];
+
 for (let i = 1; i <= 7; i++) {
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = `tab ${i === 1 ? 'active' : ''}`;
+    btn.textContent = i === 7 ? "Free Reading" : `HSK ${i}`;
     
-    // Если это 7-я вкладка, называем её "Free Reading", иначе "HSK 1", "HSK 2"...
-    btn.textContent = i === 7 ? "Free Reading" : `HSK ${i}`; 
+    // Применяем цвет к каждой вкладке
+    btn.style.setProperty('--tab-color', tabColors[i-1]);
     
     btn.dataset.level = i;
     btn.onclick = () => {
