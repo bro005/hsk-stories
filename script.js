@@ -45,10 +45,8 @@ function renderStoriesList() {
             <p style="font-size: 15px; color: #64748b; margin-top: 5px;">${book.description}</p>
             <p style="font-size: 13px; color: #4f46e5; margin-top: 5px; font-weight: bold;">Chapters: ${book.chapters.length}</p>
         `;
-        // We will handle this click via Event Delegation below
         item.dataset.action = "open-book";
-        item.dataset.bookId = book.id || book.title; 
-        item._bookData = book; // Store book data for easy access
+        item._bookData = book; 
         contentEl.appendChild(item);
     });
 }
@@ -130,7 +128,7 @@ function renderChapterContent(book, chapter) {
 }
 
 // ==========================================
-// 4. TOOLTIP FUNCTIONS
+// 4. TOOLTIP & AUDIO FUNCTIONS
 // ==========================================
 function showTooltip(wordEl) {
     tooltipEl.innerHTML = `<span class="pinyin">${wordEl.dataset.pinyin}</span><span>${wordEl.dataset.meaning}</span>`;
@@ -171,7 +169,15 @@ contentEl.addEventListener("click", (event) => {
     // 1. Check if a Chinese word was clicked
     if (event.target.classList.contains("word")) {
         event.stopPropagation(); 
+        
+        // Show Pinyin popup
         showTooltip(event.target);
+        
+        // Play audio (only if it's a real word with pinyin data, not punctuation)
+        if (event.target.dataset.pinyin) {
+            playAudio(event.target.textContent);
+        }
+        
         return;
     }
 
@@ -218,6 +224,6 @@ window.onload = () => {
     if(typeof STORIES !== 'undefined') {
         renderStoriesList(); 
     } else {
-        contentEl.innerHTML = "<p style='color: red;'>Error: stories.js not found. Please make sure it is loaded in index.html.</p>";
+        contentEl.innerHTML = "<p style='color: red;'>Error: stories.js not found.</p>";
     }
 };
