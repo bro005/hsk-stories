@@ -63,16 +63,24 @@
     </div>
 
     <!-- === SCRIPTS === -->
-    <!-- 1. Load Data -->
+    
+    <!-- 1. Initialize the empty database FIRST -->
     <script src="stories.js"></script>
     
-    <!-- 2. Load pinyin-pro (for tones) -->
-    <script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.18.2/dist/index.js"></script>
+    <!-- 2. Load the books for each level -->
+    <script src="hsk1.js"></script>
+    <script src="hsk2.js"></script>
+    <script src="hsk3.js"></script>
+    <script src="hsk4.js"></script>
+    <script src="hsk5.js"></script>
+    <script src="hsk6.js"></script>
+    <script src="free-reading.js"></script>
     
-    <!-- 3. Load Edge TTS (for audio) -->
+    <!-- 3. Load external libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.18.2/dist/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/edge-tts-universal@latest/dist/edge-tts-universal.min.js"></script>
     
-    <!-- 4. Load Logic -->
+    <!-- 4. Load the logic to run the app LAST -->
     <script src="script.js"></script>
 </body>
 </html>
