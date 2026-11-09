@@ -528,7 +528,7 @@ if (themeToggle) {
 // 10. INTERACTIVE ANIMATIONS (Title, Magnetic, Ripple)
 // ==========================================
 
-// 1. Разбиваем заголовок на отдельные буквы для эффекта
+// 1. Разбиваем заголовок на отдельные буквы
 const titleEl = document.querySelector('header h1');
 if (titleEl) {
     const text = titleEl.innerText;
@@ -559,8 +559,11 @@ document.addEventListener('mousemove', (e) => {
         }
     });
 
-    // --- Магнитный эффект для кнопок и карточек ---
-    const magneticElements = document.querySelectorAll('.btn-back, .btn-theme, .story-item, .chapter-item, .player-btn');
+    // --- Магнитный эффект (ДОБАВЛЕН ПЕРЕКЛЮЧАТЕЛЬ ПИНЬИНЯ) ---
+    const magneticElements = document.querySelectorAll(
+        '.btn-back, .btn-theme, .story-item, .chapter-item, .player-btn, .switch, .toggle-label'
+    );
+    
     magneticElements.forEach(el => {
         const rect = el.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
@@ -582,13 +585,13 @@ document.addEventListener('mousemove', (e) => {
     });
 });
 
-// 3. Эффект капель (Ripple) при клике
+// 3. Эффект капель (Ripple) - ВЫЛИВАЮТСЯ НАРУЖУ
 document.addEventListener('click', function(e) {
-    const target = e.target.closest('button, .story-item, .chapter-item, .tab, .flashcard');
+    const target = e.target.closest('button, .story-item, .chapter-item, .tab, .flashcard, .switch');
     if (!target) return;
 
+    // УБРАНА СТРОЧКА overflow = 'hidden', чтобы капли вылетали!
     target.style.position = 'relative';
-    target.style.overflow = 'hidden';
 
     const circle = document.createElement('span');
     circle.classList.add('ripple');
@@ -598,9 +601,10 @@ document.addEventListener('click', function(e) {
     
     if (tabColor) {
         circle.style.backgroundColor = tabColor;
-        circle.style.opacity = '0.5'; 
+        circle.style.opacity = '0.6'; 
     } else {
-        circle.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
+        circle.style.backgroundColor = 'var(--primary)'; 
+        circle.style.opacity = '0.5';
     }
 
     const diameter = Math.max(target.clientWidth, target.clientHeight);
@@ -612,8 +616,7 @@ document.addEventListener('click', function(e) {
     circle.style.left = `${e.clientX - rect.left - radius}px`;
     circle.style.top = `${e.clientY - rect.top - radius}px`;
 
-    target.querySelectorAll('.ripple').forEach(r => r.remove());
     target.appendChild(circle);
 
-    setTimeout(() => circle.remove(), 600);
+    setTimeout(() => circle.remove(), 800);
 });
