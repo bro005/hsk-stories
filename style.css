@@ -659,3 +659,44 @@ h1 {
     color: var(--text-light) !important;
     font-style: italic !important;
 }
+
+/* ==========================================
+   FINAL TEXT FIX (Плотный текст без разрывов)
+   ========================================== */
+
+/* 1. Убираем огромный межстрочный интервал */
+.sentence-block > div {
+    display: block !important;
+    text-align: left !important;
+    line-height: 1.8 !important; /* Нормальный интервал */
+}
+
+/* 2. Выравниваем иероглифы по ВЕРХНЕМУ краю (а не по нижнему), чтобы они стояли ровно */
+.word-container {
+    display: inline-flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    margin: 0 4px !important;
+    vertical-align: top !important; /* Вот это уберет дыру! */
+}
+
+/* 3. Задаем иероглифам нормальную высоту строки */
+.word {
+    line-height: 1.2 !important;
+}
+
+/* 4. Пиньинь аккуратно прижимаем к иероглифу */
+.pinyin-text {
+    margin-top: 2px !important; /* Маленький отступ */
+    line-height: 1 !important;
+    text-align: center !important;
+    font-size: 0.9rem !important;
+    color: var(--text-light) !important;
+}
+
+/* 5. Слегка уменьшаем отступы между самими предложениями */
+.sentence-block {
+    margin-bottom: 25px !important;
+    padding-bottom: 0 !important;
+    border-bottom: none !important;
+}
