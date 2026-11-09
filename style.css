@@ -20,7 +20,14 @@ body {
     background-color: var(--bg);
     color: var(--text);
     line-height: 1.8;
-    padding: 20px;
+    
+    /* Добавляем отступы для лучшей прокрутки */
+    padding-top: 60px;    /* Отступ сверху */
+    padding-bottom: 300px; /* Большой отступ снизу, чтобы было куда скроллить */
+    padding-left: 20px;
+    padding-right: 20px;
+    
+    min-height: 100vh;
 }
 
 .container { max-width: 800px; margin: 0 auto; }
