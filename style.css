@@ -26,11 +26,19 @@ body {
 .container { max-width: 900px; margin: 0 auto; }
 header { text-align: center; margin-bottom: 30px; }
 
-/* 1. Идеальный заголовок (без анимаций) */
+/* 1. Заголовок (с анимацией) */
 h1 { 
     color: var(--primary); 
     margin-bottom: 10px; 
     font-size: 2.5rem; 
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.title-letter {
+    display: inline-block;
+    transition: transform 0.1s ease-out;
 }
 
 /* ==========================================
@@ -100,18 +108,20 @@ h1 {
     margin-bottom: 35px; 
     padding-bottom: 0; 
     border-bottom: none; 
+    text-indent: 2em; /* Красная строка, как в книгах */
 }
 
-.sentence-block > div {
+.sentence-line {
     display: block;
     line-height: 2.8;
+    text-align: left;
 }
 
 .word-container {
     display: inline-block;
     text-align: center;
     vertical-align: top;
-    margin: 0 5px;
+    margin: 0 1px; /* Убрали огромные дыры между словами */
 }
 
 .word { 
@@ -121,7 +131,7 @@ h1 {
     font-weight: 500; 
     color: var(--text); 
     transition: background 0.2s, color 0.2s;
-    padding: 0px 4px; 
+    padding: 0px 2px; 
     border-radius: 4px; 
 }
 
@@ -144,6 +154,7 @@ h1 {
     color: var(--text-light);
     margin-top: 8px;
     font-style: italic;
+    text-indent: 0; /* У перевода нет красной строки */
 }
 
 /* Pinyin Blur Logic */
