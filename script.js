@@ -112,6 +112,11 @@ function renderChapterContent(book, chapter) {
             if (w.p && w.e) {
                 span.dataset.pinyin = w.p;
                 span.dataset.meaning = w.e;
+
+                // --- NEW CODE: Apply Tone Color ---
+                const tone = getTone(w.p);
+                span.classList.add(`tone-${tone}`);
+                // -----------------------------------
             }
             line.appendChild(span);
         });
