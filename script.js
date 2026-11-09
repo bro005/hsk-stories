@@ -148,35 +148,31 @@ function hideTooltip() {
 
 // NEW: Text-to-Speech Function
 // Улучшенная функция Text-to-Speech
-function playAudio(text) {
-    if (!('speechSynthesis' in window)) {
-        console.warn("Text-to-speech is not supported in this browser.");
-        return;
+async function playAudio(text) {
+    try {
+        const tts = new EdgeTTS();
+        // You can change the voice here (e.g., 'zh-CN-XiaoxiaoNeural')
+        const audioBlob = await tts.synthesize({
+            text: text,
+            voice: 'zh-CN-XiaoxiaoNeural',
+            rate: '-10%' // Slightly slower for learners
+        });
+        
+        const audioUrl = URL.createObjectURL(audioBlob);
+        const audio = new Audio(audioUrl);
+        audio.play();
+        
+        // Clean up memory after playback
+        audio.onended = () => URL.revokeObjectURL(audioUrl);
+    } catch (error) {
+        console.error("Edge TTS failed, falling back to browser TTS:", error);
+        // Fallback to the old Web Speech API if the network fails
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'zh-CN';
+        window.speechSynthesis.speak(utterance);
     }
-
-    // Останавливаем предыдущую озвучку, если она еще говорит
-    window.speechSynthesis.cancel();
-
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'zh-CN'; // Указываем китайский язык
-    utterance.rate = 0.85;    // Немного замедляем для обучения
-
-    // Получаем список всех голосов в системе
-    const voices = window.speechSynthesis.getVoices();
-    
-    // Ищем китайский голос
-    const chineseVoice = voices.find(voice => voice.lang.includes('zh') || voice.lang.includes('ZH'));
-
-    if (chineseVoice) {
-        utterance.voice = chineseVoice; // Если нашли — используем его
-    } else {
-        console.warn("В вашей системе не найден китайский голос. Браузер попробует использовать голос по умолчанию.");
-    }
-
-    // Запускаем озвучку
-    window.speechSynthesis.speak(utterance);
 }
-
 // ==========================================
 // 5. EVENT DELEGATION (The Master Listener)
 // ==========================================
