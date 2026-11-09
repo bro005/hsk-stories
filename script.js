@@ -527,7 +527,6 @@ if (themeToggle) {
 // 10. INTERACTIVE ANIMATIONS (Magnetic & Ripple)
 // ==========================================
 
-// Магнитный эффект (движение в противоположную сторону от курсора)
 document.addEventListener('mousemove', (e) => {
     const magneticElements = document.querySelectorAll('.btn-back, .btn-theme, .story-item, .chapter-item, .player-btn');
     
@@ -552,7 +551,6 @@ document.addEventListener('mousemove', (e) => {
     });
 });
 
-// Эффект брызг при клике (Ripple)
 document.addEventListener('click', function(e) {
     const target = e.target.closest('button, .story-item, .chapter-item, .tab, .flashcard');
     if (!target) return;
