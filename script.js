@@ -32,7 +32,9 @@ for (let i = 1; i <= 6; i++) {
 // ==========================================
 function renderStoriesList() {
     hideTooltip();
+    stopFullStory(); // Stop audio if playing
     contentEl.innerHTML = "";
+    document.getElementById("audio-player").style.display = "none";
     
     const resumeBtn = document.getElementById("resume-btn");
     if (resumeBtn) resumeBtn.remove();
@@ -61,6 +63,8 @@ function renderStoriesList() {
 
 function renderChaptersList(book, bookIndex) {
     contentEl.innerHTML = "";
+    stopFullStory();
+    document.getElementById("audio-player").style.display = "none";
     
     const backBtn = document.createElement("button");
     backBtn.className = "btn-back";
@@ -150,6 +154,8 @@ function renderChapterContent(book, chapter, bookIndex, chapterIndex) {
 
         contentEl.appendChild(block);
     });
+
+    prepareStoryAudio(); // Подготавливаем плеер для новой главы
 }
 
 // ==========================================
@@ -181,7 +187,6 @@ function showTooltip(wordEl) {
         pinyinHtml = `<span class="tone-${tone}">${wordEl.dataset.pinyin}</span>`;
     }
 
-    // NEW: Added the "+" button inside the tooltip
     tooltipEl.innerHTML = `
         <div style="display:flex; justify-content:space-between; align-items:flex-start; gap: 10px;">
             <div style="text-align: left;">
@@ -213,6 +218,8 @@ function hideTooltip() {
 
 const audioCache = new Map();
 async function playAudio(text) {
+    stopFullStory(); // Останавливаем чтение всего текста, если юзер кликнул на слово
+    
     if (audioCache.has(text)) {
         const cachedUrl = audioCache.get(text);
         new Audio(cachedUrl).play();
@@ -261,14 +268,11 @@ contentEl.addEventListener("click", (event) => {
     }
 });
 
-// Global click listener for Tooltip buttons and Flashcards
 document.addEventListener("click", (event) => {
-    // 1. Close tooltip if clicking outside
     if (!event.target.closest("#story-container") && !event.target.closest(".tooltip")) {
         hideTooltip();
     }
 
-    // 2. Save to flashcard button click
     if (event.target.classList.contains("btn-save-flashcard")) {
         const btn = event.target;
         saveFlashcard(btn.dataset.char, btn.dataset.pinyin, btn.dataset.meaning);
@@ -276,11 +280,8 @@ document.addEventListener("click", (event) => {
         setTimeout(() => { btn.textContent = "+"; }, 1000);
     }
 
-    // 3. Flip flashcard click
     const card = event.target.closest(".flashcard");
-    if (card) {
-        card.classList.toggle("flipped");
-    }
+    if (card) card.classList.toggle("flipped");
 });
 
 window.addEventListener("resize", hideTooltip);
@@ -319,13 +320,10 @@ function checkForProgress() {
 // ==========================================
 // 7. FLASHCARD LOGIC
 // ==========================================
-function getFlashcards() {
-    return JSON.parse(localStorage.getItem("hskFlashcards")) || [];
-}
+function getFlashcards() { return JSON.parse(localStorage.getItem("hskFlashcards")) || []; }
 
 function saveFlashcard(char, pinyin, meaning) {
     const cards = getFlashcards();
-    // Prevent duplicates
     if (!cards.some(c => c.char === char)) {
         cards.push({ char, pinyin, meaning });
         localStorage.setItem("hskFlashcards", JSON.stringify(cards));
@@ -368,13 +366,128 @@ clearFlashcardsBtn.addEventListener("click", () => {
 });
 
 // ==========================================
-// 8. START APP & TOGGLE
+// 8. FULL STORY AUDIO PLAYER (Web Speech API)
+// ==========================================
+let fullStoryUtterance = null;
+let fullStoryText = "";
+let charMap = []; 
+let isPlayingFullStory = false;
+let isPaused = false;
+
+const playerPanel = document.getElementById("audio-player");
+const btnPlayPause = document.getElementById("btn-play-pause");
+const btnStop = document.getElementById("btn-stop");
+const speedSlider = document.getElementById("speed-slider");
+const speedLabel = document.getElementById("speed-label");
+
+function prepareStoryAudio() {
+    stopFullStory();
+    const wordEls = document.querySelectorAll(".word-container .word");
+    if (wordEls.length === 0) {
+        playerPanel.style.display = "none";
+        return;
+    }
+
+    playerPanel.style.display = "flex";
+    playerPanel.style.flexWrap = "wrap";
+    playerPanel.style.gap = "10px";
+
+    fullStoryText = "";
+    charMap = [];
+    let currentIndex = 0;
+
+    wordEls.forEach(el => {
+        const text = el.textContent;
+        charMap.push({
+            start: currentIndex,
+            end: currentIndex + text.length - 1,
+            element: el.parentElement
+        });
+        fullStoryText += text;
+        currentIndex += text.length;
+    });
+}
+
+function playFullStory() {
+    if (isPaused) {
+        window.speechSynthesis.resume();
+        isPaused = false;
+        btnPlayPause.textContent = "⏸️ Pause";
+        return;
+    }
+
+    window.speechSynthesis.cancel(); // Отменяем клики по словам
+    
+    fullStoryUtterance = new SpeechSynthesisUtterance(fullStoryText);
+    fullStoryUtterance.lang = "zh-CN";
+    fullStoryUtterance.rate = parseFloat(speedSlider.value);
+
+    const voices = window.speechSynthesis.getVoices();
+    const zhVoice = voices.find(v => v.lang.includes('zh-CN') || v.lang.includes('zh_CN'));
+    if (zhVoice) fullStoryUtterance.voice = zhVoice;
+
+    fullStoryUtterance.onboundary = (event) => {
+        if (event.name === 'word' || event.name === 'sentence') {
+            const charIndex = event.charIndex;
+            document.querySelectorAll('.reading-highlight').forEach(el => el.classList.remove('reading-highlight'));
+            const currentMap = charMap.find(map => charIndex >= map.start && charIndex <= map.end);
+            if (currentMap && currentMap.element) {
+                currentMap.element.classList.add('reading-highlight');
+            }
+        }
+    };
+
+    fullStoryUtterance.onend = resetPlayerUI;
+    fullStoryUtterance.onerror = resetPlayerUI;
+
+    window.speechSynthesis.speak(fullStoryUtterance);
+    isPlayingFullStory = true;
+    btnPlayPause.textContent = "⏸️ Pause";
+}
+
+function pauseFullStory() {
+    if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.pause();
+        isPaused = true;
+        btnPlayPause.textContent = "▶️ Resume";
+    }
+}
+
+function stopFullStory() {
+    window.speechSynthesis.cancel();
+    resetPlayerUI();
+}
+
+function resetPlayerUI() {
+    isPlayingFullStory = false;
+    isPaused = false;
+    btnPlayPause.textContent = "▶️ Play";
+    document.querySelectorAll('.reading-highlight').forEach(el => el.classList.remove('reading-highlight'));
+}
+
+btnPlayPause.addEventListener("click", () => {
+    if (isPlayingFullStory) pauseFullStory();
+    else playFullStory();
+});
+
+btnStop.addEventListener("click", stopFullStory);
+
+speedSlider.addEventListener("input", (e) => {
+    speedLabel.textContent = `${e.target.value}x`;
+    if (isPlayingFullStory && !isPaused) {
+        stopFullStory();
+        playFullStory();
+    }
+});
+
+// ==========================================
+// 9. START APP & TOGGLES
 // ==========================================
 window.onload = () => { 
     if(typeof STORIES !== 'undefined') {
         renderStoriesList(); 
         checkForProgress();
-        renderFlashcards(); // Load flashcards on start
+        renderFlashcards();
     } else {
         contentEl.innerHTML = "<p style='color: red;'>Error: stories.js not found.</p>";
     }
