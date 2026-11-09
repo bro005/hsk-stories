@@ -609,7 +609,7 @@ document.addEventListener('click', function(e) {
         splash.style.top = `${y}px`;
         
         // Случайный размер капли (от 4 до 10 пикселей)
-        const size = 4 + Math.random() * 6;
+        const size = 10 + Math.random() * 10;
         splash.style.width = `${size}px`;
         splash.style.height = `${size}px`;
 
