@@ -27,7 +27,80 @@ body {
 header { text-align: center; margin-bottom: 30px; }
 h1 { color: var(--primary); margin-bottom: 10px; }
 
-/* Chinese Words & Sentences */
+/* ==========================================
+   UI NAVIGATION (Tabs, Cards, Lists)
+   ========================================== */
+.tabs { 
+    display: flex; 
+    gap: 10px; 
+    justify-content: center; 
+    margin-bottom: 25px; 
+    flex-wrap: wrap; 
+}
+
+.tab {
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.tab.active { 
+    background: var(--primary); 
+    color: white; 
+    border-color: var(--primary); 
+}
+
+.card {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    border: 1px solid var(--border);
+}
+
+.story-item, .chapter-item {
+    padding: 20px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.story-item:hover, .chapter-item:hover { 
+    background: #f1f5f9; 
+    border-radius: 8px; 
+}
+
+.story-item h3 { 
+    color: var(--primary); 
+    margin-bottom: 5px; 
+    font-size: 20px; 
+}
+
+.btn-back {
+    display: inline-block;
+    padding: 8px 16px;
+    background: var(--border);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-bottom: 20px;
+    margin-right: 10px;
+    color: var(--text);
+    font-family: inherit;
+}
+
+.btn-back:hover { 
+    background: #cbd5e1; 
+}
+
+/* ==========================================
+   READING TEXT & INTERACTIVE WORDS
+   ========================================== */
 .word { 
     display: inline-block; 
     margin: 0 3px; 
@@ -38,6 +111,7 @@ h1 { color: var(--primary); margin-bottom: 10px; }
     font-weight: 500; 
     transition: background 0.2s;
 }
+
 .word:hover { background: #e0e7ff; color: var(--primary); }
 .word.active { background: var(--primary); color: white; }
 
@@ -55,9 +129,12 @@ h1 { color: var(--primary); margin-bottom: 10px; }
     margin-top: 8px;
     font-style: italic;
 }
+
 .sentence-block.show-translation .sentence-translation { display: block; }
 
-/* Tooltip */
+/* ==========================================
+   TOOLTIP
+   ========================================== */
 .tooltip {
     position: absolute;
     background: var(--tooltip-bg);
@@ -70,6 +147,13 @@ h1 { color: var(--primary); margin-bottom: 10px; }
     box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
     text-align: center;
     max-width: 250px;
-    pointer-events: none; /* Prevents tooltip from flickering when moving mouse */
+    pointer-events: none; /* Prevents tooltip from flickering */
 }
-.tooltip .pinyin { display: block; color: var(--tooltip-pinyin); font-weight: bold; margin-bottom: 4px; font-size: 16px; }
+
+.tooltip .pinyin { 
+    display: block; 
+    color: var(--tooltip-pinyin); 
+    font-weight: bold; 
+    margin-bottom: 4px; 
+    font-size: 16px; 
+}
