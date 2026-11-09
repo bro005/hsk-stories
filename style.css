@@ -21,12 +21,12 @@ body {
     line-height: 1.8;
     padding: 60px 20px 500px 20px; 
     min-height: 120vh; 
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .container { max-width: 900px; margin: 0 auto; }
 header { text-align: center; margin-bottom: 30px; }
 
-/* 1. Заголовок (с анимацией) */
 h1 { 
     color: var(--primary); 
     margin-bottom: 10px; 
@@ -35,17 +35,10 @@ h1 {
     justify-content: center;
     flex-wrap: wrap;
 }
+.title-letter { display: inline-block; transition: transform 0.1s ease-out; }
 
-.title-letter {
-    display: inline-block;
-    transition: transform 0.1s ease-out;
-}
-
-/* ==========================================
-   UI NAVIGATION (Tabs, Cards)
-   ========================================== */
+/* NAVIGATION */
 .tabs { display: flex; gap: 10px; justify-content: center; margin-bottom: 25px; flex-wrap: wrap; }
-
 .tab {
     padding: 10px 20px;
     border: 1px solid var(--tab-color, var(--border));
@@ -56,9 +49,7 @@ h1 {
     color: var(--tab-color, var(--text));
     transition: all 0.3s ease;
 }
-
 .tab.active { background: var(--tab-color, var(--primary)); color: white !important; border-color: var(--tab-color, var(--primary)); }
-
 .tab:hover {
     transform: translateY(-5px) !important; 
     filter: brightness(0.8); 
@@ -66,201 +57,91 @@ h1 {
     color: white;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
-
 .card {
     background: var(--card-bg);
     padding: 40px;
     border-radius: 16px;
     box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
     border: 1px solid var(--border);
+    transition: background-color 0.3s, border-color 0.3s;
 }
-
-.story-item, .chapter-item {
-    padding: 20px;
-    border-bottom: 1px solid var(--border);
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.story-item:hover, .chapter-item:hover { background: #f1f5f9; border-radius: 8px; }
+.story-item, .chapter-item { padding: 20px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.2s; }
+.story-item:hover, .chapter-item:hover { background: rgba(0,0,0,0.05); border-radius: 8px; }
 .story-item h3 { color: var(--primary); margin-bottom: 5px; font-size: 20px; }
 
 .btn-back {
-    display: inline-block;
-    padding: 8px 16px;
-    background: var(--border);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    margin-bottom: 20px;
-    margin-right: 10px;
-    color: var(--text);
-    font-family: inherit;
-    transition: background 0.2s;
+    display: inline-block; padding: 8px 16px; background: var(--border); border: none;
+    border-radius: 8px; cursor: pointer; font-weight: 600; margin-bottom: 20px;
+    margin-right: 10px; color: var(--text); font-family: inherit; transition: background 0.2s;
 }
 .btn-back:hover { background: #cbd5e1; }
 
-/* ==========================================
-   READING TEXT (Идеальный книжный текст)
-   ========================================== */
-.sentence-block { 
-    margin-bottom: 35px; 
-    padding-bottom: 0; 
-    border-bottom: none; 
-    text-indent: 2em; /* Красная строка */
-}
-
-.sentence-line {
-    display: block;
-    line-height: 2.2;
-    text-align: left;
-}
-
-.word-container {
-    display: inline-block;
-    text-align: center;
-    vertical-align: bottom; /* ВАЖНО: Прижимает слова к базовой линии */
-    margin: 0 1px; /* Маленький отступ между словами */
-}
-
+/* READING TEXT */
+.sentence-block { margin-bottom: 35px; padding-bottom: 0; border-bottom: none; text-indent: 2em; }
+.sentence-line { display: block; line-height: 2.2; text-align: left; transition: line-height 0.3s ease; }
+.word-container { display: inline-block; text-align: center; vertical-align: bottom; margin: 0 1px; }
 .word { 
-    display: block;
-    font-size: 26px; 
-    line-height: 1.2;
-    font-weight: 500; 
-    color: var(--text); 
-    transition: background 0.2s, color 0.2s;
-    padding: 0px 2px; 
-    border-radius: 4px; 
+    display: block; font-size: 26px; line-height: 1.2; font-weight: 500; 
+    color: var(--text); transition: background 0.2s, color 0.2s; padding: 0px 2px; border-radius: 4px; 
 }
-
 .word:hover { background: #e0e7ff; color: var(--primary); }
+body.dark-mode .word:hover { background: rgba(255,255,255,0.1); }
 .word.active { background: var(--primary); color: white !important; }
 
-.pinyin-text {
-    display: block;
-    font-size: 14px;
-    color: #64748b;
-    line-height: 1;
-    margin-top: 4px;
-    transition: filter 0.3s ease, opacity 0.3s ease;
-    font-family: monospace;
-}
+.pinyin-text { display: block; font-size: 14px; color: var(--text-light); line-height: 1; margin-top: 4px; transition: all 0.3s ease; font-family: monospace; }
+.sentence-translation { display: none; font-size: 16px; color: var(--text-light); margin-top: 8px; font-style: italic; text-indent: 0; }
+.sentence-block.show-translation .sentence-translation { display: block; }
 
-/* ИСПРАВЛЕНО: Перевод скрыт по умолчанию! */
-.sentence-translation {
-    display: none; 
-    font-size: 16px;
-    color: var(--text-light);
-    margin-top: 8px;
-    font-style: italic;
-    text-indent: 0;
-}
-
-/* Показываем при клике на блок */
-.sentence-block.show-translation .sentence-translation { 
-    display: block; 
-}
-
-/* Pinyin Blur Logic */
+/* PINYIN BLUR */
 .hide-pinyin-mode .pinyin-text { filter: blur(4px); opacity: 0.5; user-select: none; }
 .hide-pinyin-mode .word-container:hover .pinyin-text,
 .hide-pinyin-mode .word-container:active .pinyin-text { filter: blur(0); opacity: 1; color: var(--primary); user-select: auto; }
 
-/* ==========================================
-   TOOLTIP & TONES
-   ========================================== */
+/* COMPACT TEXT MODE */
+body.tight-text .sentence-line { line-height: 1.4 !important; }
+body.tight-text .sentence-block { margin-bottom: 15px !important; text-indent: 0 !important; }
+body.tight-text .pinyin-text { margin-top: 0px !important; font-size: 0.8rem !important; }
+body.tight-text .sentence-translation { margin-top: 2px !important; }
+
+/* TOOLTIP & TONES */
 .tooltip {
-    position: absolute;
-    background: var(--tooltip-bg);
-    color: var(--tooltip-text);
-    padding: 10px 14px;
-    border-radius: 8px;
-    font-size: 15px;
-    display: none;
-    z-index: 100;
-    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
-    text-align: center;
-    max-width: 250px;
-    pointer-events: none; 
+    position: absolute; background: var(--tooltip-bg); color: var(--tooltip-text);
+    padding: 10px 14px; border-radius: 8px; font-size: 15px; display: none;
+    z-index: 100; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); text-align: center;
+    max-width: 250px; pointer-events: none; 
 }
-
 .tooltip .pinyin { display: block; color: var(--tooltip-pinyin); font-weight: bold; margin-bottom: 4px; font-size: 16px; }
-
 .tone-1 { color: #ef4444 !important; } 
 .tone-2 { color: #22c55e !important; } 
 .tone-3 { color: #3b82f6 !important; } 
 .tone-4 { color: #a855f7 !important; } 
 .tone-5 { color: #64748b !important; } 
 
-/* ==========================================
-   TOGGLE SWITCH
-   ========================================== */
+/* TOGGLES */
 .toggle-container { display: flex; justify-content: center; margin-top: 15px; }
 .switch { display: inline-flex; align-items: center; cursor: pointer; gap: 10px; }
 .switch input { opacity: 0; width: 0; height: 0; }
-
-.slider {
-    position: relative;
-    display: inline-block;
-    width: 46px;
-    height: 24px;
-    background-color: #cbd5e1;
-    transition: .4s;
-    border-radius: 24px;
-}
-
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 18px; width: 18px;
-    left: 3px; bottom: 3px;
-    background-color: white;
-    transition: .4s;
-    border-radius: 50%;
-}
-
+.slider { position: relative; display: inline-block; width: 46px; height: 24px; background-color: #cbd5e1; transition: .4s; border-radius: 24px; }
+.slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
 input:checked + .slider { background-color: var(--primary); }
 input:checked + .slider:before { transform: translateX(22px); }
 .toggle-label { font-weight: 600; color: var(--text-light); user-select: none; }
 
-/* ==========================================
-   THEME TOGGLE & DARK MODE
-   ========================================== */
+/* THEME & DARK MODE */
 .btn-theme {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--text-light);
-    padding: 8px 16px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: 600;
-    margin-top: 10px;
-    font-family: inherit;
-    transition: all 0.2s;
+    background: transparent; border: 1px solid var(--border); color: var(--text-light);
+    padding: 8px 16px; border-radius: 20px; cursor: pointer; font-weight: 600;
+    margin-top: 10px; font-family: inherit; transition: all 0.2s;
 }
 .btn-theme:hover { background: var(--border); color: var(--text); }
 
 body.dark-mode {
-    --primary: #818cf8;
-    --primary-hover: #6366f1;
-    --bg: #0f172a;
-    --card-bg: #1e293b;
-    --text: #f8fafc;
-    --text-light: #94a3b8;
-    --border: #334155;
-    --tooltip-bg: #020617;
-    --tooltip-text: #f8fafc;
-    --tooltip-pinyin: #38bdf8;
+    --primary: #818cf8; --primary-hover: #6366f1; --bg: #0f172a; --card-bg: #1e293b;
+    --text: #f8fafc; --text-light: #94a3b8; --border: #334155;
+    --tooltip-bg: #020617; --tooltip-text: #f8fafc; --tooltip-pinyin: #38bdf8;
 }
 
-body.dark-mode .word { color: var(--text); }
-body.dark-mode .word:hover { background: rgba(255, 255, 255, 0.1); }
-
-/* ==========================================
-   FLASHCARDS
-   ========================================== */
+/* FLASHCARDS */
 .btn-save-flashcard {
     pointer-events: auto; background: var(--primary); color: white; border: none;
     border-radius: 50%; width: 24px; height: 24px; font-size: 18px; line-height: 1;
@@ -268,81 +149,46 @@ body.dark-mode .word:hover { background: rgba(255, 255, 255, 0.1); }
     transition: background 0.2s, transform 0.2s;
 }
 .btn-save-flashcard:hover { background: var(--primary-hover); transform: scale(1.1); }
-
 .flashcard-box { background: var(--card-bg); padding: 20px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
 .flashcard-grid { display: flex; flex-wrap: wrap; gap: 15px; }
 .flashcard { perspective: 1000px; width: 100px; height: 120px; cursor: pointer; }
 .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
 .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-
 .flashcard-front, .flashcard-back {
     position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     border-radius: 12px; border: 1px solid var(--border); background: var(--card-bg);
     padding: 10px; text-align: center;
 }
-
 .flashcard-front { font-size: 24px; color: var(--text); }
 .flashcard-front .pinyin { font-size: 12px; color: var(--text-light); margin-top: 5px; }
 .flashcard-back { transform: rotateY(180deg); background: var(--bg); font-size: 14px; color: var(--text); font-weight: 500; }
 
-/* ==========================================
-   AUDIO PLAYER & HIGHLIGHT
-   ========================================== */
+/* AUDIO PLAYER */
 .audio-player { display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); padding: 15px 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
 .player-controls { display: flex; gap: 10px; }
 .player-btn { background: var(--primary); color: white; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px; transition: background 0.2s; }
 .player-btn:hover { background: var(--primary-hover); }
 .speed-control { display: flex; flex-direction: column; font-size: 12px; color: var(--text-light); align-items: center; }
 .speed-control input { width: 100px; cursor: pointer; }
-
 .reading-highlight { background-color: #fde047 !important; color: #1e293b !important; border-radius: 4px; box-shadow: 0 0 5px rgba(253, 224, 71, 0.5); transition: background-color 0.1s; }
 body.dark-mode .reading-highlight { background-color: #fbbf24 !important; color: #0f172a !important; }
 
 .resume-banner { background: #e0e7ff; border: 1px solid #c7d2fe; padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; color: var(--primary); font-size: 15px; }
+body.dark-mode .resume-banner { background: #1e293b; border-color: #334155; color: #818cf8; }
 .btn-resume { background: var(--primary); color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; transition: background 0.2s; }
 .btn-resume:hover { background: var(--primary-hover); }
 
-/* ==========================================
-   WATER SPLASH EFFECT
-   ========================================== */
+/* WATER SPLASH */
 .water-splash {
-    position: absolute;
-    border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
+    position: absolute; border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
     background: radial-gradient(circle at 35% 35%, rgba(255,255,255,1) 0%, rgba(255,255,255,0.4) 40%, rgba(255,255,255,0.1) 70%);
     box-shadow: inset -3px -3px 5px rgba(0,0,0,0.15), inset 2px 2px 4px rgba(255,255,255,0.9), 0 4px 8px rgba(0,0,0,0.2);
-    border: 1px solid rgba(255,255,255,0.5);
-    backdrop-filter: blur(2px);
-    transform: translate(-50%, -50%);
-    animation: splash-fly 0.9s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
-    pointer-events: none;
-    z-index: 9999;
+    border: 1px solid rgba(255,255,255,0.5); backdrop-filter: blur(2px);
+    transform: translate(-50%, -50%); animation: splash-fly 0.9s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+    pointer-events: none; z-index: 9999;
 }
-
 @keyframes splash-fly {
     0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
     100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty) + 50px)) scale(0.2) rotate(450deg); opacity: 0; }
-}
-
-/* ==========================================
-   COMPACT TEXT MODE (Уменьшенные отступы)
-   ========================================== */
-
-/* Уменьшаем высоту строки и отступы между предложениями */
-body.tight-text .sentence-line {
-    line-height: 1.5 !important; /* Более плотный межстрочный интервал */
-}
-
-body.tight-text .sentence-block {
-    margin-bottom: 15px !important; /* Меньше места между предложениями */
-    text-indent: 0 !important; /* Убираем красную строку для компактности */
-}
-
-body.tight-text .pinyin-text {
-    margin-top: 0px !important; /* Прижимаем пиньинь ближе к иероглифу */
-    font-size: 0.8rem !important;
-}
-
-body.tight-text .sentence-translation {
-    margin-top: 2px !important;
 }
