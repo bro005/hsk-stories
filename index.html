@@ -4,49 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HSK Immersive Reading Assistant</title>
+    
     <!-- Link to external CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-               <header>
-    <h1>HSK Immersive Stories</h1>
-    <p>Emotional books with deep plots tailored to your Chinese level</p>
-    
-    <!-- Кнопка тёмной темы -->
-    <button id="theme-toggle" class="btn-theme">🌙 Dark Mode</button>
-    
-    <!-- Pinyin Toggle Switch -->
-    <div class="toggle-container">
-        <label class="switch">
-            <input type="checkbox" id="pinyin-toggle">
-            <span class="slider"></span>
-        </label>
-        <span class="toggle-label">Pinyin Reading Mode</span>
-    </div>
-               </header>                                                          
+        <header>
+            <h1>HSK Immersive Stories</h1>
+            <p>Emotional books with deep plots tailored to your Chinese level</p>
+            
+            <!-- Dark Theme Toggle -->
+            <button id="theme-toggle" class="btn-theme">🌙 Dark Mode</button>
+            
+            <!-- Pinyin Toggle Switch -->
+            <div class="toggle-container">
+                <label class="switch">
+                    <input type="checkbox" id="pinyin-toggle">
+                    <span class="slider"></span>
+                </label>
+                <span class="toggle-label">Pinyin Reading Mode</span>
+            </div>
+        </header>
+        
+        <!-- HSK Level Tabs -->
         <div class="tabs" id="levels"></div>
         
         <!-- Main container for Event Delegation -->
         <main id="story-container" class="card"></main>
     </div>
 
-        <!-- Tooltip for Pinyin -->
+    <!-- Tooltip for Pinyin & Flashcard button -->
     <div class="tooltip" id="tooltip"></div>
 
-    <!-- === ВСТАВЬТЕ ЭТОТ БЛОК В САМЫЙ НИЗ === -->
-    
-    <!-- 1. Загружаем данные -->
+    <!-- Flashcard Review Box -->
+    <div class="container" style="margin-top: 40px;">
+        <div class="flashcard-box">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2 style="color: var(--primary); font-size: 20px;">My Flashcards Review Box</h2>
+                <button id="clear-flashcards" class="btn-back" style="margin: 0;">Clear List</button>
+            </div>
+            <div id="flashcard-container" class="flashcard-grid">
+                <!-- Flashcards will be injected here by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- === SCRIPTS === -->
+    <!-- 1. Load Data -->
     <script src="stories.js"></script>
-
-    <!-- 2. Загружаем pinyin-pro для точного определения тонов -->
+    
+    <!-- 2. Load pinyin-pro (for tones) -->
     <script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.18.2/dist/index.js"></script>
-
-    <!-- 3. Загружаем Edge TTS (для звука) -->
+    
+    <!-- 3. Load Edge TTS (for audio) -->
     <script src="https://cdn.jsdelivr.net/npm/edge-tts-universal@latest/dist/edge-tts-universal.min.js"></script>
-
-    <!-- 4. Загружаем вашу логику (script.js) -->
+    
+    <!-- 4. Load Logic -->
     <script src="script.js"></script>
-
 </body>
 </html>
