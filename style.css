@@ -640,7 +640,7 @@ body {
     transform: scale(0);
     animation: ripple-anim 0.6s linear;
     pointer-events: none;
-    z-index: 10; /* Чтобы капли были поверх текста */
+    z-index: 99; /* Чтобы капли были поверх текста */
 }
 
 @keyframes ripple-anim {
