@@ -19,16 +19,22 @@
         <main id="story-container" class="card"></main>
     </div>
 
-    <!-- Tooltip for Pinyin -->
+        <!-- Tooltip for Pinyin -->
     <div class="tooltip" id="tooltip"></div>
 
-    <!-- 1. Load the Data FIRST -->
+    <!-- === ВСТАВЬТЕ ЭТОТ БЛОК В САМЫЙ НИЗ === -->
+    
+    <!-- 1. Загружаем данные -->
     <script src="stories.js"></script>
 
-    <!-- 2. Загружаем библиотеку Edge TTS -->
+    <!-- 2. Загружаем pinyin-pro для точного определения тонов -->
+    <script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.18.2/dist/index.js"></script>
+
+    <!-- 3. Загружаем Edge TTS (для звука) -->
     <script src="https://cdn.jsdelivr.net/npm/edge-tts-universal@latest/dist/edge-tts-universal.min.js"></script>
-    
-    <!-- 3. Load the Logic SECOND -->
+
+    <!-- 4. Загружаем вашу логику (script.js) -->
     <script src="script.js"></script>
+
 </body>
 </html>
