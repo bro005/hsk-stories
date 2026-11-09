@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HSK Immersive Reading Assistant</title>
     
-    <!-- Link to external CSS -->
-    <link rel="stylesheet" href="style.css">
+    <!-- Link to external CSS (Добавлено ?v=5 для сброса кэша) -->
+    <link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
     <div class="container">
         <header>
             <h1>HSK Immersive Stories</h1>
-            
             
             <!-- Dark Theme Toggle -->
             <button id="theme-toggle" class="btn-theme">🌙 Dark Mode</button>
@@ -63,11 +62,7 @@
     </div>
 
     <!-- === SCRIPTS === -->
-    
-    <!-- 1. Initialize the empty database FIRST -->
     <script src="stories.js"></script>
-    
-    <!-- 2. Load the books for each level -->
     <script src="hsk1.js"></script>
     <script src="hsk2.js"></script>
     <script src="hsk3.js"></script>
@@ -76,11 +71,10 @@
     <script src="hsk6.js"></script>
     <script src="free-reading.js"></script>
     
-    <!-- 3. Load external libraries -->
     <script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.18.2/dist/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/edge-tts-universal@latest/dist/edge-tts-universal.min.js"></script>
     
-    <!-- 4. Load the logic to run the app LAST -->
-    <script src="script.js"></script>
+    <!-- Добавлено ?v=5 для сброса кэша -->
+    <script src="script.js?v=5"></script>
 </body>
 </html>
