@@ -561,142 +561,65 @@ h1 {
 }
 
 /* ==========================================
-   REAL BOOK LAYOUT (Настоящая книга)
+   ИДЕАЛЬНЫЙ ТЕКСТ КНИГИ (Без сложных скриптов)
    ========================================== */
 
-/* 1. Уменьшаем максимальную ширину карточки, чтобы текст не растягивался на весь экран */
-.container {
-    max-width: 900px; /* Идеальная ширина для чтения (как страница книги) */
-    width: 95%;
-    margin: 0 auto;
+/* 1. Заголовок сайта */
+h1 {
+    font-size: 2.5rem;
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-/* 2. Карточка получает аккуратные внутренние отступы */
+/* 2. Карточка (ограничиваем ширину, чтобы текст не растягивался) */
 .card {
-    padding: clamp(20px, 5vw, 50px);
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
 }
 
-/* 3. Убираем центрирование, текст идет слева направо */
+/* 3. Блок предложения */
 .sentence-block {
     text-align: left;
-    margin-bottom: 35px;
-    padding-bottom: 0;
-    border-bottom: none; /* Убираем линии, как в книге */
+    margin-bottom: 35px; /* Отступ между предложениями */
 }
 
-/* 4. Слова идут в обычном текстовом потоке (inline), как буквы в книге */
+/* 4. Строка с текстом (обычный блочный элемент) */
 .sentence-block > div {
-    display: block; /* Обычный блочный элемент */
-    line-height: 2.5; /* Большой межстрочный интервал, чтобы пиньинь не мешал */
+    display: block;
+    line-height: 2.8; /* Высота строки, чтобы пиньинь не наезжал на следующую строку */
 }
 
-/* 5. Отступы между словами */
+/* 5. Контейнер для иероглифа и пиньиня */
 .word-container {
-    margin: 0 3px;
-    vertical-align: bottom;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: top; /* ВАЖНО: прижимает иероглифы ровно по верхнему краю */
+    margin: 0 4px;
 }
 
-/* 6. Английский перевод выглядит как сноска под предложением */
+/* 6. Иероглиф */
+.word {
+    font-size: 26px;
+    line-height: 1.2;
+    color: var(--text);
+}
+
+/* 7. Пиньинь под иероглифом */
+.pinyin-text {
+    font-size: 14px;
+    color: var(--text-light);
+    line-height: 1;
+    margin-top: 4px; /* Маленький отступ от иероглифа */
+}
+
+/* 8. Английский перевод */
 .sentence-translation {
     display: block;
-    text-align: left;
-    margin-top: 5px;
-    font-size: 0.95rem;
+    font-size: 16px;
     color: var(--text-light);
+    margin-top: 5px;
     font-style: italic;
-}
-
-/* ==========================================
-   FIX: REAL BOOK TEXT LAYOUT (Жесткое переопределение)
-   ========================================== */
-
-/* 1. Ограничиваем ширину текста, чтобы он не расползался */
-.container {
-    max-width: 850px !important; 
-    width: 95% !important;
-    margin: 0 auto !important;
-}
-
-/* 2. Полностью убираем flexbox, чтобы текст шел обычным потоком */
-.sentence-block > div {
-    display: block !important;
-    text-align: left !important;
-    line-height: 2.5 !important; 
-    margin-bottom: 5px !important;
-}
-
-/* 3. Убираем старые рамки у блоков */
-.sentence-block {
-    text-align: left !important;
-    display: block !important;
-    margin-bottom: 25px !important;
-    border-bottom: none !important;
-    padding-bottom: 0 !important;
-}
-
-/* 4. Слова стоят вплотную друг к другу (как в обычном тексте) */
-.word-container {
-    display: inline-flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    margin: 0 2px !important; /* Маленький отступ между словами */
-    vertical-align: bottom !important;
-}
-
-/* 5. Пиньинь аккуратно по центру под иероглифом */
-.pinyin-text {
-    text-align: center !important;
-    font-size: 0.9rem !important;
-    color: var(--text-light) !important;
-}
-
-/* 6. Английский перевод слева, как сноска */
-.sentence-translation {
-    display: block !important;
-    text-align: left !important;
-    margin-top: 8px !important;
-    font-size: 1rem !important;
-    color: var(--text-light) !important;
-    font-style: italic !important;
-}
-
-/* ==========================================
-   FINAL TEXT FIX (Плотный текст без разрывов)
-   ========================================== */
-
-/* 1. Убираем огромный межстрочный интервал */
-.sentence-block > div {
-    display: block !important;
-    text-align: left !important;
-    line-height: 1.8 !important; /* Нормальный интервал */
-}
-
-/* 2. Выравниваем иероглифы по ВЕРХНЕМУ краю (а не по нижнему), чтобы они стояли ровно */
-.word-container {
-    display: inline-flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    margin: 0 4px !important;
-    vertical-align: top !important; /* Вот это уберет дыру! */
-}
-
-/* 3. Задаем иероглифам нормальную высоту строки */
-.word {
-    line-height: 1.2 !important;
-}
-
-/* 4. Пиньинь аккуратно прижимаем к иероглифу */
-.pinyin-text {
-    margin-top: 2px !important; /* Маленький отступ */
-    line-height: 1 !important;
-    text-align: center !important;
-    font-size: 0.9rem !important;
-    color: var(--text-light) !important;
-}
-
-/* 5. Слегка уменьшаем отступы между самими предложениями */
-.sentence-block {
-    margin-bottom: 25px !important;
-    padding-bottom: 0 !important;
-    border-bottom: none !important;
 }
