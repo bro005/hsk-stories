@@ -277,3 +277,20 @@ window.onload = () => {
         contentEl.innerHTML = "<p style='color: red;'>Error: stories.js not found.</p>";
     }
 };
+
+
+// ==========================================
+// 7. PINYIN READING MODE TOGGLE
+// ==========================================
+const pinyinToggle = document.getElementById("pinyin-toggle");
+
+if (pinyinToggle) {
+    pinyinToggle.addEventListener("change", (e) => {
+        // Toggle the class on the body
+        if (e.target.checked) {
+            document.body.classList.add("hide-pinyin-mode");
+        } else {
+            document.body.classList.remove("hide-pinyin-mode");
+        }
+    });
+}
