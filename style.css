@@ -1,0 +1,75 @@
+:root {
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-light: #64748b;
+    --border: #e2e8f0;
+    
+    /* Tooltip Variables */
+    --tooltip-bg: #1e293b;
+    --tooltip-text: #ffffff;
+    --tooltip-pinyin: #38bdf8;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    padding: 20px;
+}
+
+.container { max-width: 800px; margin: 0 auto; }
+header { text-align: center; margin-bottom: 30px; }
+h1 { color: var(--primary); margin-bottom: 10px; }
+
+/* Chinese Words & Sentences */
+.word { 
+    display: inline-block; 
+    margin: 0 3px; 
+    padding: 0px 4px; 
+    cursor: pointer; 
+    border-radius: 4px; 
+    font-size: 24px; 
+    font-weight: 500; 
+    transition: background 0.2s;
+}
+.word:hover { background: #e0e7ff; color: var(--primary); }
+.word.active { background: var(--primary); color: white; }
+
+.sentence-block { 
+    margin-bottom: 30px; 
+    padding-bottom: 10px; 
+    border-bottom: 1px dashed var(--border); 
+    cursor: pointer; 
+}
+
+.sentence-translation {
+    display: none;
+    font-size: 15px;
+    color: var(--text-light);
+    margin-top: 8px;
+    font-style: italic;
+}
+.sentence-block.show-translation .sentence-translation { display: block; }
+
+/* Tooltip */
+.tooltip {
+    position: absolute;
+    background: var(--tooltip-bg);
+    color: var(--tooltip-text);
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 15px;
+    display: none;
+    z-index: 100;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
+    text-align: center;
+    max-width: 250px;
+    pointer-events: none; /* Prevents tooltip from flickering when moving mouse */
+}
+.tooltip .pinyin { display: block; color: var(--tooltip-pinyin); font-weight: bold; margin-bottom: 4px; font-size: 16px; }
