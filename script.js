@@ -176,7 +176,19 @@ function hideTooltip() {
     if (activeWord) { activeWord.classList.remove("active"); activeWord = null; }
 }
 
+// Создаем хранилище для аудиофайлов в памяти браузера
+const audioCache = new Map();
+
 async function playAudio(text) {
+    // 1. Если аудио для этого слова уже есть в памяти, играем мгновенно
+    if (audioCache.has(text)) {
+        const cachedUrl = audioCache.get(text);
+        const audio = new Audio(cachedUrl);
+        audio.play();
+        return;
+    }
+
+    // 2. Если аудио нет, запрашиваем его у Edge TTS
     try {
         const tts = new EdgeTTS();
         const audioBlob = await tts.synthesize({
@@ -186,12 +198,19 @@ async function playAudio(text) {
         });
         
         const audioUrl = URL.createObjectURL(audioBlob);
+        
+        // Сохраняем ссылку на аудио в кэш, чтобы в следующий раз было быстро
+        audioCache.set(text, audioUrl);
+        
         const audio = new Audio(audioUrl);
         audio.play();
         
-        audio.onended = () => URL.revokeObjectURL(audioUrl);
+        // ВНИМАНИЕ: Мы больше не удаляем файл из памяти (URL.revokeObjectURL), 
+        // чтобы можно было проигрывать его повторно без задержек!
     } catch (error) {
         console.error("Edge TTS failed, falling back to browser TTS:", error);
+        
+        // Запасной вариант (встроенный голос браузера, если интернет пропал)
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'zh-CN';
