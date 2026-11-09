@@ -108,20 +108,20 @@ h1 {
     margin-bottom: 35px; 
     padding-bottom: 0; 
     border-bottom: none; 
-    text-indent: 2em; /* Красная строка, как в книгах */
+    text-indent: 2em; /* Красная строка */
 }
 
 .sentence-line {
     display: block;
-    line-height: 2.8;
+    line-height: 2.2;
     text-align: left;
 }
 
 .word-container {
     display: inline-block;
     text-align: center;
-    vertical-align: top;
-    margin: 0 1px; /* Убрали огромные дыры между словами */
+    vertical-align: bottom; /* ВАЖНО: Прижимает слова к базовой линии */
+    margin: 0 1px; /* Маленький отступ между словами */
 }
 
 .word { 
@@ -148,13 +148,19 @@ h1 {
     font-family: monospace;
 }
 
+/* ИСПРАВЛЕНО: Перевод скрыт по умолчанию! */
 .sentence-translation {
-    display: block;
+    display: none; 
     font-size: 16px;
     color: var(--text-light);
     margin-top: 8px;
     font-style: italic;
-    text-indent: 0; /* У перевода нет красной строки */
+    text-indent: 0;
+}
+
+/* Показываем при клике на блок */
+.sentence-block.show-translation .sentence-translation { 
+    display: block; 
 }
 
 /* Pinyin Blur Logic */
