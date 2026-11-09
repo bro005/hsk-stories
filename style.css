@@ -350,3 +350,99 @@ body.dark-mode .word:hover {
     background: var(--border);
     color: var(--text);
 }
+/* ==========================================
+   FLASHCARD FEATURE
+   ========================================== */
+
+/* Allow clicking the button inside the tooltip */
+.btn-save-flashcard {
+    pointer-events: auto; /* Overrides tooltip pointer-events: none */
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.btn-save-flashcard:hover {
+    background: var(--primary-hover);
+    transform: scale(1.1);
+}
+
+/* Flashcard Box Container */
+.flashcard-box {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+}
+
+.flashcard-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+/* 3D Flip Card Logic */
+.flashcard {
+    perspective: 1000px;
+    width: 100px;
+    height: 120px;
+    cursor: pointer;
+}
+
+.flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.flashcard.flipped .flashcard-inner {
+    transform: rotateY(180deg);
+}
+
+.flashcard-front, .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    padding: 10px;
+    text-align: center;
+}
+
+.flashcard-front {
+    font-size: 24px;
+    color: var(--text);
+}
+
+.flashcard-front .pinyin {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 5px;
+}
+
+.flashcard-back {
+    transform: rotateY(180deg);
+    background: var(--bg);
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 500;
+}
