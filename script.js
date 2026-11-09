@@ -51,6 +51,32 @@ function renderStoriesList() {
     });
 }
 
+// ЭТА ФУНКЦИЯ БЫЛА ПОТЕРЯНА! ОНА ОТВЕЧАЕТ ЗА СПИСОК ГЛАВ.
+function renderChaptersList(book) {
+    contentEl.innerHTML = "";
+    
+    const backBtn = document.createElement("button");
+    backBtn.className = "btn-back";
+    backBtn.textContent = "← Back to Books";
+    backBtn.dataset.action = "back-to-books";
+    contentEl.appendChild(backBtn);
+
+    const title = document.createElement("h2");
+    title.style.margin = "10px 0 20px 0";
+    title.textContent = book.title;
+    contentEl.appendChild(title);
+
+    book.chapters.forEach((chapter, index) => {
+        const item = document.createElement("div");
+        item.className = "chapter-item";
+        item.innerHTML = `<h3>${chapter.title}</h3>`;
+        item.dataset.action = "open-chapter";
+        item._chapterData = chapter;
+        item._bookData = book;
+        contentEl.appendChild(item);
+    });
+}
+
 function renderChapterContent(book, chapter) {
     contentEl.innerHTML = "";
     
@@ -82,11 +108,9 @@ function renderChapterContent(book, chapter) {
         const line = document.createElement("div");
         
         s.words.forEach(w => {
-            // Создаем контейнер для иероглифа и пиньиня
             const container = document.createElement("span");
             container.className = "word-container";
             
-            // 1. Сам иероглиф
             const charSpan = document.createElement("span");
             charSpan.className = "word";
             charSpan.textContent = w.w;
@@ -96,7 +120,6 @@ function renderChapterContent(book, chapter) {
             }
             container.appendChild(charSpan);
 
-            // 2. Пиньинь (появляется под иероглифом)
             if (w.p && w.e) {
                 const pinyinSpan = document.createElement("span");
                 pinyinSpan.className = "pinyin-text";
@@ -117,6 +140,7 @@ function renderChapterContent(book, chapter) {
         contentEl.appendChild(block);
     });
 }
+
 // ==========================================
 // 4. TOOLTIP, TONE & AUDIO FUNCTIONS
 // ==========================================
@@ -135,7 +159,6 @@ function showTooltip(wordEl) {
     let pinyinHtml = "";
     const text = wordEl.textContent;
     
-    // Раскрашиваем пиньинь по слогам с помощью pinyin-pro
     if (window.pinyinPro) {
         const pinyinArray = pinyinPro.pinyin(text, { type: 'array', toneType: 'symbol' });
         pinyinHtml = pinyinArray.map(py => {
@@ -143,7 +166,6 @@ function showTooltip(wordEl) {
             return `<span class="tone-${tone}">${py}</span>`;
         }).join(" ");
     } else {
-        // Запасной вариант, если pinyin-pro не загрузился
         const tone = getTone(wordEl.dataset.pinyin);
         pinyinHtml = `<span class="tone-${tone}">${wordEl.dataset.pinyin}</span>`;
     }
@@ -165,11 +187,9 @@ function hideTooltip() {
     if (activeWord) { activeWord.classList.remove("active"); activeWord = null; }
 }
 
-// Создаем хранилище для аудиофайлов в памяти браузера
 const audioCache = new Map();
 
 async function playAudio(text) {
-    // 1. Если аудио для этого слова уже есть в памяти, играем мгновенно
     if (audioCache.has(text)) {
         const cachedUrl = audioCache.get(text);
         const audio = new Audio(cachedUrl);
@@ -177,7 +197,6 @@ async function playAudio(text) {
         return;
     }
 
-    // 2. Если аудио нет, запрашиваем его у Edge TTS
     try {
         const tts = new EdgeTTS();
         const audioBlob = await tts.synthesize({
@@ -187,30 +206,24 @@ async function playAudio(text) {
         });
         
         const audioUrl = URL.createObjectURL(audioBlob);
-        
-        // Сохраняем ссылку на аудио в кэш, чтобы в следующий раз было быстро
         audioCache.set(text, audioUrl);
         
         const audio = new Audio(audioUrl);
         audio.play();
-        
-        // Мы убрали строчку, которая удаляла аудио, чтобы оно оставалось в памяти!
     } catch (error) {
         console.error("Edge TTS failed, falling back to browser TTS:", error);
-        
-        // Запасной вариант (встроенный голос браузера, если интернет пропал)
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'zh-CN';
         window.speechSynthesis.speak(utterance);
     }
 }
+
 // ==========================================
 // 5. EVENT DELEGATION
 // ==========================================
 contentEl.addEventListener("click", (event) => {
     
-    // Проверяем, кликнули ли на слово
     const wordEl = event.target.closest(".word");
     if (wordEl) {
         event.stopPropagation(); 
@@ -221,14 +234,12 @@ contentEl.addEventListener("click", (event) => {
         return;
     }
 
-    // Проверяем клик по пустому месту предложения
     const sentenceBlock = event.target.closest(".sentence-block");
     if (sentenceBlock) {
         sentenceBlock.classList.toggle("show-translation");
         return;
     }
 
-    // Навигация (Книги, Главы, Назад)
     const actionTarget = event.target.closest("[data-action]");
     if (actionTarget) {
         const action = actionTarget.dataset.action;
@@ -257,7 +268,7 @@ document.addEventListener("click", (event) => {
 window.addEventListener("resize", hideTooltip);
 
 // ==========================================
-// 6. START APP
+// 6. START APP & TOGGLE
 // ==========================================
 window.onload = () => { 
     if(typeof STORIES !== 'undefined') {
@@ -267,15 +278,9 @@ window.onload = () => {
     }
 };
 
-
-// ==========================================
-// 7. PINYIN READING MODE TOGGLE
-// ==========================================
 const pinyinToggle = document.getElementById("pinyin-toggle");
-
 if (pinyinToggle) {
     pinyinToggle.addEventListener("change", (e) => {
-        // Toggle the class on the body
         if (e.target.checked) {
             document.body.classList.add("hide-pinyin-mode");
         } else {
