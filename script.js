@@ -528,15 +528,8 @@ if (themeToggle) {
 // 10. INTERACTIVE ANIMATIONS (Title, Magnetic, Ripple)
 // ==========================================
 
-// 1. Разбиваем заголовок на отдельные буквы
-const titleEl = document.querySelector('header h1');
-if (titleEl) {
-    const text = titleEl.innerText;
-    titleEl.innerHTML = text.split('').map(char => {
-        return `<span class="title-letter">${char === ' ' ? '&nbsp;' : char}</span>`;
-    }).join('');
-}
-const titleLetters = document.querySelectorAll('.title-letter');
+
+
 
 // 2. Единый обработчик движения мыши
 document.addEventListener('mousemove', (e) => {
