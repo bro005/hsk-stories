@@ -4,6 +4,8 @@
 const tabsEl = document.getElementById("levels");
 const contentEl = document.getElementById("story-container");
 const tooltipEl = document.getElementById("tooltip");
+const flashcardContainer = document.getElementById("flashcard-container");
+const clearFlashcardsBtn = document.getElementById("clear-flashcards");
 let currentLevel = 1;
 let activeWord = null;
 
@@ -15,7 +17,7 @@ for (let i = 1; i <= 6; i++) {
     btn.type = "button";
     btn.className = `tab ${i === 1 ? 'active' : ''}`;
     btn.textContent = `HSK ${i}`;
-    btn.dataset.level = i; // Сохраняем уровень в data-атрибут
+    btn.dataset.level = i;
     btn.onclick = () => {
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         btn.classList.add('active');
@@ -32,7 +34,6 @@ function renderStoriesList() {
     hideTooltip();
     contentEl.innerHTML = "";
     
-    // Убираем кнопку "Продолжить", если она была
     const resumeBtn = document.getElementById("resume-btn");
     if (resumeBtn) resumeBtn.remove();
 
@@ -53,7 +54,7 @@ function renderStoriesList() {
         `;
         item.dataset.action = "open-book";
         item._bookData = book; 
-        item._bookIndex = bookIndex; // Запоминаем индекс книги
+        item._bookIndex = bookIndex;
         contentEl.appendChild(item);
     });
 }
@@ -80,15 +81,13 @@ function renderChaptersList(book, bookIndex) {
         item._chapterData = chapter;
         item._bookData = book;
         item._bookIndex = bookIndex;
-        item._chapterIndex = index; // Запоминаем индекс главы
+        item._chapterIndex = index;
         contentEl.appendChild(item);
     });
 }
 
 function renderChapterContent(book, chapter, bookIndex, chapterIndex) {
     contentEl.innerHTML = "";
-    
-    // Сохраняем прогресс в память браузера
     saveProgress(currentLevel, bookIndex, chapterIndex);
 
     const backBtn = document.createElement("button");
@@ -154,7 +153,7 @@ function renderChapterContent(book, chapter, bookIndex, chapterIndex) {
 }
 
 // ==========================================
-// 4. TOOLTIP, TONE & AUDIO FUNCTIONS
+// 4. TOOLTIP & AUDIO
 // ==========================================
 function getTone(pinyin) {
     if (!pinyin) return 5; 
@@ -182,7 +181,20 @@ function showTooltip(wordEl) {
         pinyinHtml = `<span class="tone-${tone}">${wordEl.dataset.pinyin}</span>`;
     }
 
-    tooltipEl.innerHTML = `<span class="pinyin" style="display:flex; gap:4px; justify-content:center;">${pinyinHtml}</span><span>${wordEl.dataset.meaning}</span>`;
+    // NEW: Added the "+" button inside the tooltip
+    tooltipEl.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap: 10px;">
+            <div style="text-align: left;">
+                <span class="pinyin" style="display:flex; gap:4px; justify-content:center;">${pinyinHtml}</span>
+                <span>${wordEl.dataset.meaning}</span>
+            </div>
+            <button class="btn-save-flashcard" 
+                data-char="${text}" 
+                data-pinyin="${wordEl.dataset.pinyin}" 
+                data-meaning="${wordEl.dataset.meaning}" 
+                title="Save to Flashcards">+</button>
+        </div>
+    `;
     
     tooltipEl.style.display = "block";
     const rect = wordEl.getBoundingClientRect();
@@ -200,30 +212,20 @@ function hideTooltip() {
 }
 
 const audioCache = new Map();
-
 async function playAudio(text) {
     if (audioCache.has(text)) {
         const cachedUrl = audioCache.get(text);
-        const audio = new Audio(cachedUrl);
-        audio.play();
+        new Audio(cachedUrl).play();
         return;
     }
-
     try {
         const tts = new EdgeTTS();
-        const audioBlob = await tts.synthesize({
-            text: text,
-            voice: 'zh-CN-XiaoxiaoNeural',
-            rate: '-10%' 
-        });
-        
+        const audioBlob = await tts.synthesize({ text: text, voice: 'zh-CN-XiaoxiaoNeural', rate: '-10%' });
         const audioUrl = URL.createObjectURL(audioBlob);
         audioCache.set(text, audioUrl);
-        
-        const audio = new Audio(audioUrl);
-        audio.play();
+        new Audio(audioUrl).play();
     } catch (error) {
-        console.error("Edge TTS failed, falling back to browser TTS:", error);
+        console.error("TTS failed", error);
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'zh-CN';
@@ -235,14 +237,11 @@ async function playAudio(text) {
 // 5. EVENT DELEGATION
 // ==========================================
 contentEl.addEventListener("click", (event) => {
-    
     const wordEl = event.target.closest(".word");
     if (wordEl) {
         event.stopPropagation(); 
         showTooltip(wordEl);
-        if (wordEl.dataset.pinyin) {
-            playAudio(wordEl.textContent);
-        }
+        if (wordEl.dataset.pinyin) playAudio(wordEl.textContent);
         return;
     }
 
@@ -255,28 +254,32 @@ contentEl.addEventListener("click", (event) => {
     const actionTarget = event.target.closest("[data-action]");
     if (actionTarget) {
         const action = actionTarget.dataset.action;
-        
-        if (action === "open-book") {
-            renderChaptersList(actionTarget._bookData, actionTarget._bookIndex);
-        } 
-        else if (action === "open-chapter") {
-            renderChapterContent(actionTarget._bookData, actionTarget._chapterData, actionTarget._bookIndex, actionTarget._chapterIndex);
-        } 
-        else if (action === "back-to-books") {
-            renderStoriesList();
-        } 
-        else if (action === "back-to-chapters") {
-            renderChaptersList(actionTarget._bookData, actionTarget._bookIndex);
-        }
-        else if (action === "resume") {
-            resumeLastRead();
-        }
+        if (action === "open-book") renderChaptersList(actionTarget._bookData, actionTarget._bookIndex);
+        else if (action === "open-chapter") renderChapterContent(actionTarget._bookData, actionTarget._chapterData, actionTarget._bookIndex, actionTarget._chapterIndex);
+        else if (action === "back-to-books") renderStoriesList();
+        else if (action === "back-to-chapters") renderChaptersList(actionTarget._bookData, actionTarget._bookIndex);
     }
 });
 
+// Global click listener for Tooltip buttons and Flashcards
 document.addEventListener("click", (event) => {
-    if (!event.target.closest("#story-container")) {
+    // 1. Close tooltip if clicking outside
+    if (!event.target.closest("#story-container") && !event.target.closest(".tooltip")) {
         hideTooltip();
+    }
+
+    // 2. Save to flashcard button click
+    if (event.target.classList.contains("btn-save-flashcard")) {
+        const btn = event.target;
+        saveFlashcard(btn.dataset.char, btn.dataset.pinyin, btn.dataset.meaning);
+        btn.textContent = "✓";
+        setTimeout(() => { btn.textContent = "+"; }, 1000);
+    }
+
+    // 3. Flip flashcard click
+    const card = event.target.closest(".flashcard");
+    if (card) {
+        card.classList.toggle("flipped");
     }
 });
 
@@ -286,51 +289,92 @@ window.addEventListener("resize", hideTooltip);
 // 6. PROGRESS SAVING LOGIC
 // ==========================================
 function saveProgress(level, bookIndex, chapterIndex) {
-    const progress = { level, bookIndex, chapterIndex };
-    localStorage.setItem("hskProgress", JSON.stringify(progress));
+    localStorage.setItem("hskProgress", JSON.stringify({ level, bookIndex, chapterIndex }));
 }
 
 function checkForProgress() {
     const saved = localStorage.getItem("hskProgress");
     if (!saved) return;
-
     try {
         const progress = JSON.parse(saved);
-        // Проверяем, существуют ли сохраненные данные
         if (STORIES[progress.level] && STORIES[progress.level][progress.bookIndex]) {
             const book = STORIES[progress.level][progress.bookIndex];
             const chapter = book.chapters[progress.chapterIndex];
-            
             if (chapter) {
-                // Создаем красивую кнопку "Продолжить чтение"
                 const resumeBtn = document.createElement("div");
                 resumeBtn.className = "resume-banner";
                 resumeBtn.innerHTML = `
                     <span>👋 Welcome back! You were reading <b>${chapter.title}</b>.</span>
-                    <button data-action="resume" class="btn-resume">Continue</button>
+                    <button class="btn-resume">Continue</button>
                 `;
-                
-                // Вставляем её перед списком книг
                 contentEl.prepend(resumeBtn);
-                
-                // Сохраняем прогресс в кнопку, чтобы при клике открыть нужное место
                 resumeBtn.querySelector("button").addEventListener("click", () => {
                     renderChapterContent(book, chapter, progress.bookIndex, progress.chapterIndex);
                 });
             }
         }
-    } catch (e) {
-        console.error("Error reading progress", e);
-    }
+    } catch (e) { console.error(e); }
 }
 
 // ==========================================
-// 7. START APP & TOGGLE
+// 7. FLASHCARD LOGIC
+// ==========================================
+function getFlashcards() {
+    return JSON.parse(localStorage.getItem("hskFlashcards")) || [];
+}
+
+function saveFlashcard(char, pinyin, meaning) {
+    const cards = getFlashcards();
+    // Prevent duplicates
+    if (!cards.some(c => c.char === char)) {
+        cards.push({ char, pinyin, meaning });
+        localStorage.setItem("hskFlashcards", JSON.stringify(cards));
+        renderFlashcards();
+    }
+}
+
+function renderFlashcards() {
+    const cards = getFlashcards();
+    flashcardContainer.innerHTML = "";
+    
+    if (cards.length === 0) {
+        flashcardContainer.innerHTML = `<p style="color: var(--text-light); font-size: 14px;">No flashcards saved yet. Click a word and press "+" to save it!</p>`;
+        return;
+    }
+
+    cards.forEach(card => {
+        const cardEl = document.createElement("div");
+        cardEl.className = "flashcard";
+        cardEl.innerHTML = `
+            <div class="flashcard-inner">
+                <div class="flashcard-front">
+                    <span>${card.char}</span>
+                    <span class="pinyin">${card.pinyin}</span>
+                </div>
+                <div class="flashcard-back">
+                    <span>${card.meaning}</span>
+                </div>
+            </div>
+        `;
+        flashcardContainer.appendChild(cardEl);
+    });
+}
+
+clearFlashcardsBtn.addEventListener("click", () => {
+    if(confirm("Are you sure you want to clear all your flashcards?")) {
+        localStorage.removeItem("hskFlashcards");
+        renderFlashcards();
+    }
+});
+
+// ==========================================
+// 8. START APP & TOGGLE
 // ==========================================
 window.onload = () => { 
     if(typeof STORIES !== 'undefined') {
         renderStoriesList(); 
-        checkForProgress(); // Проверяем сохраненный прогресс при загрузке
+        checkForProgress();
+        renderFlashcards(); // Load flashcards on start
     } else {
         contentEl.innerHTML = "<p style='color: red;'>Error: stories.js not found.</p>";
     }
@@ -339,29 +383,19 @@ window.onload = () => {
 const pinyinToggle = document.getElementById("pinyin-toggle");
 if (pinyinToggle) {
     pinyinToggle.addEventListener("change", (e) => {
-        if (e.target.checked) {
-            document.body.classList.add("hide-pinyin-mode");
-        } else {
-            document.body.classList.remove("hide-pinyin-mode");
-        }
+        document.body.classList.toggle("hide-pinyin-mode", e.target.checked);
     });
 }
-// ==========================================
-// 8. DARK MODE TOGGLE
-// ==========================================
+
 const themeToggle = document.getElementById("theme-toggle");
-
-// Проверяем, не включал ли пользователь тёмную тему раньше
-if (localStorage.getItem("theme") === "dark") {
-    document.body.classList.add("dark-mode");
-    if (themeToggle) themeToggle.textContent = "☀️ Light Mode";
-}
-
 if (themeToggle) {
-    themeToggle.addEventListener("click", () => {
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-mode");
+        themeToggle.textContent = "☀️ Light Mode";
+    }
+    themeToggle.addEventListener("click", function(e) {
+        e.preventDefault();
         document.body.classList.toggle("dark-mode");
-        
-        // Меняем текст на кнопке и сохраняем выбор в память
         if (document.body.classList.contains("dark-mode")) {
             themeToggle.textContent = "☀️ Light Mode";
             localStorage.setItem("theme", "dark");
