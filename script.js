@@ -147,17 +147,33 @@ function hideTooltip() {
 }
 
 // NEW: Text-to-Speech Function
+// Улучшенная функция Text-to-Speech
 function playAudio(text) {
     if (!('speechSynthesis' in window)) {
         console.warn("Text-to-speech is not supported in this browser.");
         return;
     }
-    // Stop any currently playing audio
+
+    // Останавливаем предыдущую озвучку, если она еще говорит
     window.speechSynthesis.cancel();
-    
+
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'zh-CN'; // Mandarin Chinese
-    utterance.rate = 0.85;    // Slightly slower for language learners
+    utterance.lang = 'zh-CN'; // Указываем китайский язык
+    utterance.rate = 0.85;    // Немного замедляем для обучения
+
+    // Получаем список всех голосов в системе
+    const voices = window.speechSynthesis.getVoices();
+    
+    // Ищем китайский голос
+    const chineseVoice = voices.find(voice => voice.lang.includes('zh') || voice.lang.includes('ZH'));
+
+    if (chineseVoice) {
+        utterance.voice = chineseVoice; // Если нашли — используем его
+    } else {
+        console.warn("В вашей системе не найден китайский голос. Браузер попробует использовать голос по умолчанию.");
+    }
+
+    // Запускаем озвучку
     window.speechSynthesis.speak(utterance);
 }
 
