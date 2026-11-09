@@ -19,9 +19,7 @@ for (let i = 1; i <= 7; i++) {
     btn.type = "button";
     btn.className = `tab ${i === 1 ? 'active' : ''}`;
     btn.textContent = i === 7 ? "Free Reading" : `HSK ${i}`;
-    
     btn.style.setProperty('--tab-color', tabColors[i-1]);
-    
     btn.dataset.level = i;
     btn.onclick = () => {
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -37,7 +35,7 @@ for (let i = 1; i <= 7; i++) {
 // ==========================================
 function renderStoriesList() {
     hideTooltip();
-    stopFullStory();
+    if (typeof stopFullStory === 'function') stopFullStory();
     contentEl.innerHTML = "";
     document.getElementById("audio-player").style.display = "none";
     
@@ -68,7 +66,7 @@ function renderStoriesList() {
 
 function renderChaptersList(book, bookIndex) {
     contentEl.innerHTML = "";
-    stopFullStory();
+    if (typeof stopFullStory === 'function') stopFullStory();
     document.getElementById("audio-player").style.display = "none";
     
     const backBtn = document.createElement("button");
@@ -160,7 +158,7 @@ function renderChapterContent(book, chapter, bookIndex, chapterIndex) {
         contentEl.appendChild(block);
     });
 
-    prepareStoryAudio();
+    if (typeof prepareStoryAudio === 'function') prepareStoryAudio();
 }
 
 // ==========================================
@@ -223,7 +221,7 @@ function hideTooltip() {
 
 const audioCache = new Map();
 async function playAudio(text) {
-    stopFullStory(); 
+    if (typeof stopFullStory === 'function') stopFullStory(); 
     
     if (audioCache.has(text)) {
         const cachedUrl = audioCache.get(text);
@@ -525,34 +523,11 @@ if (themeToggle) {
 }
 
 // ==========================================
-// 10. INTERACTIVE ANIMATIONS (Title, Magnetic, Ripple)
+// 10. INTERACTIVE ANIMATIONS (Buttons & Splash)
 // ==========================================
 
-
-
-
-// 2. Единый обработчик движения мыши
+// Магнитный эффект для кнопок
 document.addEventListener('mousemove', (e) => {
-    
-    // --- Эффект для заголовка (буквы тянутся вверх) ---
-    titleLetters.forEach(letter => {
-        const rect = letter.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        
-        const distX = centerX - e.clientX;
-        const distY = centerY - e.clientY;
-        const distance = Math.sqrt(distX * distX + distY * distY);
-        
-        if (distance < 100) {
-            const lift = (1 - (distance / 100)) * 15; 
-            letter.style.transform = `translateY(-${lift}px)`;
-        } else {
-            letter.style.transform = `translateY(0px)`;
-        }
-    });
-
-    // --- Магнитный эффект (ДОБАВЛЕН ПЕРЕКЛЮЧАТЕЛЬ ПИНЬИНЯ) ---
     const magneticElements = document.querySelectorAll(
         '.btn-back, .btn-theme, .story-item, .chapter-item, .player-btn, .switch, .toggle-label'
     );
@@ -578,19 +553,15 @@ document.addEventListener('mousemove', (e) => {
     });
 });
 
-// ... (код с mousemove для заголовка и кнопок) ...
-
 // 3. Эффект разлетающихся капель (Water Splash)
 document.addEventListener('click', function(e) {
     const target = e.target.closest('button, .story-item, .chapter-item, .tab, .flashcard, .switch');
     if (!target) return;
 
-    // Получаем цвет кнопки (если это цветная вкладка)
     const computedStyle = getComputedStyle(target);
     const tabColor = computedStyle.getPropertyValue('--tab-color').trim();
     const splashColor = tabColor || 'var(--primary)';
 
-    // Создаем невидимый контейнер прямо на странице в точке клика
     const splashContainer = document.createElement('div');
     splashContainer.style.position = 'absolute';
     splashContainer.style.left = `${e.pageX}px`;
@@ -599,38 +570,31 @@ document.addEventListener('click', function(e) {
     splashContainer.style.zIndex = '99999';
     document.body.appendChild(splashContainer);
 
-    // Создаем 12 брызг
     for (let i = 0; i < 12; i++) {
         const splash = document.createElement('span');
         splash.className = 'water-splash';
         
-        // Ставим каплю ровно в центр контейнера (место клика)
         splash.style.left = '0px';
         splash.style.top = '0px';
         
-        // Увеличенный размер (от 10 до 20 пикселей)
         const size = 10 + Math.random() * 10;
         splash.style.width = `${size}px`;
         splash.style.height = `${size}px`;
 
-        // Настраиваем цвет
         splash.style.background = `radial-gradient(circle at 30% 30%, rgba(255,255,255,1), ${splashColor} 80%)`;
         splash.style.borderColor = splashColor;
 
-        // Случайное направление и расстояние
         const angle = Math.random() * Math.PI * 2; 
         const distance = 20 + Math.random() * 40; 
         
         splash.style.setProperty('--tx', `${Math.cos(angle) * distance}px`);
         splash.style.setProperty('--ty', `${Math.sin(angle) * distance}px`);
 
-        // Случайная задержка
         const delay = Math.random() * 0.1; 
         splash.style.animationDelay = `${delay}s`;
 
         splashContainer.appendChild(splash);
     }
 
-    // Удаляем контейнер с каплями через 1.2 секунды, когда они растворятся
     setTimeout(() => splashContainer.remove(), 1200);
 });
