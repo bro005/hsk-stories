@@ -605,3 +605,57 @@ h1 {
     color: var(--text-light);
     font-style: italic;
 }
+
+/* ==========================================
+   FIX: REAL BOOK TEXT LAYOUT (Жесткое переопределение)
+   ========================================== */
+
+/* 1. Ограничиваем ширину текста, чтобы он не расползался */
+.container {
+    max-width: 850px !important; 
+    width: 95% !important;
+    margin: 0 auto !important;
+}
+
+/* 2. Полностью убираем flexbox, чтобы текст шел обычным потоком */
+.sentence-block > div {
+    display: block !important;
+    text-align: left !important;
+    line-height: 2.5 !important; 
+    margin-bottom: 5px !important;
+}
+
+/* 3. Убираем старые рамки у блоков */
+.sentence-block {
+    text-align: left !important;
+    display: block !important;
+    margin-bottom: 25px !important;
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+}
+
+/* 4. Слова стоят вплотную друг к другу (как в обычном тексте) */
+.word-container {
+    display: inline-flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    margin: 0 2px !important; /* Маленький отступ между словами */
+    vertical-align: bottom !important;
+}
+
+/* 5. Пиньинь аккуратно по центру под иероглифом */
+.pinyin-text {
+    text-align: center !important;
+    font-size: 0.9rem !important;
+    color: var(--text-light) !important;
+}
+
+/* 6. Английский перевод слева, как сноска */
+.sentence-translation {
+    display: block !important;
+    text-align: left !important;
+    margin-top: 8px !important;
+    font-size: 1rem !important;
+    color: var(--text-light) !important;
+    font-style: italic !important;
+}
