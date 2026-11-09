@@ -172,3 +172,105 @@ h1 { color: var(--primary); margin-bottom: 10px; }
     background: var(--primary); 
     color: white !important; 
 }
+
+/* ==========================================
+   PINYIN INLINE DISPLAY & BLUR TOGGLE
+   ========================================== */
+
+/* Word Container */
+.word-container {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 4px;
+    cursor: pointer;
+    vertical-align: bottom;
+}
+
+.word {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--text);
+    transition: background 0.2s, color 0.2s;
+}
+
+/* Inline Pinyin text under the character */
+.pinyin-text {
+    font-size: 13px;
+    color: #64748b;
+    margin-top: 2px;
+    transition: filter 0.3s ease, opacity 0.3s ease;
+    font-family: monospace;
+}
+
+/* BLUR LOGIC */
+/* When the body has the .hide-pinyin-mode class */
+.hide-pinyin-mode .pinyin-text {
+    filter: blur(4px);
+    opacity: 0.5;
+    user-select: none;
+}
+
+/* Unblur ONLY when hovering or clicking (active) that specific word */
+.hide-pinyin-mode .word-container:hover .pinyin-text,
+.hide-pinyin-mode .word-container:active .pinyin-text {
+    filter: blur(0);
+    opacity: 1;
+    color: var(--primary);
+    user-select: auto;
+}
+
+/* ==========================================
+   TOGGLE SWITCH STYLING
+   ========================================== */
+.toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 46px;
+    height: 24px;
+}
+
+.switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #cbd5e1;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--primary);
+}
+
+input:checked + .slider:before {
+    transform: translateX(22px);
+}
