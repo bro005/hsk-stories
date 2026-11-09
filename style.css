@@ -492,3 +492,65 @@ body.dark-mode .reading-highlight { background-color: #fbbf24 !important; color:
         opacity: 0;
     }
 }
+
+/* ==========================================
+   RESPONSIVE & FLUID TYPOGRAPHY (Адаптивность)
+   ========================================== */
+
+/* 1. Делаем контейнер шире на больших экранах, но оставляем отступы на мобильных */
+.container {
+    width: min(100% - 40px, 1100px); /* Ширина до 1100px на ПК, и 100% минус 40px на телефоне */
+    margin-inline: auto;
+}
+
+/* 2. Главный заголовок (растет от 2rem до 3.5rem в зависимости от экрана) */
+h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 20px;
+}
+
+/* 3. Китайские иероглифы (растут от 1.5rem до 2.5rem) */
+.word {
+    font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+}
+
+/* 4. Пиньинь (растет от 0.8rem до 1.1rem) */
+.pinyin-text {
+    font-size: clamp(0.8rem, 1.5vw, 1.1rem);
+}
+
+/* 5. Названия книг и глав */
+.story-item h3, .chapter-item h3 {
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+}
+
+/* 6. Внутренние отступы карточек (адаптируются под экран) */
+.card {
+    padding: clamp(15px, 4vw, 40px);
+}
+
+/* 7. Кнопки вкладок (чтобы не были слишком огромными на телефоне) */
+.tab {
+    font-size: clamp(0.8rem, 1.5vw, 1rem);
+    padding: clamp(6px, 1.5vw, 10px) clamp(12px, 3vw, 20px);
+}
+
+/* 8. Перевод предложений */
+.sentence-translation {
+    font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+}
+
+/* 9. Специальные правки для мобильных телефонов (экраны меньше 600px) */
+@media (max-width: 600px) {
+    body {
+        padding: 30px 15px 800px 15px; /* Меньше отступы по бокам на телефоне */
+    }
+    
+    .story-item, .chapter-item {
+        padding: 15px 10px;
+    }
+    
+    .word-container {
+        margin: 0 2px; /* Чуть меньше расстояние между словами на телефоне */
+    }
+}
