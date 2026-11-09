@@ -446,3 +446,63 @@ body.dark-mode .word:hover {
     color: var(--text);
     font-weight: 500;
 }
+/* ==========================================
+   AUDIO PLAYER & HIGHLIGHT
+   ========================================== */
+.audio-player {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--card-bg);
+    padding: 15px 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+}
+
+.player-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.player-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.player-btn:hover { background: var(--primary-hover); }
+
+.speed-control {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    color: var(--text-light);
+    align-items: center;
+}
+
+.speed-control input {
+    width: 100px;
+    cursor: pointer;
+}
+
+/* Highlight effect when reading */
+.reading-highlight {
+    background-color: #fde047 !important; /* Yellow highlight */
+    color: #1e293b !important; /* Dark text for contrast */
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(253, 224, 71, 0.5);
+    transition: background-color 0.1s;
+}
+
+body.dark-mode .reading-highlight {
+    background-color: #fbbf24 !important;
+    color: #0f172a !important;
+}
