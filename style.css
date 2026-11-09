@@ -157,3 +157,18 @@ h1 { color: var(--primary); margin-bottom: 10px; }
     margin-bottom: 4px; 
     font-size: 16px; 
 }
+
+/* ==========================================
+   TONE COLORS
+   ========================================== */
+.tone-1 { color: #ef4444 !important; } /* 1st Tone: Red */
+.tone-2 { color: #22c55e !important; } /* 2nd Tone: Green */
+.tone-3 { color: #3b82f6 !important; } /* 3rd Tone: Blue */
+.tone-4 { color: #a855f7 !important; } /* 4th Tone: Purple */
+.tone-5 { color: #64748b !important; } /* Neutral Tone: Grey */
+
+/* Keep the active word readable (white text on primary background) */
+.word.active { 
+    background: var(--primary); 
+    color: white !important; 
+}
