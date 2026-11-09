@@ -589,45 +589,43 @@ document.addEventListener('mousemove', (e) => {
 
 // 3. Эффект разлетающихся капель (Water Splash)
 document.addEventListener('click', function(e) {
-    // Теперь эффект применяется ко ВСЕМ кнопкам, карточкам и вкладкам
     const target = e.target.closest('button, .story-item, .chapter-item, .tab, .flashcard, .switch');
     if (!target) return;
 
-    target.style.position = 'relative';
-
-    const rect = target.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
+    // Получаем цвет кнопки (если это цветная вкладка)
     const computedStyle = getComputedStyle(target);
     const tabColor = computedStyle.getPropertyValue('--tab-color').trim();
+    const splashColor = tabColor || 'var(--primary)';
 
-    // Создаем сразу 12 брызг для эффекта "всплеска"
+    // Создаем невидимый контейнер прямо на странице в точке клика
+    const splashContainer = document.createElement('div');
+    splashContainer.style.position = 'absolute';
+    splashContainer.style.left = `${e.pageX}px`;
+    splashContainer.style.top = `${e.pageY}px`;
+    splashContainer.style.pointerEvents = 'none';
+    splashContainer.style.zIndex = '99999';
+    document.body.appendChild(splashContainer);
+
+    // Создаем 12 брызг
     for (let i = 0; i < 12; i++) {
         const splash = document.createElement('span');
         splash.className = 'water-splash';
-        splash.style.left = `${x}px`;
-        splash.style.top = `${y}px`;
         
-        // Увеличенный размер капли (от 10 до 20 пикселей)
+        // Ставим каплю ровно в центр контейнера (место клика)
+        splash.style.left = '0px';
+        splash.style.top = '0px';
+        
+        // Увеличенный размер (от 10 до 20 пикселей)
         const size = 10 + Math.random() * 10;
         splash.style.width = `${size}px`;
         splash.style.height = `${size}px`;
 
-        // ЦВЕТОВАЯ ЛОГИКА:
-        if (tabColor) {
-            // Если это цветная вкладка HSK, капли берут её цвет
-            splash.style.background = `radial-gradient(circle at 30% 30%, rgba(255,255,255,1), ${tabColor} 80%)`;
-            splash.style.borderColor = tabColor;
-        } else {
-            // Если это обычная кнопка (Назад, Очистить и т.д.), делаем капли фиолетовыми (цвет темы)
-            splash.style.background = `radial-gradient(circle at 30% 30%, rgba(255,255,255,1), var(--primary) 80%)`;
-            splash.style.borderColor = 'var(--primary)';
-        }
+        // Настраиваем цвет
+        splash.style.background = `radial-gradient(circle at 30% 30%, rgba(255,255,255,1), ${splashColor} 80%)`;
+        splash.style.borderColor = splashColor;
 
-        // Случайный угол (от 0 до 360 градусов)
+        // Случайное направление и расстояние
         const angle = Math.random() * Math.PI * 2; 
-        // Случайное расстояние разлета (от 20 до 60 пикселей)
         const distance = 20 + Math.random() * 40; 
         
         splash.style.setProperty('--tx', `${Math.cos(angle) * distance}px`);
@@ -637,9 +635,9 @@ document.addEventListener('click', function(e) {
         const delay = Math.random() * 0.1; 
         splash.style.animationDelay = `${delay}s`;
 
-        target.appendChild(splash);
-
-        // Удаляем каплю из DOM после анимации
-        setTimeout(() => splash.remove(), 1000 + (delay * 1000));
+        splashContainer.appendChild(splash);
     }
+
+    // Удаляем контейнер с каплями через 1.2 секунды, когда они растворятся
+    setTimeout(() => splashContainer.remove(), 1200);
 });
