@@ -51,31 +51,6 @@ function renderStoriesList() {
     });
 }
 
-function renderChaptersList(book) {
-    contentEl.innerHTML = "";
-    
-    const backBtn = document.createElement("button");
-    backBtn.className = "btn-back";
-    backBtn.textContent = "← Back to Books";
-    backBtn.dataset.action = "back-to-books";
-    contentEl.appendChild(backBtn);
-
-    const title = document.createElement("h2");
-    title.style.margin = "10px 0 20px 0";
-    title.textContent = book.title;
-    contentEl.appendChild(title);
-
-    book.chapters.forEach((chapter, index) => {
-        const item = document.createElement("div");
-        item.className = "chapter-item";
-        item.innerHTML = `<h3>${chapter.title}</h3>`;
-        item.dataset.action = "open-chapter";
-        item._chapterData = chapter;
-        item._bookData = book;
-        contentEl.appendChild(item);
-    });
-}
-
 function renderChapterContent(book, chapter) {
     contentEl.innerHTML = "";
     
@@ -105,16 +80,31 @@ function renderChapterContent(book, chapter) {
         block.className = "sentence-block";
 
         const line = document.createElement("div");
+        
         s.words.forEach(w => {
-            const span = document.createElement("span");
-            span.className = "word";
-            span.textContent = w.w; // Текст остается черным (обычным)
+            // Создаем контейнер для иероглифа и пиньиня
+            const container = document.createElement("span");
+            container.className = "word-container";
             
+            // 1. Сам иероглиф
+            const charSpan = document.createElement("span");
+            charSpan.className = "word";
+            charSpan.textContent = w.w;
             if (w.p && w.e) {
-                span.dataset.pinyin = w.p;
-                span.dataset.meaning = w.e;
+                charSpan.dataset.pinyin = w.p;
+                charSpan.dataset.meaning = w.e;
             }
-            line.appendChild(span);
+            container.appendChild(charSpan);
+
+            // 2. Пиньинь (появляется под иероглифом)
+            if (w.p && w.e) {
+                const pinyinSpan = document.createElement("span");
+                pinyinSpan.className = "pinyin-text";
+                pinyinSpan.textContent = w.p;
+                container.appendChild(pinyinSpan);
+            }
+
+            line.appendChild(container);
         });
 
         block.appendChild(line);
@@ -127,7 +117,6 @@ function renderChapterContent(book, chapter) {
         contentEl.appendChild(block);
     });
 }
-
 // ==========================================
 // 4. TOOLTIP, TONE & AUDIO FUNCTIONS
 // ==========================================
