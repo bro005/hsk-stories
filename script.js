@@ -105,21 +105,34 @@ function renderChapterContent(book, chapter) {
         block.className = "sentence-block";
 
         const line = document.createElement("div");
+        
+        // ВОТ ЗДЕСЬ ВАШ НОВЫЙ КОД С ЦВЕТАМИ
         s.words.forEach(w => {
             const span = document.createElement("span");
             span.className = "word";
-            span.textContent = w.w;
+            
             if (w.p && w.e) {
                 span.dataset.pinyin = w.p;
                 span.dataset.meaning = w.e;
-
-                // --- NEW CODE: Apply Tone Color ---
-                const tone = getTone(w.p);
-                span.classList.add(`tone-${tone}`);
-                // -----------------------------------
             }
+            
+            const chars = w.w.split('');
+            const pinyinArray = window.pinyinPro ? pinyinPro.pinyin(w.w, { type: 'array', toneType: 'symbol' }) : [];
+            
+            chars.forEach((char, index) => {
+                const charSpan = document.createElement("span");
+                charSpan.textContent = char;
+                
+                const charPinyin = (pinyinArray && pinyinArray[index]) ? pinyinArray[index] : w.p;
+                const tone = getTone(charPinyin);
+                charSpan.className = `tone-${tone}`;
+                
+                span.appendChild(charSpan);
+            });
+            
             line.appendChild(span);
         });
+        // КОНЕЦ НОВОГО КОДА
 
         block.appendChild(line);
 
@@ -131,7 +144,6 @@ function renderChapterContent(book, chapter) {
         contentEl.appendChild(block);
     });
 }
-
 
 // ==========================================
 // TONE DETECTION FUNCTION
@@ -204,19 +216,21 @@ async function playAudio(text) {
 // ==========================================
 contentEl.addEventListener("click", (event) => {
     
-    // 1. Check if a Chinese word was clicked
-    if (event.target.classList.contains("word")) {
+    // 1. Check if a Chinese word was clicked (using closest to catch nested spans)
+    const wordEl = event.target.closest(".word");
+    
+    if (wordEl) {
         event.stopPropagation(); 
         
         // Show Pinyin popup
-        showTooltip(event.target);
+        showTooltip(wordEl);
         
-        // Play audio (only if it's a real word with pinyin data, not punctuation)
-        if (event.target.dataset.pinyin) {
-            playAudio(event.target.textContent);
+        // Play audio (only if it's a real word with pinyin data)
+        if (wordEl.dataset.pinyin) {
+            playAudio(wordEl.textContent);
         }
         
-        return;
+        return; // Stop here so it doesn't trigger sentence translation
     }
 
     // 2. Check if the empty space of a sentence was clicked
