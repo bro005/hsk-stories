@@ -205,8 +205,7 @@ async function playAudio(text) {
         const audio = new Audio(audioUrl);
         audio.play();
         
-        // ВНИМАНИЕ: Мы больше не удаляем файл из памяти (URL.revokeObjectURL), 
-        // чтобы можно было проигрывать его повторно без задержек!
+        // Мы убрали строчку, которая удаляла аудио, чтобы оно оставалось в памяти!
     } catch (error) {
         console.error("Edge TTS failed, falling back to browser TTS:", error);
         
@@ -217,7 +216,6 @@ async function playAudio(text) {
         window.speechSynthesis.speak(utterance);
     }
 }
-
 // ==========================================
 // 5. EVENT DELEGATION
 // ==========================================
