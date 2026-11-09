@@ -105,34 +105,17 @@ function renderChapterContent(book, chapter) {
         block.className = "sentence-block";
 
         const line = document.createElement("div");
-        
-        // ВОТ ЗДЕСЬ ВАШ НОВЫЙ КОД С ЦВЕТАМИ
         s.words.forEach(w => {
             const span = document.createElement("span");
             span.className = "word";
+            span.textContent = w.w; // Текст остается черным (обычным)
             
             if (w.p && w.e) {
                 span.dataset.pinyin = w.p;
                 span.dataset.meaning = w.e;
             }
-            
-            const chars = w.w.split('');
-            const pinyinArray = window.pinyinPro ? pinyinPro.pinyin(w.w, { type: 'array', toneType: 'symbol' }) : [];
-            
-            chars.forEach((char, index) => {
-                const charSpan = document.createElement("span");
-                charSpan.textContent = char;
-                
-                const charPinyin = (pinyinArray && pinyinArray[index]) ? pinyinArray[index] : w.p;
-                const tone = getTone(charPinyin);
-                charSpan.className = `tone-${tone}`;
-                
-                span.appendChild(charSpan);
-            });
-            
             line.appendChild(span);
         });
-        // КОНЕЦ НОВОГО КОДА
 
         block.appendChild(line);
 
@@ -146,34 +129,43 @@ function renderChapterContent(book, chapter) {
 }
 
 // ==========================================
-// TONE DETECTION FUNCTION
+// 4. TOOLTIP, TONE & AUDIO FUNCTIONS
 // ==========================================
 function getTone(pinyin) {
-    if (!pinyin) return 5; // Neutral tone if no pinyin
-
-    // 1. Check for numbers (e.g., ma1, ma2, ma3, ma4)
+    if (!pinyin) return 5; 
     const numMatch = pinyin.match(/[1-4]/);
     if (numMatch) return parseInt(numMatch[0]);
-
-    // 2. Check for tone marks (diacritics)
     if (/[āēīōūǖĀĒĪŌŪǕ]/.test(pinyin)) return 1;
     if (/[áéíóúǘÁÉÍÓÚǗ]/.test(pinyin)) return 2;
     if (/[ǎěǐǒǔǚǍĚǏǑǓǙ]/.test(pinyin)) return 3;
     if (/[àèìòùǜÀÈÌÒÙǛ]/.test(pinyin)) return 4;
-
-    // If no marks or numbers are found, it's neutral (tone 5)
     return 5;
 }
 
-// ==========================================
-// 4. TOOLTIP & AUDIO FUNCTIONS
-// ==========================================
 function showTooltip(wordEl) {
-    tooltipEl.innerHTML = `<span class="pinyin">${wordEl.dataset.pinyin}</span><span>${wordEl.dataset.meaning}</span>`;
+    let pinyinHtml = "";
+    const text = wordEl.textContent;
+    
+    // Раскрашиваем пиньинь по слогам с помощью pinyin-pro
+    if (window.pinyinPro) {
+        const pinyinArray = pinyinPro.pinyin(text, { type: 'array', toneType: 'symbol' });
+        pinyinHtml = pinyinArray.map(py => {
+            const tone = getTone(py);
+            return `<span class="tone-${tone}">${py}</span>`;
+        }).join(" ");
+    } else {
+        // Запасной вариант, если pinyin-pro не загрузился
+        const tone = getTone(wordEl.dataset.pinyin);
+        pinyinHtml = `<span class="tone-${tone}">${wordEl.dataset.pinyin}</span>`;
+    }
+
+    tooltipEl.innerHTML = `<span class="pinyin" style="display:flex; gap:4px; justify-content:center;">${pinyinHtml}</span><span>${wordEl.dataset.meaning}</span>`;
+    
     tooltipEl.style.display = "block";
     const rect = wordEl.getBoundingClientRect();
     tooltipEl.style.left = `${rect.left + window.scrollX + (rect.width / 2) - (tooltipEl.offsetWidth / 2)}px`;
     tooltipEl.style.top = `${rect.top + window.scrollY - tooltipEl.offsetHeight - 8}px`;
+    
     if (activeWord) activeWord.classList.remove("active");
     activeWord = wordEl;
     wordEl.classList.add("active");
@@ -184,63 +176,53 @@ function hideTooltip() {
     if (activeWord) { activeWord.classList.remove("active"); activeWord = null; }
 }
 
-// NEW: Text-to-Speech Function
-// Улучшенная функция Text-to-Speech
 async function playAudio(text) {
     try {
         const tts = new EdgeTTS();
-        // You can change the voice here (e.g., 'zh-CN-XiaoxiaoNeural')
         const audioBlob = await tts.synthesize({
             text: text,
             voice: 'zh-CN-XiaoxiaoNeural',
-            rate: '-10%' // Slightly slower for learners
+            rate: '-10%' 
         });
         
         const audioUrl = URL.createObjectURL(audioBlob);
         const audio = new Audio(audioUrl);
         audio.play();
         
-        // Clean up memory after playback
         audio.onended = () => URL.revokeObjectURL(audioUrl);
     } catch (error) {
         console.error("Edge TTS failed, falling back to browser TTS:", error);
-        // Fallback to the old Web Speech API if the network fails
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'zh-CN';
         window.speechSynthesis.speak(utterance);
     }
 }
+
 // ==========================================
-// 5. EVENT DELEGATION (The Master Listener)
+// 5. EVENT DELEGATION
 // ==========================================
 contentEl.addEventListener("click", (event) => {
     
-    // 1. Check if a Chinese word was clicked (using closest to catch nested spans)
+    // Проверяем, кликнули ли на слово
     const wordEl = event.target.closest(".word");
-    
     if (wordEl) {
         event.stopPropagation(); 
-        
-        // Show Pinyin popup
         showTooltip(wordEl);
-        
-        // Play audio (only if it's a real word with pinyin data)
         if (wordEl.dataset.pinyin) {
             playAudio(wordEl.textContent);
         }
-        
-        return; // Stop here so it doesn't trigger sentence translation
+        return;
     }
 
-    // 2. Check if the empty space of a sentence was clicked
+    // Проверяем клик по пустому месту предложения
     const sentenceBlock = event.target.closest(".sentence-block");
     if (sentenceBlock) {
         sentenceBlock.classList.toggle("show-translation");
         return;
     }
 
-    // 3. Check if a navigation element (Book, Chapter, Back) was clicked
+    // Навигация (Книги, Главы, Назад)
     const actionTarget = event.target.closest("[data-action]");
     if (actionTarget) {
         const action = actionTarget.dataset.action;
@@ -260,7 +242,6 @@ contentEl.addEventListener("click", (event) => {
     }
 });
 
-// Hide tooltip when clicking outside
 document.addEventListener("click", (event) => {
     if (!event.target.closest("#story-container")) {
         hideTooltip();
