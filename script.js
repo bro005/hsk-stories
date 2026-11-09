@@ -127,6 +127,27 @@ function renderChapterContent(book, chapter) {
     });
 }
 
+
+// ==========================================
+// TONE DETECTION FUNCTION
+// ==========================================
+function getTone(pinyin) {
+    if (!pinyin) return 5; // Neutral tone if no pinyin
+
+    // 1. Check for numbers (e.g., ma1, ma2, ma3, ma4)
+    const numMatch = pinyin.match(/[1-4]/);
+    if (numMatch) return parseInt(numMatch[0]);
+
+    // 2. Check for tone marks (diacritics)
+    if (/[āēīōūǖĀĒĪŌŪǕ]/.test(pinyin)) return 1;
+    if (/[áéíóúǘÁÉÍÓÚǗ]/.test(pinyin)) return 2;
+    if (/[ǎěǐǒǔǚǍĚǏǑǓǙ]/.test(pinyin)) return 3;
+    if (/[àèìòùǜÀÈÌÒÙǛ]/.test(pinyin)) return 4;
+
+    // If no marks or numbers are found, it's neutral (tone 5)
+    return 5;
+}
+
 // ==========================================
 // 4. TOOLTIP & AUDIO FUNCTIONS
 // ==========================================
