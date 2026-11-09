@@ -20,8 +20,11 @@ body {
     background-color: var(--bg);
     color: var(--text);
     line-height: 1.8;
-    padding: 60px 20px 500px 20px; /* 500px снизу для отличной прокрутки */
-    min-height: 120vh; /* Заставляет страницу всегда быть прокручиваемой */
+    padding-top: 60px;
+    padding-bottom: 500px; /* Вот эта строчка делает прокрутку */
+    padding-left: 20px;
+    padding-right: 20px;
+    min-height: 120vh; /* И вот эта */
 }
 
 .container { max-width: 800px; margin: 0 auto; }
