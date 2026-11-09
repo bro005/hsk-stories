@@ -454,36 +454,41 @@ body.dark-mode .reading-highlight { background-color: #fbbf24 !important; color:
     to { transform: scale(4); opacity: 0; }
 }
 /* ==========================================
-   WATER SPLASH EFFECT (Капли в форме слезы)
+   REALISTIC WATER SPLASH (Крупные 3D-капли)
    ========================================== */
 
 .water-splash {
     position: absolute;
-    /* Вот этот магия делает форму капли! */
-    /* Заостренная сверху, круглая снизу */
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; 
+    /* Вытянутая форма капли (заостренная сверху, круглая снизу) */
+    border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
     
-    /* Эффект воды: прозрачный центр с ярким бликом */
-    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.1) 70%);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.8), 0 2px 5px rgba(0,0,0,0.1);
+    /* Эффект воды: яркий блик сверху-слева и глубокая тень снизу-справа */
+    background: radial-gradient(circle at 35% 35%, rgba(255,255,255,1) 0%, rgba(255,255,255,0.4) 40%, rgba(255,255,255,0.1) 70%);
+    
+    /* Внутренние тени создают объем */
+    box-shadow: 
+        inset -3px -3px 5px rgba(0,0,0,0.15), /* Тень внутри */
+        inset 2px 2px 4px rgba(255,255,255,0.9), /* Блик внутри */
+        0 4px 8px rgba(0,0,0,0.2); /* Тень от падения */
+        
+    border: 1px solid rgba(255,255,255,0.5);
     backdrop-filter: blur(2px);
     
     transform: translate(-50%, -50%);
-    animation: splash-fly 0.8s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+    animation: splash-fly 0.9s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
     pointer-events: none;
     z-index: 9999;
 }
 
-/* Брызги улетают, КРУТЯТСЯ (чтобы было видно форму) и падают вниз */
+/* Брызги улетают, кувыркаются и падают вниз */
 @keyframes splash-fly {
     0% {
         transform: translate(-50%, -50%) scale(1) rotate(0deg);
         opacity: 1;
     }
     100% {
-        /* Они вращаются на 360 градусов, пока летят! */
-        transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty) + 30px)) scale(0.2) rotate(360deg);
+        /* Улетают в стороны, падают на 50px вниз, уменьшаются и вращаются */
+        transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty) + 50px)) scale(0.2) rotate(450deg);
         opacity: 0;
     }
 }
