@@ -148,6 +148,21 @@ function hideTooltip() {
     if (activeWord) { activeWord.classList.remove("active"); activeWord = null; }
 }
 
+// NEW: Text-to-Speech Function
+function playAudio(text) {
+    if (!('speechSynthesis' in window)) {
+        console.warn("Text-to-speech is not supported in this browser.");
+        return;
+    }
+    // Stop any currently playing audio
+    window.speechSynthesis.cancel();
+    
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'zh-CN'; // Mandarin Chinese
+    utterance.rate = 0.85;    // Slightly slower for language learners
+    window.speechSynthesis.speak(utterance);
+}
+
 // ==========================================
 // 5. EVENT DELEGATION (The Master Listener)
 // ==========================================
