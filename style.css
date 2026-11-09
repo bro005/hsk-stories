@@ -506,3 +506,52 @@ body.dark-mode .reading-highlight {
     background-color: #fbbf24 !important;
     color: #0f172a !important;
 }
+/* ==========================================
+   НОВЫЙ ДИЗАЙН: Прокрутка, Кнопки, Цвета
+   ========================================== */
+
+/* 1. Делаем сайт немного более просторным для прокрутки */
+body {
+    padding-bottom: 100px; 
+    min-height: 100vh;
+}
+
+/* 3, 4, 5. Красивые вкладки HSK (цвета, поднятие, затемнение) */
+.tab {
+    transition: all 0.3s ease;
+    border: 1px solid var(--tab-color, var(--border)); /* Берет цвет из JS */
+    color: var(--tab-color, var(--text));
+    background: var(--card-bg);
+}
+
+.tab.active {
+    background: var(--tab-color, var(--primary));
+    color: white !important;
+}
+
+.tab:hover {
+    /* 3. Поднимается вверх при наведении */
+    transform: translateY(-5px) !important; 
+    /* 5. Цвет становится темнее */
+    filter: brightness(0.8); 
+    background: var(--tab-color, var(--primary));
+    color: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* 6. Анимация "Брызг" при клике (Ripple Effect) */
+.ripple {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple-anim 0.6s linear;
+    pointer-events: none;
+}
+
+@keyframes ripple-anim {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
