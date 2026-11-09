@@ -12,7 +12,6 @@ let activeWord = null;
 // ==========================================
 // 2. INITIALIZATION (Tabs)
 // ==========================================
-// Colors from green to red + golden for Free Reading
 const tabColors = ['#22c55e', '#84cc16', '#eab308', '#f97316', '#ef4444', '#b91c1c', '#f59e0b'];
 
 for (let i = 1; i <= 7; i++) {
@@ -32,12 +31,13 @@ for (let i = 1; i <= 7; i++) {
     };
     tabsEl.appendChild(btn);
 }
+
 // ==========================================
 // 3. RENDER FUNCTIONS
 // ==========================================
 function renderStoriesList() {
     hideTooltip();
-    stopFullStory(); // Stop audio if playing
+    stopFullStory();
     contentEl.innerHTML = "";
     document.getElementById("audio-player").style.display = "none";
     
@@ -93,7 +93,8 @@ function renderChaptersList(book, bookIndex) {
         item._chapterIndex = index;
         contentEl.appendChild(item);
     });
-} // <--- ВОТ ЭТА СКОБКА БЫЛА ПОТЕРЯНА В ВАШЕМ КОДЕ!
+}
+
 function renderChapterContent(book, chapter, bookIndex, chapterIndex) {
     contentEl.innerHTML = "";
     saveProgress(currentLevel, bookIndex, chapterIndex);
@@ -159,7 +160,7 @@ function renderChapterContent(book, chapter, bookIndex, chapterIndex) {
         contentEl.appendChild(block);
     });
 
-    prepareStoryAudio(); // Подготавливаем плеер для новой главы
+    prepareStoryAudio();
 }
 
 // ==========================================
@@ -222,7 +223,7 @@ function hideTooltip() {
 
 const audioCache = new Map();
 async function playAudio(text) {
-    stopFullStory(); // Останавливаем чтение всего текста, если юзер кликнул на слово
+    stopFullStory(); 
     
     if (audioCache.has(text)) {
         const cachedUrl = audioCache.get(text);
@@ -420,7 +421,7 @@ function playFullStory() {
         return;
     }
 
-    window.speechSynthesis.cancel(); // Отменяем клики по словам
+    window.speechSynthesis.cancel(); 
     
     fullStoryUtterance = new SpeechSynthesisUtterance(fullStoryText);
     fullStoryUtterance.lang = "zh-CN";
@@ -522,6 +523,7 @@ if (themeToggle) {
         }
     });
 }
+
 // ==========================================
 // 10. INTERACTIVE ANIMATIONS (Title, Magnetic, Ripple)
 // ==========================================
@@ -530,14 +532,13 @@ if (themeToggle) {
 const titleEl = document.querySelector('header h1');
 if (titleEl) {
     const text = titleEl.innerText;
-    // Разбиваем текст на символы, сохраняем пробелы
     titleEl.innerHTML = text.split('').map(char => {
         return `<span class="title-letter">${char === ' ' ? '&nbsp;' : char}</span>`;
     }).join('');
 }
 const titleLetters = document.querySelectorAll('.title-letter');
 
-// 2. Единый обработчик движения мыши (для заголовка и кнопок)
+// 2. Единый обработчик движения мыши
 document.addEventListener('mousemove', (e) => {
     
     // --- Эффект для заголовка (буквы тянутся вверх) ---
@@ -546,21 +547,19 @@ document.addEventListener('mousemove', (e) => {
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
         
-        // Вычисляем расстояние от курсора до центра буквы
         const distX = centerX - e.clientX;
         const distY = centerY - e.clientY;
         const distance = Math.sqrt(distX * distX + distY * distY);
         
-        // Если курсор близко (в радиусе 100px), буква поднимается вверх
         if (distance < 100) {
-            const lift = (1 - (distance / 100)) * 15; // Максимальный подъем 15px
+            const lift = (1 - (distance / 100)) * 15; 
             letter.style.transform = `translateY(-${lift}px)`;
         } else {
             letter.style.transform = `translateY(0px)`;
         }
     });
 
-    // --- Магнитный эффект для кнопок и карточек (отталкивание) ---
+    // --- Магнитный эффект для кнопок и карточек ---
     const magneticElements = document.querySelectorAll('.btn-back, .btn-theme, .story-item, .chapter-item, .player-btn');
     magneticElements.forEach(el => {
         const rect = el.getBoundingClientRect();
@@ -583,49 +582,38 @@ document.addEventListener('mousemove', (e) => {
     });
 });
 
-// 3. Исправленный эффект капель (Ripple) при клике
+// 3. Эффект капель (Ripple) при клике
 document.addEventListener('click', function(e) {
-    // Ищем ближайший кликабельный элемент
     const target = e.target.closest('button, .story-item, .chapter-item, .tab, .flashcard');
     if (!target) return;
 
-    // Обязательно делаем элемент контейнером для позиционирования
     target.style.position = 'relative';
     target.style.overflow = 'hidden';
 
     const circle = document.createElement('span');
     circle.classList.add('ripple');
 
-    // Определяем цвет капли: для вкладок HSK берем их цвет, для остальных — белый
     const computedStyle = getComputedStyle(target);
     const tabColor = computedStyle.getPropertyValue('--tab-color').trim();
     
     if (tabColor) {
-        // Если это вкладка HSK (у которой есть свой цвет), используем его
         circle.style.backgroundColor = tabColor;
-        circle.style.opacity = '0.4'; // Делаем полупрозрачным, чтобы было видно текст
+        circle.style.opacity = '0.5'; 
     } else {
-        // Для остальных кнопок (Play, Back и т.д.) используем белый
         circle.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
     }
 
-    // Вычисляем размер капли
     const diameter = Math.max(target.clientWidth, target.clientHeight);
     const radius = diameter / 2;
 
     circle.style.width = circle.style.height = `${diameter}px`;
     
-    // Позиционируем каплю точно в место клика
     const rect = target.getBoundingClientRect();
     circle.style.left = `${e.clientX - rect.left - radius}px`;
     circle.style.top = `${e.clientY - rect.top - radius}px`;
 
-    // Удаляем старые капли, чтобы не было наслоения
-    const existingRipples = target.querySelectorAll('.ripple');
-    existingRipples.forEach(r => r.remove());
-
+    target.querySelectorAll('.ripple').forEach(r => r.remove());
     target.appendChild(circle);
 
-    // Удаляем элемент из DOM после завершения анимации
     setTimeout(() => circle.remove(), 600);
 });
