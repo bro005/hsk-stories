@@ -323,3 +323,26 @@ body.dark-mode .reading-highlight { background-color: #fbbf24 !important; color:
     0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
     100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty) + 50px)) scale(0.2) rotate(450deg); opacity: 0; }
 }
+
+/* ==========================================
+   COMPACT TEXT MODE (Уменьшенные отступы)
+   ========================================== */
+
+/* Уменьшаем высоту строки и отступы между предложениями */
+body.tight-text .sentence-line {
+    line-height: 1.5 !important; /* Более плотный межстрочный интервал */
+}
+
+body.tight-text .sentence-block {
+    margin-bottom: 15px !important; /* Меньше места между предложениями */
+    text-indent: 0 !important; /* Убираем красную строку для компактности */
+}
+
+body.tight-text .pinyin-text {
+    margin-top: 0px !important; /* Прижимаем пиньинь ближе к иероглифу */
+    font-size: 0.8rem !important;
+}
+
+body.tight-text .sentence-translation {
+    margin-top: 2px !important;
+}
