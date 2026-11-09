@@ -1,6 +1,4 @@
-// ==========================================
-// 1. DOM ELEMENTS & STATE
-// ==========================================
+// 1. DOM ELEMENTS
 const tabsEl = document.getElementById("levels");
 const contentEl = document.getElementById("story-container");
 const tooltipEl = document.getElementById("tooltip");
@@ -9,11 +7,8 @@ const clearFlashcardsBtn = document.getElementById("clear-flashcards");
 let currentLevel = 1;
 let activeWord = null;
 
-// ==========================================
 // 2. INITIALIZATION (Tabs)
-// ==========================================
 const tabColors = ['#22c55e', '#84cc16', '#eab308', '#f97316', '#ef4444', '#b91c1c', '#f59e0b'];
-
 for (let i = 1; i <= 7; i++) {
     const btn = document.createElement("button");
     btn.type = "button";
@@ -30,20 +25,16 @@ for (let i = 1; i <= 7; i++) {
     tabsEl.appendChild(btn);
 }
 
-// ==========================================
 // 3. RENDER FUNCTIONS
-// ==========================================
 function renderStoriesList() {
     hideTooltip();
     if (typeof stopFullStory === 'function') stopFullStory();
     contentEl.innerHTML = "";
     document.getElementById("audio-player").style.display = "none";
-    
     const resumeBtn = document.getElementById("resume-btn");
     if (resumeBtn) resumeBtn.remove();
 
     const levelStories = (typeof STORIES !== 'undefined' && STORIES[currentLevel]) ? STORIES[currentLevel] : [];
-    
     if (levelStories.length === 0) {
         contentEl.innerHTML = `<p style="color: #64748b; text-align: center; margin-top: 20px;">No books here yet.</p>`;
         return;
@@ -68,16 +59,12 @@ function renderChaptersList(book, bookIndex) {
     contentEl.innerHTML = "";
     if (typeof stopFullStory === 'function') stopFullStory();
     document.getElementById("audio-player").style.display = "none";
-    
     const backBtn = document.createElement("button");
-    backBtn.className = "btn-back";
-    backBtn.textContent = "← Back to Books";
-    backBtn.dataset.action = "back-to-books";
+    backBtn.className = "btn-back"; backBtn.textContent = "← Back to Books"; backBtn.dataset.action = "back-to-books";
     contentEl.appendChild(backBtn);
 
     const title = document.createElement("h2");
-    title.style.margin = "10px 0 20px 0";
-    title.textContent = book.title;
+    title.style.margin = "10px 0 20px 0"; title.textContent = book.title;
     contentEl.appendChild(title);
 
     book.chapters.forEach((chapter, index) => {
@@ -85,10 +72,7 @@ function renderChaptersList(book, bookIndex) {
         item.className = "chapter-item";
         item.innerHTML = `<h3>${chapter.title}</h3>`;
         item.dataset.action = "open-chapter";
-        item._chapterData = chapter;
-        item._bookData = book;
-        item._bookIndex = bookIndex;
-        item._chapterIndex = index;
+        item._chapterData = chapter; item._bookData = book; item._bookIndex = bookIndex; item._chapterIndex = index;
         contentEl.appendChild(item);
     });
 }
@@ -98,23 +82,17 @@ function renderChapterContent(book, chapter, bookIndex, chapterIndex) {
     saveProgress(currentLevel, bookIndex, chapterIndex);
 
     const backBtn = document.createElement("button");
-    backBtn.className = "btn-back";
-    backBtn.textContent = "← Chapters List";
-    backBtn.dataset.action = "back-to-chapters";
-    backBtn._bookData = book;
-    backBtn._bookIndex = bookIndex;
+    backBtn.className = "btn-back"; backBtn.textContent = "← Chapters List"; backBtn.dataset.action = "back-to-chapters";
+    backBtn._bookData = book; backBtn._bookIndex = bookIndex;
     contentEl.appendChild(backBtn);
 
     const title = document.createElement("h2");
-    title.style.marginBottom = "5px";
-    title.style.color = "#4f46e5";
-    title.textContent = chapter.title;
+    title.style.marginBottom = "5px"; title.style.color = "#4f46e5"; title.textContent = chapter.title;
     contentEl.appendChild(title);
 
     if (chapter.pinyin || chapter.translation) {
         const sub = document.createElement("p");
-        sub.style.color = "#64748b";
-        sub.style.marginBottom = "30px";
+        sub.style.color = "#64748b"; sub.style.marginBottom = "30px";
         sub.textContent = `${chapter.pinyin || ''} — ${chapter.translation || ''}`;
         contentEl.appendChild(sub);
     }
@@ -122,73 +100,51 @@ function renderChapterContent(book, chapter, bookIndex, chapterIndex) {
     chapter.sentences.forEach(s => {
         const block = document.createElement("div");
         block.className = "sentence-block";
-
         const line = document.createElement("div");
         line.className = "sentence-line";
         
         s.words.forEach(w => {
             const container = document.createElement("span");
             container.className = "word-container";
-            
             const charSpan = document.createElement("span");
-            charSpan.className = "word";
-            charSpan.textContent = w.w;
-            if (w.p && w.e) {
-                charSpan.dataset.pinyin = w.p;
-                charSpan.dataset.meaning = w.e;
-            }
+            charSpan.className = "word"; charSpan.textContent = w.w;
+            if (w.p && w.e) { charSpan.dataset.pinyin = w.p; charSpan.dataset.meaning = w.e; }
             container.appendChild(charSpan);
-
             if (w.p && w.e) {
                 const pinyinSpan = document.createElement("span");
-                pinyinSpan.className = "pinyin-text";
-                pinyinSpan.textContent = w.p;
+                pinyinSpan.className = "pinyin-text"; pinyinSpan.textContent = w.p;
                 container.appendChild(pinyinSpan);
             }
-
             line.appendChild(container);
         });
 
         block.appendChild(line);
-
         const translation = document.createElement("span");
-        translation.className = "sentence-translation";
-        translation.textContent = s.en;
+        translation.className = "sentence-translation"; translation.textContent = s.en;
         block.appendChild(translation);
-
         contentEl.appendChild(block);
     });
 
     if (typeof prepareStoryAudio === 'function') prepareStoryAudio();
 }
 
-// ==========================================
 // 4. TOOLTIP & AUDIO
-// ==========================================
 function getTone(pinyin) {
     if (!pinyin) return 5; 
-    const numMatch = pinyin.match(/[1-4]/);
-    if (numMatch) return parseInt(numMatch[0]);
-    if (/[āēīōūǖĀĒĪŌŪǕ]/.test(pinyin)) return 1;
-    if (/[áéíóúǘÁÉÍÓÚǗ]/.test(pinyin)) return 2;
-    if (/[ǎěǐǒǔǚǍĚǏǑǓǙ]/.test(pinyin)) return 3;
-    if (/[àèìòùǜÀÈÌÒÙǛ]/.test(pinyin)) return 4;
+    const numMatch = pinyin.match(/[1-4]/); if (numMatch) return parseInt(numMatch[0]);
+    if (/[āēīōūǖĀĒĪŌŪǕ]/.test(pinyin)) return 1; if (/[áéíóúǘÁÉÍÓÚǗ]/.test(pinyin)) return 2;
+    if (/[ǎěǐǒǔǚǍĚǏǑǓǙ]/.test(pinyin)) return 3; if (/[àèìòùǜÀÈÌÒÙǛ]/.test(pinyin)) return 4;
     return 5;
 }
 
 function showTooltip(wordEl) {
     let pinyinHtml = "";
     const text = wordEl.textContent;
-    
     if (window.pinyinPro) {
         const pinyinArray = pinyinPro.pinyin(text, { type: 'array', toneType: 'symbol' });
-        pinyinHtml = pinyinArray.map(py => {
-            const tone = getTone(py);
-            return `<span class="tone-${tone}">${py}</span>`;
-        }).join(" ");
+        pinyinHtml = pinyinArray.map(py => `<span class="tone-${getTone(py)}">${py}</span>`).join(" ");
     } else {
-        const tone = getTone(wordEl.dataset.pinyin);
-        pinyinHtml = `<span class="tone-${tone}">${wordEl.dataset.pinyin}</span>`;
+        pinyinHtml = `<span class="tone-${getTone(wordEl.dataset.pinyin)}">${wordEl.dataset.pinyin}</span>`;
     }
 
     tooltipEl.innerHTML = `
@@ -197,22 +153,15 @@ function showTooltip(wordEl) {
                 <span class="pinyin" style="display:flex; gap:4px; justify-content:center;">${pinyinHtml}</span>
                 <span>${wordEl.dataset.meaning}</span>
             </div>
-            <button class="btn-save-flashcard" 
-                data-char="${text}" 
-                data-pinyin="${wordEl.dataset.pinyin}" 
-                data-meaning="${wordEl.dataset.meaning}" 
-                title="Save to Flashcards">+</button>
+            <button class="btn-save-flashcard" data-char="${text}" data-pinyin="${wordEl.dataset.pinyin}" data-meaning="${wordEl.dataset.meaning}" title="Save to Flashcards">+</button>
         </div>
     `;
-    
     tooltipEl.style.display = "block";
     const rect = wordEl.getBoundingClientRect();
     tooltipEl.style.left = `${rect.left + window.scrollX + (rect.width / 2) - (tooltipEl.offsetWidth / 2)}px`;
     tooltipEl.style.top = `${rect.top + window.scrollY - tooltipEl.offsetHeight - 8}px`;
-    
     if (activeWord) activeWord.classList.remove("active");
-    activeWord = wordEl;
-    wordEl.classList.add("active");
+    activeWord = wordEl; wordEl.classList.add("active");
 }
 
 function hideTooltip() {
@@ -223,12 +172,7 @@ function hideTooltip() {
 const audioCache = new Map();
 async function playAudio(text) {
     if (typeof stopFullStory === 'function') stopFullStory(); 
-    
-    if (audioCache.has(text)) {
-        const cachedUrl = audioCache.get(text);
-        new Audio(cachedUrl).play();
-        return;
-    }
+    if (audioCache.has(text)) { new Audio(audioCache.get(text)).play(); return; }
     try {
         const tts = new EdgeTTS();
         const audioBlob = await tts.synthesize({ text: text, voice: 'zh-CN-XiaoxiaoNeural', rate: '-10%' });
@@ -239,28 +183,20 @@ async function playAudio(text) {
         console.error("TTS failed", error);
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'zh-CN';
-        window.speechSynthesis.speak(utterance);
+        utterance.lang = 'zh-CN'; window.speechSynthesis.speak(utterance);
     }
 }
 
-// ==========================================
 // 5. EVENT DELEGATION
-// ==========================================
 contentEl.addEventListener("click", (event) => {
     const wordEl = event.target.closest(".word");
     if (wordEl) {
-        event.stopPropagation(); 
-        showTooltip(wordEl);
+        event.stopPropagation(); showTooltip(wordEl);
         if (wordEl.dataset.pinyin) playAudio(wordEl.textContent);
         return;
     }
-
     const sentenceBlock = event.target.closest(".sentence-block");
-    if (sentenceBlock) {
-        sentenceBlock.classList.toggle("show-translation");
-        return;
-    }
+    if (sentenceBlock) { sentenceBlock.classList.toggle("show-translation"); return; }
 
     const actionTarget = event.target.closest("[data-action]");
     if (actionTarget) {
@@ -273,33 +209,21 @@ contentEl.addEventListener("click", (event) => {
 });
 
 document.addEventListener("click", (event) => {
-    if (!event.target.closest("#story-container") && !event.target.closest(".tooltip")) {
-        hideTooltip();
-    }
-
+    if (!event.target.closest("#story-container") && !event.target.closest(".tooltip")) hideTooltip();
     if (event.target.classList.contains("btn-save-flashcard")) {
         const btn = event.target;
         saveFlashcard(btn.dataset.char, btn.dataset.pinyin, btn.dataset.meaning);
-        btn.textContent = "✓";
-        setTimeout(() => { btn.textContent = "+"; }, 1000);
+        btn.textContent = "✓"; setTimeout(() => { btn.textContent = "+"; }, 1000);
     }
-
     const card = event.target.closest(".flashcard");
     if (card) card.classList.toggle("flipped");
 });
-
 window.addEventListener("resize", hideTooltip);
 
-// ==========================================
-// 6. PROGRESS SAVING LOGIC
-// ==========================================
-function saveProgress(level, bookIndex, chapterIndex) {
-    localStorage.setItem("hskProgress", JSON.stringify({ level, bookIndex, chapterIndex }));
-}
-
+// 6. PROGRESS SAVING
+function saveProgress(level, bookIndex, chapterIndex) { localStorage.setItem("hskProgress", JSON.stringify({ level, bookIndex, chapterIndex })); }
 function checkForProgress() {
-    const saved = localStorage.getItem("hskProgress");
-    if (!saved) return;
+    const saved = localStorage.getItem("hskProgress"); if (!saved) return;
     try {
         const progress = JSON.parse(saved);
         if (STORIES[progress.level] && STORIES[progress.level][progress.bookIndex]) {
@@ -308,24 +232,16 @@ function checkForProgress() {
             if (chapter) {
                 const resumeBtn = document.createElement("div");
                 resumeBtn.className = "resume-banner";
-                resumeBtn.innerHTML = `
-                    <span>👋 Welcome back! You were reading <b>${chapter.title}</b>.</span>
-                    <button class="btn-resume">Continue</button>
-                `;
+                resumeBtn.innerHTML = `<span>👋 Welcome back! You were reading <b>${chapter.title}</b>.</span><button class="btn-resume">Continue</button>`;
                 contentEl.prepend(resumeBtn);
-                resumeBtn.querySelector("button").addEventListener("click", () => {
-                    renderChapterContent(book, chapter, progress.bookIndex, progress.chapterIndex);
-                });
+                resumeBtn.querySelector("button").addEventListener("click", () => renderChapterContent(book, chapter, progress.bookIndex, progress.chapterIndex));
             }
         }
     } catch (e) { console.error(e); }
 }
 
-// ==========================================
-// 7. FLASHCARD LOGIC
-// ==========================================
+// 7. FLASHCARDS
 function getFlashcards() { return JSON.parse(localStorage.getItem("hskFlashcards")) || []; }
-
 function saveFlashcard(char, pinyin, meaning) {
     const cards = getFlashcards();
     if (!cards.some(c => c.char === char)) {
@@ -334,50 +250,24 @@ function saveFlashcard(char, pinyin, meaning) {
         renderFlashcards();
     }
 }
-
 function renderFlashcards() {
     const cards = getFlashcards();
     flashcardContainer.innerHTML = "";
-    
-    if (cards.length === 0) {
-        flashcardContainer.innerHTML = `<p style="color: var(--text-light); font-size: 14px;">No flashcards saved yet. Click a word and press "+" to save it!</p>`;
-        return;
-    }
-
+    if (cards.length === 0) { flashcardContainer.innerHTML = `<p style="color: var(--text-light); font-size: 14px;">No flashcards saved yet. Click a word and press "+" to save it!</p>`; return; }
     cards.forEach(card => {
         const cardEl = document.createElement("div");
         cardEl.className = "flashcard";
-        cardEl.innerHTML = `
-            <div class="flashcard-inner">
-                <div class="flashcard-front">
-                    <span>${card.char}</span>
-                    <span class="pinyin">${card.pinyin}</span>
-                </div>
-                <div class="flashcard-back">
-                    <span>${card.meaning}</span>
-                </div>
-            </div>
-        `;
+        cardEl.innerHTML = `<div class="flashcard-inner"><div class="flashcard-front"><span>${card.char}</span><span class="pinyin">${card.pinyin}</span></div><div class="flashcard-back"><span>${card.meaning}</span></div></div>`;
         flashcardContainer.appendChild(cardEl);
     });
 }
-
 clearFlashcardsBtn.addEventListener("click", () => {
-    if(confirm("Are you sure you want to clear all your flashcards?")) {
-        localStorage.removeItem("hskFlashcards");
-        renderFlashcards();
-    }
+    if(confirm("Are you sure you want to clear all your flashcards?")) { localStorage.removeItem("hskFlashcards"); renderFlashcards(); }
 });
 
-// ==========================================
-// 8. FULL STORY AUDIO PLAYER
-// ==========================================
-let fullStoryUtterance = null;
-let fullStoryText = "";
-let charMap = []; 
-let isPlayingFullStory = false;
-let isPaused = false;
-
+// 8. FULL STORY AUDIO
+let fullStoryUtterance = null; let fullStoryText = ""; let charMap = []; 
+let isPlayingFullStory = false; let isPaused = false;
 const playerPanel = document.getElementById("audio-player");
 const btnPlayPause = document.getElementById("btn-play-pause");
 const btnStop = document.getElementById("btn-stop");
@@ -387,243 +277,117 @@ const speedLabel = document.getElementById("speed-label");
 function prepareStoryAudio() {
     stopFullStory();
     const wordEls = document.querySelectorAll(".word-container .word");
-    if (wordEls.length === 0) {
-        playerPanel.style.display = "none";
-        return;
-    }
-
-    playerPanel.style.display = "flex";
-    playerPanel.style.flexWrap = "wrap";
-    playerPanel.style.gap = "10px";
-
-    fullStoryText = "";
-    charMap = [];
-    let currentIndex = 0;
-
+    if (wordEls.length === 0) { playerPanel.style.display = "none"; return; }
+    playerPanel.style.display = "flex"; playerPanel.style.flexWrap = "wrap"; playerPanel.style.gap = "10px";
+    fullStoryText = ""; charMap = []; let currentIndex = 0;
     wordEls.forEach(el => {
         const text = el.textContent;
-        charMap.push({
-            start: currentIndex,
-            end: currentIndex + text.length - 1,
-            element: el.parentElement
-        });
-        fullStoryText += text;
-        currentIndex += text.length;
+        charMap.push({ start: currentIndex, end: currentIndex + text.length - 1, element: el.parentElement });
+        fullStoryText += text; currentIndex += text.length;
     });
 }
-
 function playFullStory() {
-    if (isPaused) {
-        window.speechSynthesis.resume();
-        isPaused = false;
-        btnPlayPause.textContent = "⏸️ Pause";
-        return;
-    }
-
+    if (isPaused) { window.speechSynthesis.resume(); isPaused = false; btnPlayPause.textContent = "⏸️ Pause"; return; }
     window.speechSynthesis.cancel(); 
-    
     fullStoryUtterance = new SpeechSynthesisUtterance(fullStoryText);
-    fullStoryUtterance.lang = "zh-CN";
-    fullStoryUtterance.rate = parseFloat(speedSlider.value);
-
+    fullStoryUtterance.lang = "zh-CN"; fullStoryUtterance.rate = parseFloat(speedSlider.value);
     const voices = window.speechSynthesis.getVoices();
     const zhVoice = voices.find(v => v.lang.includes('zh-CN') || v.lang.includes('zh_CN'));
     if (zhVoice) fullStoryUtterance.voice = zhVoice;
-
     fullStoryUtterance.onboundary = (event) => {
         if (event.name === 'word' || event.name === 'sentence') {
             const charIndex = event.charIndex;
             document.querySelectorAll('.reading-highlight').forEach(el => el.classList.remove('reading-highlight'));
             const currentMap = charMap.find(map => charIndex >= map.start && charIndex <= map.end);
-            if (currentMap && currentMap.element) {
-                currentMap.element.classList.add('reading-highlight');
-            }
+            if (currentMap && currentMap.element) currentMap.element.classList.add('reading-highlight');
         }
     };
-
-    fullStoryUtterance.onend = resetPlayerUI;
-    fullStoryUtterance.onerror = resetPlayerUI;
-
+    fullStoryUtterance.onend = resetPlayerUI; fullStoryUtterance.onerror = resetPlayerUI;
     window.speechSynthesis.speak(fullStoryUtterance);
-    isPlayingFullStory = true;
-    btnPlayPause.textContent = "⏸️ Pause";
+    isPlayingFullStory = true; btnPlayPause.textContent = "⏸️ Pause";
 }
-
-function pauseFullStory() {
-    if (window.speechSynthesis.speaking) {
-        window.speechSynthesis.pause();
-        isPaused = true;
-        btnPlayPause.textContent = "▶️ Resume";
-    }
-}
-
-function stopFullStory() {
-    window.speechSynthesis.cancel();
-    resetPlayerUI();
-}
-
-function resetPlayerUI() {
-    isPlayingFullStory = false;
-    isPaused = false;
-    btnPlayPause.textContent = "▶️ Play";
-    document.querySelectorAll('.reading-highlight').forEach(el => el.classList.remove('reading-highlight'));
-}
-
-btnPlayPause.addEventListener("click", () => {
-    if (isPlayingFullStory) pauseFullStory();
-    else playFullStory();
-});
-
+function pauseFullStory() { if (window.speechSynthesis.speaking) { window.speechSynthesis.pause(); isPaused = true; btnPlayPause.textContent = "▶️ Resume"; } }
+function stopFullStory() { window.speechSynthesis.cancel(); resetPlayerUI(); }
+function resetPlayerUI() { isPlayingFullStory = false; isPaused = false; btnPlayPause.textContent = "▶️ Play"; document.querySelectorAll('.reading-highlight').forEach(el => el.classList.remove('reading-highlight')); }
+btnPlayPause.addEventListener("click", () => { if (isPlayingFullStory) pauseFullStory(); else playFullStory(); });
 btnStop.addEventListener("click", stopFullStory);
+speedSlider.addEventListener("input", (e) => { speedLabel.textContent = `${e.target.value}x`; if (isPlayingFullStory && !isPaused) { stopFullStory(); playFullStory(); } });
 
-speedSlider.addEventListener("input", (e) => {
-    speedLabel.textContent = `${e.target.value}x`;
-    if (isPlayingFullStory && !isPaused) {
-        stopFullStory();
-        playFullStory();
-    }
-});
-
-// ==========================================
 // 9. START APP & TOGGLES
-// ==========================================
 window.onload = () => { 
-    if(typeof STORIES !== 'undefined') {
-        renderStoriesList(); 
-        checkForProgress();
-        renderFlashcards();
-    } else {
-        contentEl.innerHTML = "<p style='color: red;'>Error: stories.js not found.</p>";
-    }
+    if(typeof STORIES !== 'undefined') { renderStoriesList(); checkForProgress(); renderFlashcards(); } 
+    else { contentEl.innerHTML = "<p style='color: red;'>Error: stories.js not found.</p>"; }
 
-    // === ВОЗВРАЩАЕМ АНИМАЦИЮ ЗАГОЛОВКА ===
     const titleEl = document.querySelector('header h1');
     if (titleEl) {
         const text = titleEl.textContent.trim();
-        titleEl.innerHTML = text.split('').map(char => {
-            return `<span class="title-letter">${char === ' ' ? '&nbsp;' : char}</span>`;
-        }).join('');
+        titleEl.innerHTML = text.split('').map(char => `<span class="title-letter">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
     }
 };
 
 const pinyinToggle = document.getElementById("pinyin-toggle");
-if (pinyinToggle) {
-    pinyinToggle.addEventListener("change", (e) => {
-        document.body.classList.toggle("hide-pinyin-mode", e.target.checked);
-    });
-}
+if (pinyinToggle) { pinyinToggle.addEventListener("change", (e) => document.body.classList.toggle("hide-pinyin-mode", e.target.checked)); }
 
-// === НОВЫЙ КОД: Логика переключателя отступов ===
 const spacingToggle = document.getElementById("spacing-toggle");
 if (spacingToggle) {
-    // Проверяем, не включал ли пользователь этот режим раньше
-    if (localStorage.getItem("textSpacing") === "compact") {
-        document.body.classList.add("tight-text");
-        spacingToggle.checked = true;
-    }
-
+    if (localStorage.getItem("textSpacing") === "compact") { document.body.classList.add("tight-text"); spacingToggle.checked = true; }
     spacingToggle.addEventListener("change", (e) => {
         document.body.classList.toggle("tight-text", e.target.checked);
-        
-        // Сохраняем выбор в память браузера
-        if (e.target.checked) {
-            localStorage.setItem("textSpacing", "compact");
-        } else {
-            localStorage.setItem("textSpacing", "normal");
-        }
+        localStorage.setItem("textSpacing", e.target.checked ? "compact" : "normal");
     });
 }
-// ================================================
 
-// ==========================================
-// 10. INTERACTIVE ANIMATIONS
-// ==========================================
+const themeToggle = document.getElementById("theme-toggle");
+if (themeToggle) {
+    if (localStorage.getItem("theme") === "dark") { document.body.classList.add("dark-mode"); themeToggle.textContent = "☀️ Light Mode"; }
+    themeToggle.addEventListener("click", function(e) {
+        e.preventDefault(); document.body.classList.toggle("dark-mode");
+        if (document.body.classList.contains("dark-mode")) { themeToggle.textContent = "☀️ Light Mode"; localStorage.setItem("theme", "dark"); } 
+        else { themeToggle.textContent = "🌙 Dark Mode"; localStorage.setItem("theme", "light"); }
+    });
+}
 
-// Магнитный эффект для заголовка и кнопок
+// 10. ANIMATIONS
 document.addEventListener('mousemove', (e) => {
     const titleLetters = document.querySelectorAll('.title-letter');
     titleLetters.forEach(letter => {
-        const rect = letter.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const distX = centerX - e.clientX;
-        const distY = centerY - e.clientY;
-        const distance = Math.sqrt(distX * distX + distY * distY);
-        
-        if (distance < 100) {
-            const lift = (1 - (distance / 100)) * 15; 
-            letter.style.transform = `translateY(-${lift}px)`;
-        } else {
-            letter.style.transform = `translateY(0px)`;
-        }
+        const rect = letter.getBoundingClientRect(); const centerX = rect.left + rect.width / 2; const centerY = rect.top + rect.height / 2;
+        const distX = centerX - e.clientX; const distY = centerY - e.clientY; const distance = Math.sqrt(distX * distX + distY * distY);
+        if (distance < 100) { const lift = (1 - (distance / 100)) * 15; letter.style.transform = `translateY(-${lift}px)`; } 
+        else { letter.style.transform = `translateY(0px)`; }
     });
 
-    const magneticElements = document.querySelectorAll(
-        '.btn-back, .btn-theme, .story-item, .chapter-item, .player-btn, .switch, .toggle-label'
-    );
-    
+    const magneticElements = document.querySelectorAll('.btn-back, .btn-theme, .story-item, .chapter-item, .player-btn, .switch, .toggle-label');
     magneticElements.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const distX = centerX - e.clientX;
-        const distY = centerY - e.clientY;
-        const distance = Math.sqrt(distX*distX + distY*distY);
-        
+        const rect = el.getBoundingClientRect(); const centerX = rect.left + rect.width / 2; const centerY = rect.top + rect.height / 2;
+        const distX = centerX - e.clientX; const distY = centerY - e.clientY; const distance = Math.sqrt(distX*distX + distY*distY);
         if (distance < 100) {
-            const moveX = (distX / 100) * 8;
-            const moveY = (distY / 100) * 8;
-            el.style.transform = `translate(${moveX}px, ${moveY}px)`;
-            el.style.transition = 'transform 0.1s ease-out';
-        } else {
-            el.style.transform = `translate(0px, 0px)`;
-            el.style.transition = 'transform 0.3s ease-out';
-        }
+            const moveX = (distX / 100) * 8; const moveY = (distY / 100) * 8;
+            el.style.transform = `translate(${moveX}px, ${moveY}px)`; el.style.transition = 'transform 0.1s ease-out';
+        } else { el.style.transform = `translate(0px, 0px)`; el.style.transition = 'transform 0.3s ease-out'; }
     });
 });
 
-// Эффект разлетающихся капель (Water Splash)
 document.addEventListener('click', function(e) {
     const target = e.target.closest('button, .story-item, .chapter-item, .tab, .flashcard, .switch');
     if (!target) return;
-
     const computedStyle = getComputedStyle(target);
     const tabColor = computedStyle.getPropertyValue('--tab-color').trim();
     const splashColor = tabColor || 'var(--primary)';
-
     const splashContainer = document.createElement('div');
-    splashContainer.style.position = 'absolute';
-    splashContainer.style.left = `${e.pageX}px`;
-    splashContainer.style.top = `${e.pageY}px`;
-    splashContainer.style.pointerEvents = 'none';
-    splashContainer.style.zIndex = '99999';
-    document.body.appendChild(splashContainer);
+    splashContainer.style.position = 'absolute'; splashContainer.style.left = `${e.pageX}px`; splashContainer.style.top = `${e.pageY}px`;
+    splashContainer.style.pointerEvents = 'none'; splashContainer.style.zIndex = '99999'; document.body.appendChild(splashContainer);
 
     for (let i = 0; i < 12; i++) {
-        const splash = document.createElement('span');
-        splash.className = 'water-splash';
-        
-        splash.style.left = '0px';
-        splash.style.top = '0px';
-        
-        const size = 10 + Math.random() * 10;
-        splash.style.width = `${size}px`;
-        splash.style.height = `${size}px`;
-
+        const splash = document.createElement('span'); splash.className = 'water-splash';
+        splash.style.left = '0px'; splash.style.top = '0px';
+        const size = 10 + Math.random() * 10; splash.style.width = `${size}px`; splash.style.height = `${size}px`;
         splash.style.background = `radial-gradient(circle at 30% 30%, rgba(255,255,255,1), ${splashColor} 80%)`;
         splash.style.borderColor = splashColor;
-
-        const angle = Math.random() * Math.PI * 2; 
-        const distance = 20 + Math.random() * 40; 
-        
-        splash.style.setProperty('--tx', `${Math.cos(angle) * distance}px`);
-        splash.style.setProperty('--ty', `${Math.sin(angle) * distance}px`);
-
-        const delay = Math.random() * 0.1; 
-        splash.style.animationDelay = `${delay}s`;
-
+        const angle = Math.random() * Math.PI * 2; const distance = 20 + Math.random() * 40; 
+        splash.style.setProperty('--tx', `${Math.cos(angle) * distance}px`); splash.style.setProperty('--ty', `${Math.sin(angle) * distance}px`);
+        const delay = Math.random() * 0.1; splash.style.animationDelay = `${delay}s`;
         splashContainer.appendChild(splash);
     }
-
     setTimeout(() => splashContainer.remove(), 1200);
 });
