@@ -93,8 +93,7 @@ function renderChaptersList(book, bookIndex) {
         item._chapterIndex = index;
         contentEl.appendChild(item);
     });
-}
-
+} // <--- ВОТ ЭТА СКОБКА БЫЛА ПОТЕРЯНА В ВАШЕМ КОДЕ!
 function renderChapterContent(book, chapter, bookIndex, chapterIndex) {
     contentEl.innerHTML = "";
     saveProgress(currentLevel, bookIndex, chapterIndex);
