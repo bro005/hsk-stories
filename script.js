@@ -124,6 +124,7 @@ function renderChapterContent(book, chapter, bookIndex, chapterIndex) {
         block.className = "sentence-block";
 
         const line = document.createElement("div");
+        line.className = "sentence-line";
         
         s.words.forEach(w => {
             const container = document.createElement("span");
@@ -369,7 +370,7 @@ clearFlashcardsBtn.addEventListener("click", () => {
 });
 
 // ==========================================
-// 8. FULL STORY AUDIO PLAYER (Web Speech API)
+// 8. FULL STORY AUDIO PLAYER
 // ==========================================
 let fullStoryUtterance = null;
 let fullStoryText = "";
@@ -494,6 +495,15 @@ window.onload = () => {
     } else {
         contentEl.innerHTML = "<p style='color: red;'>Error: stories.js not found.</p>";
     }
+
+    // === ВОЗВРАЩАЕМ АНИМАЦИЮ ЗАГОЛОВКА ===
+    const titleEl = document.querySelector('header h1');
+    if (titleEl) {
+        const text = titleEl.textContent.trim();
+        titleEl.innerHTML = text.split('').map(char => {
+            return `<span class="title-letter">${char === ' ' ? '&nbsp;' : char}</span>`;
+        }).join('');
+    }
 };
 
 const pinyinToggle = document.getElementById("pinyin-toggle");
@@ -523,11 +533,28 @@ if (themeToggle) {
 }
 
 // ==========================================
-// 10. INTERACTIVE ANIMATIONS (Buttons & Splash)
+// 10. INTERACTIVE ANIMATIONS
 // ==========================================
 
-// Магнитный эффект для кнопок
+// Магнитный эффект для заголовка и кнопок
 document.addEventListener('mousemove', (e) => {
+    const titleLetters = document.querySelectorAll('.title-letter');
+    titleLetters.forEach(letter => {
+        const rect = letter.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const distX = centerX - e.clientX;
+        const distY = centerY - e.clientY;
+        const distance = Math.sqrt(distX * distX + distY * distY);
+        
+        if (distance < 100) {
+            const lift = (1 - (distance / 100)) * 15; 
+            letter.style.transform = `translateY(-${lift}px)`;
+        } else {
+            letter.style.transform = `translateY(0px)`;
+        }
+    });
+
     const magneticElements = document.querySelectorAll(
         '.btn-back, .btn-theme, .story-item, .chapter-item, .player-btn, .switch, .toggle-label'
     );
@@ -536,7 +563,6 @@ document.addEventListener('mousemove', (e) => {
         const rect = el.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
-        
         const distX = centerX - e.clientX;
         const distY = centerY - e.clientY;
         const distance = Math.sqrt(distX*distX + distY*distY);
@@ -553,7 +579,7 @@ document.addEventListener('mousemove', (e) => {
     });
 });
 
-// 3. Эффект разлетающихся капель (Water Splash)
+// Эффект разлетающихся капель (Water Splash)
 document.addEventListener('click', function(e) {
     const target = e.target.closest('button, .story-item, .chapter-item, .tab, .flashcard, .switch');
     if (!target) return;
