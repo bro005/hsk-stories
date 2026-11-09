@@ -585,38 +585,54 @@ document.addEventListener('mousemove', (e) => {
     });
 });
 
-// 3. Эффект капель (Ripple) - ВЫЛИВАЮТСЯ НАРУЖУ
+// ... (код с mousemove для заголовка и кнопок) ...
+
+// 3. Эффект капель воды (Water Drop) при клике
 document.addEventListener('click', function(e) {
     const target = e.target.closest('button, .story-item, .chapter-item, .tab, .flashcard, .switch');
     if (!target) return;
 
-    // УБРАНА СТРОЧКА overflow = 'hidden', чтобы капли вылетали!
+    // Убеждаемся, что у кнопки есть позиционирование
     target.style.position = 'relative';
 
-    const circle = document.createElement('span');
-    circle.classList.add('ripple');
+    // Получаем координаты клика ВНУТРИ кнопки
+    const rect = target.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
+    // Определяем цвет (для HSK вкладок берем их цвет, для остальных — первичный)
     const computedStyle = getComputedStyle(target);
     const tabColor = computedStyle.getPropertyValue('--tab-color').trim();
     
+    // 1. Создаем главную каплю
+    const drop = document.createElement('span');
+    drop.className = 'water-drop';
+    drop.style.left = `${x}px`;
+    drop.style.top = `${y}px`;
+    
     if (tabColor) {
-        circle.style.backgroundColor = tabColor;
-        circle.style.opacity = '0.6'; 
-    } else {
-        circle.style.backgroundColor = 'var(--primary)'; 
-        circle.style.opacity = '0.5';
+        drop.style.background = `linear-gradient(135deg, ${tabColor}, rgba(255,255,255,0.2))`;
+    }
+    target.appendChild(drop);
+
+    // 2. Создаем 4 маленькие брызги
+    for (let i = 0; i < 4; i++) {
+        const splash = document.createElement('span');
+        splash.className = 'water-splash';
+        splash.style.left = `${x}px`;
+        splash.style.top = `${y}px`;
+        
+        if (tabColor) splash.style.background = tabColor;
+
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 20 + Math.random() * 30;
+        
+        splash.style.setProperty('--tx', `${Math.cos(angle) * distance}px`);
+        splash.style.setProperty('--ty', `${Math.sin(angle) * distance}px`);
+
+        target.appendChild(splash);
+        setTimeout(() => splash.remove(), 600);
     }
 
-    const diameter = Math.max(target.clientWidth, target.clientHeight);
-    const radius = diameter / 2;
-
-    circle.style.width = circle.style.height = `${diameter}px`;
-    
-    const rect = target.getBoundingClientRect();
-    circle.style.left = `${e.clientX - rect.left - radius}px`;
-    circle.style.top = `${e.clientY - rect.top - radius}px`;
-
-    target.appendChild(circle);
-
-    setTimeout(() => circle.remove(), 800);
-});
+    setTimeout(() => drop.remove(), 800);
+}); // <--- ВОТ ЭТА СКОБКА ЗАКРЫВАЕТ ФАЙЛ
