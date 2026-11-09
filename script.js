@@ -524,3 +524,54 @@ if (themeToggle) {
         }
     });
 }
+// ==========================================
+// 10. INTERACTIVE ANIMATIONS (Magnetic & Ripple)
+// ==========================================
+
+// Магнитный эффект (движение в противоположную сторону от курсора)
+document.addEventListener('mousemove', (e) => {
+    const magneticElements = document.querySelectorAll('.btn-back, .btn-theme, .story-item, .chapter-item, .player-btn');
+    
+    magneticElements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        const distX = centerX - e.clientX;
+        const distY = centerY - e.clientY;
+        const distance = Math.sqrt(distX*distX + distY*distY);
+        
+        if (distance < 100) {
+            const moveX = (distX / 100) * 8;
+            const moveY = (distY / 100) * 8;
+            el.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            el.style.transition = 'transform 0.1s ease-out';
+        } else {
+            el.style.transform = `translate(0px, 0px)`;
+            el.style.transition = 'transform 0.3s ease-out';
+        }
+    });
+});
+
+// Эффект брызг при клике (Ripple)
+document.addEventListener('click', function(e) {
+    const target = e.target.closest('button, .story-item, .chapter-item, .tab, .flashcard');
+    if (!target) return;
+
+    target.style.position = 'relative';
+    target.style.overflow = 'hidden';
+
+    const circle = document.createElement('span');
+    circle.classList.add('ripple');
+
+    const diameter = Math.max(target.clientWidth, target.clientHeight);
+    const radius = diameter / 2;
+
+    circle.style.width = circle.style.height = `${diameter}px`;
+    circle.style.left = `${e.clientX - target.getBoundingClientRect().left - radius}px`;
+    circle.style.top = `${e.clientY - target.getBoundingClientRect().top - radius}px`;
+
+    target.appendChild(circle);
+
+    setTimeout(() => circle.remove(), 600);
+});
