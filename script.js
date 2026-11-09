@@ -524,12 +524,45 @@ if (themeToggle) {
     });
 }
 // ==========================================
-// 10. INTERACTIVE ANIMATIONS (Magnetic & Ripple)
+// 10. INTERACTIVE ANIMATIONS (Title, Magnetic, Ripple)
 // ==========================================
 
+// 1. Разбиваем заголовок на отдельные буквы для эффекта
+const titleEl = document.querySelector('header h1');
+if (titleEl) {
+    const text = titleEl.innerText;
+    // Разбиваем текст на символы, сохраняем пробелы
+    titleEl.innerHTML = text.split('').map(char => {
+        return `<span class="title-letter">${char === ' ' ? '&nbsp;' : char}</span>`;
+    }).join('');
+}
+const titleLetters = document.querySelectorAll('.title-letter');
+
+// 2. Единый обработчик движения мыши (для заголовка и кнопок)
 document.addEventListener('mousemove', (e) => {
-    const magneticElements = document.querySelectorAll('.btn-back, .btn-theme, .story-item, .chapter-item, .player-btn');
     
+    // --- Эффект для заголовка (буквы тянутся вверх) ---
+    titleLetters.forEach(letter => {
+        const rect = letter.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        // Вычисляем расстояние от курсора до центра буквы
+        const distX = centerX - e.clientX;
+        const distY = centerY - e.clientY;
+        const distance = Math.sqrt(distX * distX + distY * distY);
+        
+        // Если курсор близко (в радиусе 100px), буква поднимается вверх
+        if (distance < 100) {
+            const lift = (1 - (distance / 100)) * 15; // Максимальный подъем 15px
+            letter.style.transform = `translateY(-${lift}px)`;
+        } else {
+            letter.style.transform = `translateY(0px)`;
+        }
+    });
+
+    // --- Магнитный эффект для кнопок и карточек (отталкивание) ---
+    const magneticElements = document.querySelectorAll('.btn-back, .btn-theme, .story-item, .chapter-item, .player-btn');
     magneticElements.forEach(el => {
         const rect = el.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
@@ -551,24 +584,49 @@ document.addEventListener('mousemove', (e) => {
     });
 });
 
+// 3. Исправленный эффект капель (Ripple) при клике
 document.addEventListener('click', function(e) {
+    // Ищем ближайший кликабельный элемент
     const target = e.target.closest('button, .story-item, .chapter-item, .tab, .flashcard');
     if (!target) return;
 
+    // Обязательно делаем элемент контейнером для позиционирования
     target.style.position = 'relative';
     target.style.overflow = 'hidden';
 
     const circle = document.createElement('span');
     circle.classList.add('ripple');
 
+    // Определяем цвет капли: для вкладок HSK берем их цвет, для остальных — белый
+    const computedStyle = getComputedStyle(target);
+    const tabColor = computedStyle.getPropertyValue('--tab-color').trim();
+    
+    if (tabColor) {
+        // Если это вкладка HSK (у которой есть свой цвет), используем его
+        circle.style.backgroundColor = tabColor;
+        circle.style.opacity = '0.4'; // Делаем полупрозрачным, чтобы было видно текст
+    } else {
+        // Для остальных кнопок (Play, Back и т.д.) используем белый
+        circle.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
+    }
+
+    // Вычисляем размер капли
     const diameter = Math.max(target.clientWidth, target.clientHeight);
     const radius = diameter / 2;
 
     circle.style.width = circle.style.height = `${diameter}px`;
-    circle.style.left = `${e.clientX - target.getBoundingClientRect().left - radius}px`;
-    circle.style.top = `${e.clientY - target.getBoundingClientRect().top - radius}px`;
+    
+    // Позиционируем каплю точно в место клика
+    const rect = target.getBoundingClientRect();
+    circle.style.left = `${e.clientX - rect.left - radius}px`;
+    circle.style.top = `${e.clientY - rect.top - radius}px`;
+
+    // Удаляем старые капли, чтобы не было наслоения
+    const existingRipples = target.querySelectorAll('.ripple');
+    existingRipples.forEach(r => r.remove());
 
     target.appendChild(circle);
 
+    // Удаляем элемент из DOM после завершения анимации
     setTimeout(() => circle.remove(), 600);
 });
