@@ -346,3 +346,28 @@ if (pinyinToggle) {
         }
     });
 }
+// ==========================================
+// 8. DARK MODE TOGGLE
+// ==========================================
+const themeToggle = document.getElementById("theme-toggle");
+
+// Проверяем, не включал ли пользователь тёмную тему раньше
+if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark-mode");
+    if (themeToggle) themeToggle.textContent = "☀️ Light Mode";
+}
+
+if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+        
+        // Меняем текст на кнопке и сохраняем выбор в память
+        if (document.body.classList.contains("dark-mode")) {
+            themeToggle.textContent = "☀️ Light Mode";
+            localStorage.setItem("theme", "dark");
+        } else {
+            themeToggle.textContent = "🌙 Dark Mode";
+            localStorage.setItem("theme", "light");
+        }
+    });
+}
