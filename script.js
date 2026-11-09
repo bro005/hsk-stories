@@ -1,130 +1,208 @@
 // ==========================================
-// 1. DATA (You can paste your full STORIES data here later)
+// 1. DOM ELEMENTS & STATE
 // ==========================================
-const STORIES = {
-  1: [{
-    title: "My Father's Tea",
-    description: "A moving and warm story about a son studying in Beijing...",
-    chapters: [{
-      title: "Chapter 1: Letters from Beijing",
-      sentences: [{
-        en: "Today the weather in Beijing is very cold.",
-        words: [
-          { w: "今天", p: "jīntiān", e: "today" },
-          { w: "北京", p: "Běijīng", e: "Beijing" },
-          { w: "的", p: "de", e: "possessive" },
-          { w: "天气", p: "tiānqì", e: "weather" },
-          { w: "很", p: "hěn", e: "very" },
-          { w: "冷", p: "lěng", e: "cold" },
-          { w: "。", p: "", e: "" }
-        ]
-      }]
-    }]
-  }]
-};
-
-// ==========================================
-// 2. DOM ELEMENTS
-// ==========================================
-const storyContainer = document.getElementById("story-container");
+const tabsEl = document.getElementById("levels");
+const contentEl = document.getElementById("story-container");
 const tooltipEl = document.getElementById("tooltip");
+let currentLevel = 1;
 let activeWord = null;
 
 // ==========================================
-// 3. MODULAR FUNCTIONS
+// 2. INITIALIZATION (Tabs)
 // ==========================================
-function showPopup(wordEl) {
-    const pinyin = wordEl.dataset.pinyin;
-    const meaning = wordEl.dataset.meaning;
+for (let i = 1; i <= 6; i++) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = `tab ${i === 1 ? 'active' : ''}`;
+    btn.textContent = `HSK ${i}`;
+    btn.onclick = () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        btn.classList.add('active');
+        currentLevel = i;
+        renderStoriesList();
+    };
+    tabsEl.appendChild(btn);
+}
+
+// ==========================================
+// 3. RENDER FUNCTIONS
+// ==========================================
+function renderStoriesList() {
+    hideTooltip();
+    contentEl.innerHTML = "";
+    const levelStories = (typeof STORIES !== 'undefined' && STORIES[currentLevel]) ? STORIES[currentLevel] : [];
     
-    tooltipEl.innerHTML = `<span class="pinyin">${pinyin}</span><span>${meaning}</span>`;
+    if (levelStories.length === 0) {
+        contentEl.innerHTML = `<p style="color: #64748b; text-align: center; margin-top: 20px;">No books here yet.</p>`;
+        return;
+    }
+
+    levelStories.forEach((book) => {
+        const item = document.createElement("div");
+        item.className = "story-item";
+        item.innerHTML = `
+            <h3>📖 ${book.title}</h3>
+            <p style="font-size: 15px; color: #64748b; margin-top: 5px;">${book.description}</p>
+            <p style="font-size: 13px; color: #4f46e5; margin-top: 5px; font-weight: bold;">Chapters: ${book.chapters.length}</p>
+        `;
+        // We will handle this click via Event Delegation below
+        item.dataset.action = "open-book";
+        item.dataset.bookId = book.id || book.title; 
+        item._bookData = book; // Store book data for easy access
+        contentEl.appendChild(item);
+    });
+}
+
+function renderChaptersList(book) {
+    contentEl.innerHTML = "";
+    
+    const backBtn = document.createElement("button");
+    backBtn.className = "btn-back";
+    backBtn.textContent = "← Back to Books";
+    backBtn.dataset.action = "back-to-books";
+    contentEl.appendChild(backBtn);
+
+    const title = document.createElement("h2");
+    title.style.margin = "10px 0 20px 0";
+    title.textContent = book.title;
+    contentEl.appendChild(title);
+
+    book.chapters.forEach((chapter, index) => {
+        const item = document.createElement("div");
+        item.className = "chapter-item";
+        item.innerHTML = `<h3>${chapter.title}</h3>`;
+        item.dataset.action = "open-chapter";
+        item._chapterData = chapter;
+        item._bookData = book;
+        contentEl.appendChild(item);
+    });
+}
+
+function renderChapterContent(book, chapter) {
+    contentEl.innerHTML = "";
+    
+    const backBtn = document.createElement("button");
+    backBtn.className = "btn-back";
+    backBtn.textContent = "← Chapters List";
+    backBtn.dataset.action = "back-to-chapters";
+    backBtn._bookData = book;
+    contentEl.appendChild(backBtn);
+
+    const title = document.createElement("h2");
+    title.style.marginBottom = "5px";
+    title.style.color = "#4f46e5";
+    title.textContent = chapter.title;
+    contentEl.appendChild(title);
+
+    if (chapter.pinyin || chapter.translation) {
+        const sub = document.createElement("p");
+        sub.style.color = "#64748b";
+        sub.style.marginBottom = "30px";
+        sub.textContent = `${chapter.pinyin || ''} — ${chapter.translation || ''}`;
+        contentEl.appendChild(sub);
+    }
+
+    chapter.sentences.forEach(s => {
+        const block = document.createElement("div");
+        block.className = "sentence-block";
+
+        const line = document.createElement("div");
+        s.words.forEach(w => {
+            const span = document.createElement("span");
+            span.className = "word";
+            span.textContent = w.w;
+            if (w.p && w.e) {
+                span.dataset.pinyin = w.p;
+                span.dataset.meaning = w.e;
+            }
+            line.appendChild(span);
+        });
+
+        block.appendChild(line);
+
+        const translation = document.createElement("span");
+        translation.className = "sentence-translation";
+        translation.textContent = s.en;
+        block.appendChild(translation);
+
+        contentEl.appendChild(block);
+    });
+}
+
+// ==========================================
+// 4. TOOLTIP FUNCTIONS
+// ==========================================
+function showTooltip(wordEl) {
+    tooltipEl.innerHTML = `<span class="pinyin">${wordEl.dataset.pinyin}</span><span>${wordEl.dataset.meaning}</span>`;
     tooltipEl.style.display = "block";
-    
     const rect = wordEl.getBoundingClientRect();
     tooltipEl.style.left = `${rect.left + window.scrollX + (rect.width / 2) - (tooltipEl.offsetWidth / 2)}px`;
     tooltipEl.style.top = `${rect.top + window.scrollY - tooltipEl.offsetHeight - 8}px`;
-    
     if (activeWord) activeWord.classList.remove("active");
     activeWord = wordEl;
     wordEl.classList.add("active");
 }
 
-function hidePopup() {
+function hideTooltip() {
     tooltipEl.style.display = "none";
-    if (activeWord) {
-        activeWord.classList.remove("active");
-        activeWord = null;
-    }
-}
-
-function toggleTranslation(sentenceBlock) {
-    sentenceBlock.classList.toggle("show-translation");
-}
-
-function playAudio(text) {
-    // Placeholder for future audio feature!
-    console.log("Playing audio for:", text); 
+    if (activeWord) { activeWord.classList.remove("active"); activeWord = null; }
 }
 
 // ==========================================
-// 4. EVENT DELEGATION (The Magic Part)
+// 5. EVENT DELEGATION (The Master Listener)
 // ==========================================
-// We put ONE listener on the whole container. It catches clicks on everything inside.
-storyContainer.addEventListener("click", (event) => {
+contentEl.addEventListener("click", (event) => {
     
-    // Check if a Chinese word was clicked
+    // 1. Check if a Chinese word was clicked
     if (event.target.classList.contains("word")) {
-        showPopup(event.target);
-        playAudio(event.target.textContent); // Example of triggering multiple functions
-        return; // Stop here so it doesn't trigger the sentence click
+        event.stopPropagation(); 
+        showTooltip(event.target);
+        return;
     }
 
-    // Check if the empty space of a sentence block was clicked
+    // 2. Check if the empty space of a sentence was clicked
     const sentenceBlock = event.target.closest(".sentence-block");
     if (sentenceBlock) {
-        toggleTranslation(sentenceBlock);
+        sentenceBlock.classList.toggle("show-translation");
+        return;
+    }
+
+    // 3. Check if a navigation element (Book, Chapter, Back) was clicked
+    const actionTarget = event.target.closest("[data-action]");
+    if (actionTarget) {
+        const action = actionTarget.dataset.action;
+        
+        if (action === "open-book") {
+            renderChaptersList(actionTarget._bookData);
+        } 
+        else if (action === "open-chapter") {
+            renderChapterContent(actionTarget._bookData, actionTarget._chapterData);
+        } 
+        else if (action === "back-to-books") {
+            renderStoriesList();
+        } 
+        else if (action === "back-to-chapters") {
+            renderChaptersList(actionTarget._bookData);
+        }
     }
 });
 
-// Hide tooltip if user clicks anywhere else on the page
+// Hide tooltip when clicking outside
 document.addEventListener("click", (event) => {
     if (!event.target.closest("#story-container")) {
-        hidePopup();
+        hideTooltip();
     }
 });
 
-// ==========================================
-// 5. INITIALIZATION
-// ==========================================
-function init() {
-    // Here you would normally render your story list and chapters
-    // For this demo, we just render the sample sentence
-    const sampleSentence = STORIES[1][0].chapters[0].sentences[0];
-    
-    const block = document.createElement("div");
-    block.className = "sentence-block";
-    
-    const line = document.createElement("div");
-    sampleSentence.words.forEach(w => {
-        const span = document.createElement("span");
-        span.className = "word";
-        span.textContent = w.w;
-        if (w.p && w.e) {
-            span.dataset.pinyin = w.p;
-            span.dataset.meaning = w.e;
-        }
-        line.appendChild(span);
-    });
-    
-    block.appendChild(line);
-    
-    const translation = document.createElement("span");
-    translation.className = "sentence-translation";
-    translation.textContent = sampleSentence.en;
-    block.appendChild(translation);
-    
-    storyContainer.appendChild(block);
-}
+window.addEventListener("resize", hideTooltip);
 
-// Run when page loads
-window.onload = init;
+// ==========================================
+// 6. START APP
+// ==========================================
+window.onload = () => { 
+    if(typeof STORIES !== 'undefined') {
+        renderStoriesList(); 
+    } else {
+        contentEl.innerHTML = "<p style='color: red;'>Error: stories.js not found. Please make sure it is loaded in index.html.</p>";
+    }
+};
