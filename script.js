@@ -589,6 +589,7 @@ document.addEventListener('mousemove', (e) => {
 
 // 3. Эффект разлетающихся капель (Water Splash)
 document.addEventListener('click', function(e) {
+    // Теперь эффект применяется ко ВСЕМ кнопкам, карточкам и вкладкам
     const target = e.target.closest('button, .story-item, .chapter-item, .tab, .flashcard, .switch');
     if (!target) return;
 
@@ -608,15 +609,20 @@ document.addEventListener('click', function(e) {
         splash.style.left = `${x}px`;
         splash.style.top = `${y}px`;
         
-        // Случайный размер капли (от 4 до 10 пикселей)
+        // Увеличенный размер капли (от 10 до 20 пикселей)
         const size = 10 + Math.random() * 10;
         splash.style.width = `${size}px`;
         splash.style.height = `${size}px`;
 
-        // Если это цветная кнопка (HSK), добавляем оттенок цвета в воду
+        // ЦВЕТОВАЯ ЛОГИКА:
         if (tabColor) {
+            // Если это цветная вкладка HSK, капли берут её цвет
             splash.style.background = `radial-gradient(circle at 30% 30%, rgba(255,255,255,1), ${tabColor} 80%)`;
             splash.style.borderColor = tabColor;
+        } else {
+            // Если это обычная кнопка (Назад, Очистить и т.д.), делаем капли фиолетовыми (цвет темы)
+            splash.style.background = `radial-gradient(circle at 30% 30%, rgba(255,255,255,1), var(--primary) 80%)`;
+            splash.style.borderColor = 'var(--primary)';
         }
 
         // Случайный угол (от 0 до 360 градусов)
@@ -624,11 +630,10 @@ document.addEventListener('click', function(e) {
         // Случайное расстояние разлета (от 20 до 60 пикселей)
         const distance = 20 + Math.random() * 40; 
         
-        // Передаем координаты в CSS
         splash.style.setProperty('--tx', `${Math.cos(angle) * distance}px`);
         splash.style.setProperty('--ty', `${Math.sin(angle) * distance}px`);
 
-        // Случайная задержка, чтобы капли летели не синхронно
+        // Случайная задержка
         const delay = Math.random() * 0.1; 
         splash.style.animationDelay = `${delay}s`;
 
