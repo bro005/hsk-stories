@@ -587,52 +587,63 @@ document.addEventListener('mousemove', (e) => {
 
 // ... (код с mousemove для заголовка и кнопок) ...
 
-// 3. Эффект капель воды (Water Drop) при клике
+// 3. Реалистичный эффект капель воды при клике
 document.addEventListener('click', function(e) {
     const target = e.target.closest('button, .story-item, .chapter-item, .tab, .flashcard, .switch');
     if (!target) return;
 
-    // Убеждаемся, что у кнопки есть позиционирование
     target.style.position = 'relative';
 
-    // Получаем координаты клика ВНУТРИ кнопки
     const rect = target.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    // Определяем цвет (для HSK вкладок берем их цвет, для остальных — первичный)
     const computedStyle = getComputedStyle(target);
     const tabColor = computedStyle.getPropertyValue('--tab-color').trim();
-    
+
     // 1. Создаем главную каплю
     const drop = document.createElement('span');
     drop.className = 'water-drop';
     drop.style.left = `${x}px`;
     drop.style.top = `${y}px`;
     
+    // Если это цветная кнопка (HSK), добавляем оттенок цвета в воду
     if (tabColor) {
-        drop.style.background = `linear-gradient(135deg, ${tabColor}, rgba(255,255,255,0.2))`;
+        drop.style.background = `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), ${tabColor} 80%)`;
+        drop.style.borderColor = tabColor;
     }
+
     target.appendChild(drop);
 
-    // 2. Создаем 4 маленькие брызги
-    for (let i = 0; i < 4; i++) {
+    // 2. Создаем 8 маленьких брызг, разлетающихся в стороны
+    for (let i = 0; i < 8; i++) {
         const splash = document.createElement('span');
         splash.className = 'water-splash';
         splash.style.left = `${x}px`;
         splash.style.top = `${y}px`;
         
-        if (tabColor) splash.style.background = tabColor;
+        if (tabColor) {
+            splash.style.background = tabColor;
+            splash.style.borderColor = 'rgba(255,255,255,0.5)';
+        }
 
-        const angle = Math.random() * Math.PI * 2;
-        const distance = 20 + Math.random() * 30;
+        // Случайный угол и расстояние
+        const angle = Math.random() * Math.PI * 2; 
+        const distance = 30 + Math.random() * 40; // Улетают на 30-70px
         
         splash.style.setProperty('--tx', `${Math.cos(angle) * distance}px`);
         splash.style.setProperty('--ty', `${Math.sin(angle) * distance}px`);
 
+        // Случайная задержка, чтобы брызги летели не идеальным кругом
+        const delay = Math.random() * 0.1; 
+        splash.style.animationDelay = `${delay}s`;
+
         target.appendChild(splash);
-        setTimeout(() => splash.remove(), 600);
+
+        // Удаляем брызги после завершения анимации
+        setTimeout(() => splash.remove(), 800 + (delay * 1000));
     }
 
-    setTimeout(() => drop.remove(), 800);
-}); // <--- ВОТ ЭТА СКОБКА ЗАКРЫВАЕТ ФАЙЛ
+    // Удаляем главную каплю через 1 секунду
+    setTimeout(() => drop.remove(), 1000);
+});
