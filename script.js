@@ -12,7 +12,7 @@ let activeWord = null;
 // ==========================================
 // 2. INITIALIZATION (Tabs)
 // ==========================================
-// Цвета от зеленого к красному + золотой для Free Reading
+// Colors from green to red + golden for Free Reading
 const tabColors = ['#22c55e', '#84cc16', '#eab308', '#f97316', '#ef4444', '#b91c1c', '#f59e0b'];
 
 for (let i = 1; i <= 7; i++) {
@@ -21,7 +21,6 @@ for (let i = 1; i <= 7; i++) {
     btn.className = `tab ${i === 1 ? 'active' : ''}`;
     btn.textContent = i === 7 ? "Free Reading" : `HSK ${i}`;
     
-    // Применяем цвет к каждой вкладке
     btn.style.setProperty('--tab-color', tabColors[i-1]);
     
     btn.dataset.level = i;
