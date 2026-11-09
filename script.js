@@ -15,6 +15,7 @@ for (let i = 1; i <= 6; i++) {
     btn.type = "button";
     btn.className = `tab ${i === 1 ? 'active' : ''}`;
     btn.textContent = `HSK ${i}`;
+    btn.dataset.level = i; // Сохраняем уровень в data-атрибут
     btn.onclick = () => {
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         btn.classList.add('active');
@@ -30,6 +31,11 @@ for (let i = 1; i <= 6; i++) {
 function renderStoriesList() {
     hideTooltip();
     contentEl.innerHTML = "";
+    
+    // Убираем кнопку "Продолжить", если она была
+    const resumeBtn = document.getElementById("resume-btn");
+    if (resumeBtn) resumeBtn.remove();
+
     const levelStories = (typeof STORIES !== 'undefined' && STORIES[currentLevel]) ? STORIES[currentLevel] : [];
     
     if (levelStories.length === 0) {
@@ -37,7 +43,7 @@ function renderStoriesList() {
         return;
     }
 
-    levelStories.forEach((book) => {
+    levelStories.forEach((book, bookIndex) => {
         const item = document.createElement("div");
         item.className = "story-item";
         item.innerHTML = `
@@ -47,12 +53,12 @@ function renderStoriesList() {
         `;
         item.dataset.action = "open-book";
         item._bookData = book; 
+        item._bookIndex = bookIndex; // Запоминаем индекс книги
         contentEl.appendChild(item);
     });
 }
 
-// ЭТА ФУНКЦИЯ БЫЛА ПОТЕРЯНА! ОНА ОТВЕЧАЕТ ЗА СПИСОК ГЛАВ.
-function renderChaptersList(book) {
+function renderChaptersList(book, bookIndex) {
     contentEl.innerHTML = "";
     
     const backBtn = document.createElement("button");
@@ -73,18 +79,24 @@ function renderChaptersList(book) {
         item.dataset.action = "open-chapter";
         item._chapterData = chapter;
         item._bookData = book;
+        item._bookIndex = bookIndex;
+        item._chapterIndex = index; // Запоминаем индекс главы
         contentEl.appendChild(item);
     });
 }
 
-function renderChapterContent(book, chapter) {
+function renderChapterContent(book, chapter, bookIndex, chapterIndex) {
     contentEl.innerHTML = "";
     
+    // Сохраняем прогресс в память браузера
+    saveProgress(currentLevel, bookIndex, chapterIndex);
+
     const backBtn = document.createElement("button");
     backBtn.className = "btn-back";
     backBtn.textContent = "← Chapters List";
     backBtn.dataset.action = "back-to-chapters";
     backBtn._bookData = book;
+    backBtn._bookIndex = bookIndex;
     contentEl.appendChild(backBtn);
 
     const title = document.createElement("h2");
@@ -245,16 +257,19 @@ contentEl.addEventListener("click", (event) => {
         const action = actionTarget.dataset.action;
         
         if (action === "open-book") {
-            renderChaptersList(actionTarget._bookData);
+            renderChaptersList(actionTarget._bookData, actionTarget._bookIndex);
         } 
         else if (action === "open-chapter") {
-            renderChapterContent(actionTarget._bookData, actionTarget._chapterData);
+            renderChapterContent(actionTarget._bookData, actionTarget._chapterData, actionTarget._bookIndex, actionTarget._chapterIndex);
         } 
         else if (action === "back-to-books") {
             renderStoriesList();
         } 
         else if (action === "back-to-chapters") {
-            renderChaptersList(actionTarget._bookData);
+            renderChaptersList(actionTarget._bookData, actionTarget._bookIndex);
+        }
+        else if (action === "resume") {
+            resumeLastRead();
         }
     }
 });
@@ -268,11 +283,54 @@ document.addEventListener("click", (event) => {
 window.addEventListener("resize", hideTooltip);
 
 // ==========================================
-// 6. START APP & TOGGLE
+// 6. PROGRESS SAVING LOGIC
+// ==========================================
+function saveProgress(level, bookIndex, chapterIndex) {
+    const progress = { level, bookIndex, chapterIndex };
+    localStorage.setItem("hskProgress", JSON.stringify(progress));
+}
+
+function checkForProgress() {
+    const saved = localStorage.getItem("hskProgress");
+    if (!saved) return;
+
+    try {
+        const progress = JSON.parse(saved);
+        // Проверяем, существуют ли сохраненные данные
+        if (STORIES[progress.level] && STORIES[progress.level][progress.bookIndex]) {
+            const book = STORIES[progress.level][progress.bookIndex];
+            const chapter = book.chapters[progress.chapterIndex];
+            
+            if (chapter) {
+                // Создаем красивую кнопку "Продолжить чтение"
+                const resumeBtn = document.createElement("div");
+                resumeBtn.className = "resume-banner";
+                resumeBtn.innerHTML = `
+                    <span>👋 Welcome back! You were reading <b>${chapter.title}</b>.</span>
+                    <button data-action="resume" class="btn-resume">Continue</button>
+                `;
+                
+                // Вставляем её перед списком книг
+                contentEl.prepend(resumeBtn);
+                
+                // Сохраняем прогресс в кнопку, чтобы при клике открыть нужное место
+                resumeBtn.querySelector("button").addEventListener("click", () => {
+                    renderChapterContent(book, chapter, progress.bookIndex, progress.chapterIndex);
+                });
+            }
+        }
+    } catch (e) {
+        console.error("Error reading progress", e);
+    }
+}
+
+// ==========================================
+// 7. START APP & TOGGLE
 // ==========================================
 window.onload = () => { 
     if(typeof STORIES !== 'undefined') {
         renderStoriesList(); 
+        checkForProgress(); // Проверяем сохраненный прогресс при загрузке
     } else {
         contentEl.innerHTML = "<p style='color: red;'>Error: stories.js not found.</p>";
     }
