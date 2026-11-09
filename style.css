@@ -274,3 +274,33 @@ input:checked + .slider {
 input:checked + .slider:before {
     transform: translateX(22px);
 }
+/* ==========================================
+   RESUME BANNER
+   ========================================== */
+.resume-banner {
+    background: #e0e7ff;
+    border: 1px solid #c7d2fe;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--primary);
+    font-size: 15px;
+}
+
+.btn-resume {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.btn-resume:hover {
+    background: var(--primary-hover);
+}
