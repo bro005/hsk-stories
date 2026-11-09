@@ -19,9 +19,10 @@ body {
     background-color: var(--bg);
     color: var(--text);
     line-height: 1.8;
-    /* УВЕЛИЧЕНА ПРОКРУТКА */
-    padding: 60px 20px 500px 20px; 
-    min-height: 120vh; 
+    
+    /* ОГРОМНАЯ ПРОКРУТКА ВНИЗ */
+    padding: 60px 20px 1500px 20px; 
+    min-height: 200vh; 
 }
 
 .container { max-width: 800px; margin: 0 auto; }
@@ -224,6 +225,7 @@ h1 { color: var(--primary); margin-bottom: 10px; }
     align-items: center;
     cursor: pointer;
     gap: 10px;
+    /* Убираем overflow, чтобы капли могли вылетать */
 }
 
 .switch input { 
@@ -437,15 +439,15 @@ body.dark-mode .reading-highlight { background-color: #fbbf24 !important; color:
 .btn-resume:hover { background: var(--primary-hover); }
 
 /* ==========================================
-   RIPPLE EFFECT
+   RIPPLE EFFECT (Капли)
    ========================================== */
 .ripple {
     position: absolute;
     border-radius: 50%;
     transform: scale(0);
-    animation: ripple-anim 0.6s linear;
+    animation: ripple-anim 0.8s ease-out;
     pointer-events: none;
-    z-index: 99; 
+    z-index: 9999; /* Капли поверх всего */
 }
 
 @keyframes ripple-anim {
