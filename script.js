@@ -6,7 +6,10 @@ const flashcardContainer = document.getElementById("flashcard-container");
 const clearFlashcardsBtn = document.getElementById("clear-flashcards");
 let currentLevel = 1;
 let activeWord = null;
-let storiesToShow = 10; 
+
+// NEW: Pagination Variables
+let currentPage = 1;
+const storiesPerPage = 10;
 
 // 2. INITIALIZATION (Tabs)
 const tabColors = ['#22c55e', '#84cc16', '#eab308', '#f97316', '#ef4444', '#b91c1c', '#f59e0b'];
@@ -21,7 +24,7 @@ for (let i = 1; i <= 7; i++) {
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         btn.classList.add('active');
         currentLevel = i;
-        storiesToShow = 10; 
+        currentPage = 1; // Reset to page 1 when switching levels
         renderStoriesList();
     };
     tabsEl.appendChild(btn);
@@ -33,7 +36,6 @@ function renderStoriesList() {
     if (typeof stopFullStory === 'function') stopFullStory();
     contentEl.innerHTML = "";
     
-    // ADD GRID MODE FOR THE LIST
     contentEl.classList.add("grid-mode"); 
 
     document.getElementById("audio-player").style.display = "none";
@@ -46,12 +48,19 @@ function renderStoriesList() {
         return;
     }
 
-    const storiesToDisplay = levelStories.slice(0, storiesToShow);
+    // PAGINATION LOGIC
+    const totalPages = Math.ceil(levelStories.length / storiesPerPage);
+    const startIndex = (currentPage - 1) * storiesPerPage;
+    const endIndex = startIndex + storiesPerPage;
+    const storiesToDisplay = levelStories.slice(startIndex, endIndex);
 
-    storiesToDisplay.forEach((book, bookIndex) => {
+    storiesToDisplay.forEach((book, index) => {
+        // The actual index in the main array (needed for opening the correct book)
+        const actualBookIndex = startIndex + index;
+
         const item = document.createElement("div");
         item.className = "story-item";
-        item.style.animationDelay = `${bookIndex * 0.05}s`;
+        item.style.animationDelay = `${index * 0.05}s`;
 
         item.innerHTML = `
             <div>
@@ -64,28 +73,64 @@ function renderStoriesList() {
         `;
         item.dataset.action = "open-book";
         item._bookData = book; 
-        item._bookIndex = bookIndex;
+        item._bookIndex = actualBookIndex; // Use the actual index
         contentEl.appendChild(item);
     });
 
-    if (levelStories.length > storiesToShow) {
-        const loadMoreContainer = document.createElement("div");
-        loadMoreContainer.className = "load-more-container";
-        loadMoreContainer.innerHTML = `<button class="btn-load-more">Load More Stories</button>`;
+    // RENDER PAGINATION BUTTONS
+    if (totalPages > 1) {
+        const paginationContainer = document.createElement("div");
+        paginationContainer.className = "pagination-container";
         
-        loadMoreContainer.querySelector("button").addEventListener("click", () => {
-            storiesToShow += 10; 
-            renderStoriesList(); 
-        });
+        paginationContainer.innerHTML = `
+            <button class="pagination-btn" id="btn-prev-page" ${currentPage === 1 ? 'disabled' : ''}>
+                ← Previous
+            </button>
+            <div class="page-info">
+                Page ${currentPage} of ${totalPages}
+            </div>
+            <button class="pagination-btn" id="btn-next-page" ${currentPage === totalPages ? 'disabled' : ''}>
+                Next →
+            </button>
+        `;
         
-        contentEl.appendChild(loadMoreContainer);
+        contentEl.appendChild(paginationContainer);
+
+        // Add event listeners for pagination
+        const btnPrev = document.getElementById("btn-prev-page");
+        const btnNext = document.getElementById("btn-next-page");
+
+        if (btnPrev) {
+            btnPrev.addEventListener("click", () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderStoriesList();
+                    scrollToTop();
+                }
+            });
+        }
+
+        if (btnNext) {
+            btnNext.addEventListener("click", () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderStoriesList();
+                    scrollToTop();
+                }
+            });
+        }
     }
+}
+
+// Helper function to scroll smoothly to the top of the list
+function scrollToTop() {
+    const yOffset = -20; // Small offset for breathing room
+    const y = contentEl.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    window.scrollTo({ top: y, behavior: 'smooth' });
 }
 
 function renderChaptersList(book, bookIndex) {
     contentEl.innerHTML = "";
-    
-    // REMOVE GRID MODE FOR NORMAL LAYOUT
     contentEl.classList.remove("grid-mode"); 
 
     if (typeof stopFullStory === 'function') stopFullStory();
@@ -111,8 +156,6 @@ function renderChaptersList(book, bookIndex) {
 
 function renderChapterContent(book, chapter, bookIndex, chapterIndex) {
     contentEl.innerHTML = "";
-    
-    // REMOVE GRID MODE FOR READING VIEW
     contentEl.classList.remove("grid-mode");
 
     saveProgress(currentLevel, bookIndex, chapterIndex);
