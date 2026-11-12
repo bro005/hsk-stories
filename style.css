@@ -260,24 +260,77 @@ body.dark-mode .story-item:hover { box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.
     }
 }
 
-/* === MOBILE FIX === */
+/* === MOBILE RESPONSIVENESS FIXES === */
 @media (max-width: 600px) {
-    #story-container {
-        grid-template-columns: 1fr !important; /* Force 1 column */
-        padding: 15px !important; /* Reduce padding so it fits */
-    }
     
+    /* 1. Fix the Title */
+    h1 {
+        font-size: 1.8rem !important; /* Much smaller for mobile */
+        line-height: 1.3;
+        word-break: break-word;
+    }
+
+    /* 2. Prevent Horizontal Scrolling */
+    body {
+        padding: 20px 10px 500px 10px !important;
+        overflow-x: hidden; /* Stops the screen from sliding left/right */
+    }
+
+    .container {
+        width: 100%;
+        padding: 0;
+    }
+
+    /* 3. Fix the Main Card Padding */
+    .card {
+        padding: 15px !important; /* Reduce from 40px to 15px so cards fit */
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* 4. Force Grid to 1 Column */
+    #story-container.grid-mode {
+        grid-template-columns: 1fr !important;
+        padding: 5px !important;
+        gap: 15px; 
+    }
+
+    /* 5. Fix Story Items Wrapping */
     .story-item {
         padding: 15px !important;
+        width: 100%;
+        box-sizing: border-box;
     }
 
-    body {
-        padding: 30px 10px 500px 10px; /* Reduce overall body padding */
+    .story-item h3 {
+        font-size: 16px !important;
+        word-wrap: break-word; 
+        overflow-wrap: break-word;
     }
 
-    .btn-load-more {
-        width: 100%; /* Make button full width on mobile */
-        padding: 15px;
+    .story-item p {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    /* 6. Tabs (HSK 1, 2, 3...) fit better */
+    .tabs {
+        gap: 8px;
+    }
+    .tab {
+        padding: 8px 14px;
+        font-size: 14px;
+    }
+
+    /* 7. Fix the Back Button overlapping */
+    .btn-back {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    
+    /* 8. Fix the Reading View Padding */
+    #story-container:not(.grid-mode) {
+        padding: 20px !important; 
     }
 }
 
