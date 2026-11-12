@@ -337,7 +337,7 @@ body.dark-mode .story-item:hover { box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.
 /* === FANCY STORY GRID (ONLY FOR THE LIST) === */
 #story-container.grid-mode {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(2, 1fr); /* <--- Forces exactly 2 columns */
     gap: 20px;
     padding: 20px;
     align-items: stretch;
