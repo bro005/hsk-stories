@@ -6,7 +6,7 @@ const flashcardContainer = document.getElementById("flashcard-container");
 const clearFlashcardsBtn = document.getElementById("clear-flashcards");
 let currentLevel = 1;
 let activeWord = null;
-let storiesToShow = 10; // NEW: Limit to 10 stories initially
+let storiesToShow = 10; 
 
 // 2. INITIALIZATION (Tabs)
 const tabColors = ['#22c55e', '#84cc16', '#eab308', '#f97316', '#ef4444', '#b91c1c', '#f59e0b'];
@@ -21,7 +21,7 @@ for (let i = 1; i <= 7; i++) {
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         btn.classList.add('active');
         currentLevel = i;
-        storiesToShow = 10; // NEW: Reset limit when switching levels
+        storiesToShow = 10; 
         renderStoriesList();
     };
     tabsEl.appendChild(btn);
@@ -32,6 +32,10 @@ function renderStoriesList() {
     hideTooltip();
     if (typeof stopFullStory === 'function') stopFullStory();
     contentEl.innerHTML = "";
+    
+    // ADD GRID MODE FOR THE LIST
+    contentEl.classList.add("grid-mode"); 
+
     document.getElementById("audio-player").style.display = "none";
     const resumeBtn = document.getElementById("resume-btn");
     if (resumeBtn) resumeBtn.remove();
@@ -42,14 +46,11 @@ function renderStoriesList() {
         return;
     }
 
-    // NEW: Slice the array to only show up to the limit (e.g., 10)
     const storiesToDisplay = levelStories.slice(0, storiesToShow);
 
     storiesToDisplay.forEach((book, bookIndex) => {
         const item = document.createElement("div");
         item.className = "story-item";
-        
-        // NEW: Fade-in animation delay
         item.style.animationDelay = `${bookIndex * 0.05}s`;
 
         item.innerHTML = `
@@ -67,15 +68,14 @@ function renderStoriesList() {
         contentEl.appendChild(item);
     });
 
-    // NEW: Add the "Load More" button if there are more stories
     if (levelStories.length > storiesToShow) {
         const loadMoreContainer = document.createElement("div");
         loadMoreContainer.className = "load-more-container";
         loadMoreContainer.innerHTML = `<button class="btn-load-more">Load More Stories</button>`;
         
         loadMoreContainer.querySelector("button").addEventListener("click", () => {
-            storiesToShow += 10; // Increase limit by 10
-            renderStoriesList(); // Re-render
+            storiesToShow += 10; 
+            renderStoriesList(); 
         });
         
         contentEl.appendChild(loadMoreContainer);
@@ -84,8 +84,13 @@ function renderStoriesList() {
 
 function renderChaptersList(book, bookIndex) {
     contentEl.innerHTML = "";
+    
+    // REMOVE GRID MODE FOR NORMAL LAYOUT
+    contentEl.classList.remove("grid-mode"); 
+
     if (typeof stopFullStory === 'function') stopFullStory();
     document.getElementById("audio-player").style.display = "none";
+    
     const backBtn = document.createElement("button");
     backBtn.className = "btn-back"; backBtn.textContent = "← Back to Books"; backBtn.dataset.action = "back-to-books";
     contentEl.appendChild(backBtn);
@@ -106,6 +111,10 @@ function renderChaptersList(book, bookIndex) {
 
 function renderChapterContent(book, chapter, bookIndex, chapterIndex) {
     contentEl.innerHTML = "";
+    
+    // REMOVE GRID MODE FOR READING VIEW
+    contentEl.classList.remove("grid-mode");
+
     saveProgress(currentLevel, bookIndex, chapterIndex);
 
     const backBtn = document.createElement("button");
