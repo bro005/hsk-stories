@@ -6,6 +6,7 @@ const flashcardContainer = document.getElementById("flashcard-container");
 const clearFlashcardsBtn = document.getElementById("clear-flashcards");
 let currentLevel = 1;
 let activeWord = null;
+let storiesToShow = 10; // NEW: Limit to 10 stories initially
 
 // 2. INITIALIZATION (Tabs)
 const tabColors = ['#22c55e', '#84cc16', '#eab308', '#f97316', '#ef4444', '#b91c1c', '#f59e0b'];
@@ -20,6 +21,7 @@ for (let i = 1; i <= 7; i++) {
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         btn.classList.add('active');
         currentLevel = i;
+        storiesToShow = 10; // NEW: Reset limit when switching levels
         renderStoriesList();
     };
     tabsEl.appendChild(btn);
@@ -36,23 +38,48 @@ function renderStoriesList() {
 
     const levelStories = (typeof STORIES !== 'undefined' && STORIES[currentLevel]) ? STORIES[currentLevel] : [];
     if (levelStories.length === 0) {
-        contentEl.innerHTML = `<p style="color: #64748b; text-align: center; margin-top: 20px;">No books here yet.</p>`;
+        contentEl.innerHTML = `<p style="color: #64748b; text-align: center; margin-top: 20px; grid-column: 1 / -1;">No books here yet.</p>`;
         return;
     }
 
-    levelStories.forEach((book, bookIndex) => {
+    // NEW: Slice the array to only show up to the limit (e.g., 10)
+    const storiesToDisplay = levelStories.slice(0, storiesToShow);
+
+    storiesToDisplay.forEach((book, bookIndex) => {
         const item = document.createElement("div");
         item.className = "story-item";
+        
+        // NEW: Fade-in animation delay
+        item.style.animationDelay = `${bookIndex * 0.05}s`;
+
         item.innerHTML = `
-            <h3>📖 ${book.title}</h3>
-            <p style="font-size: 15px; color: #64748b; margin-top: 5px;">${book.description}</p>
-            <p style="font-size: 13px; color: #4f46e5; margin-top: 5px; font-weight: bold;">Chapters: ${book.chapters.length}</p>
+            <div>
+                <h3>📖 ${book.title}</h3>
+                <p style="font-size: 14px; color: var(--text-light); margin-top: 8px; line-height: 1.5;">${book.description}</p>
+            </div>
+            <div style="margin-top: 15px;">
+                <span style="font-size: 12px; color: var(--primary); font-weight: bold; background: rgba(79, 70, 229, 0.1); padding: 4px 8px; border-radius: 6px;">Chapters: ${book.chapters.length}</span>
+            </div>
         `;
         item.dataset.action = "open-book";
         item._bookData = book; 
         item._bookIndex = bookIndex;
         contentEl.appendChild(item);
     });
+
+    // NEW: Add the "Load More" button if there are more stories
+    if (levelStories.length > storiesToShow) {
+        const loadMoreContainer = document.createElement("div");
+        loadMoreContainer.className = "load-more-container";
+        loadMoreContainer.innerHTML = `<button class="btn-load-more">Load More Stories</button>`;
+        
+        loadMoreContainer.querySelector("button").addEventListener("click", () => {
+            storiesToShow += 10; // Increase limit by 10
+            renderStoriesList(); // Re-render
+        });
+        
+        contentEl.appendChild(loadMoreContainer);
+    }
 }
 
 function renderChaptersList(book, bookIndex) {
