@@ -7,7 +7,7 @@ const clearFlashcardsBtn = document.getElementById("clear-flashcards");
 let currentLevel = 1;
 let activeWord = null;
 
-// NEW: Pagination Variables
+// Pagination Variables
 let currentPage = 1;
 const storiesPerPage = 10;
 
@@ -24,7 +24,7 @@ for (let i = 1; i <= 7; i++) {
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         btn.classList.add('active');
         currentLevel = i;
-        currentPage = 1; // Reset to page 1 when switching levels
+        currentPage = 1; 
         renderStoriesList();
     };
     tabsEl.appendChild(btn);
@@ -55,7 +55,6 @@ function renderStoriesList() {
     const storiesToDisplay = levelStories.slice(startIndex, endIndex);
 
     storiesToDisplay.forEach((book, index) => {
-        // The actual index in the main array (needed for opening the correct book)
         const actualBookIndex = startIndex + index;
 
         const item = document.createElement("div");
@@ -73,7 +72,7 @@ function renderStoriesList() {
         `;
         item.dataset.action = "open-book";
         item._bookData = book; 
-        item._bookIndex = actualBookIndex; // Use the actual index
+        item._bookIndex = actualBookIndex; 
         contentEl.appendChild(item);
     });
 
@@ -96,7 +95,6 @@ function renderStoriesList() {
         
         contentEl.appendChild(paginationContainer);
 
-        // Add event listeners for pagination
         const btnPrev = document.getElementById("btn-prev-page");
         const btnNext = document.getElementById("btn-next-page");
 
@@ -122,9 +120,8 @@ function renderStoriesList() {
     }
 }
 
-// Helper function to scroll smoothly to the top of the list
 function scrollToTop() {
-    const yOffset = -20; // Small offset for breathing room
+    const yOffset = -20; 
     const y = contentEl.getBoundingClientRect().top + window.pageYOffset + yOffset;
     window.scrollTo({ top: y, behavior: 'smooth' });
 }
@@ -436,7 +433,8 @@ document.addEventListener('mousemove', (e) => {
         else { letter.style.transform = `translateY(0px)`; }
     });
 
-    const magneticElements = document.querySelectorAll('.btn-back, .btn-theme, .story-item, .chapter-item, .player-btn, .switch, .toggle-label');
+    // Added .pagination-btn here so it gets the magnetic hover effect too!
+    const magneticElements = document.querySelectorAll('.btn-back, .btn-theme, .story-item, .chapter-item, .player-btn, .switch, .toggle-label, .pagination-btn');
     magneticElements.forEach(el => {
         const rect = el.getBoundingClientRect(); const centerX = rect.left + rect.width / 2; const centerY = rect.top + rect.height / 2;
         const distX = centerX - e.clientX; const distY = centerY - e.clientY; const distance = Math.sqrt(distX*distX + distY*distY);
@@ -447,15 +445,23 @@ document.addEventListener('mousemove', (e) => {
     });
 });
 
+// WATER SPLASH EFFECT
 document.addEventListener('click', function(e) {
-    const target = e.target.closest('button, .story-item, .chapter-item, .tab, .flashcard, .switch');
-    if (!target) return;
+    const target = e.target.closest('button, .story-item, .chapter-item, .tab, .flashcard, .switch, .pagination-btn');
+    if (!target || target.disabled) return; // Added disabled check
+    
     const computedStyle = getComputedStyle(target);
     const tabColor = computedStyle.getPropertyValue('--tab-color').trim();
     const splashColor = tabColor || 'var(--primary)';
+    
     const splashContainer = document.createElement('div');
-    splashContainer.style.position = 'absolute'; splashContainer.style.left = `${e.pageX}px`; splashContainer.style.top = `${e.pageY}px`;
-    splashContainer.style.pointerEvents = 'none'; splashContainer.style.zIndex = '99999'; document.body.appendChild(splashContainer);
+    // CHANGED TO FIXED AND CLIENTX/CLIENTY so it doesn't scroll off-screen
+    splashContainer.style.position = 'fixed'; 
+    splashContainer.style.left = `${e.clientX}px`; 
+    splashContainer.style.top = `${e.clientY}px`;
+    splashContainer.style.pointerEvents = 'none'; 
+    splashContainer.style.zIndex = '99999'; 
+    document.body.appendChild(splashContainer);
 
     for (let i = 0; i < 12; i++) {
         const splash = document.createElement('span'); splash.className = 'water-splash';
