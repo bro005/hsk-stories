@@ -325,48 +325,66 @@ body.dark-mode .story-item:hover { box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.
 
 body.dark-mode .story-item:hover { box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.5); }
 
-/* === LOAD MORE BUTTON === */
-.load-more-container {
-    grid-column: 1 / -1;
-    text-align: center;
-    margin-top: 20px;
+/* === PAGINATION === */
+.pagination-container {
+    grid-column: 1 / -1; /* Spans across the whole grid */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 30px;
     padding-bottom: 20px;
 }
 
-.btn-load-more {
-    background: transparent;
+.pagination-btn {
+    background: var(--card-bg);
     color: var(--primary);
-    border: 2px dashed var(--primary);
-    padding: 12px 30px;
-    border-radius: 30px;
+    border: 1px solid var(--border);
+    padding: 10px 20px;
+    border-radius: 8px;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
     font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.btn-load-more:hover {
+.pagination-btn:hover:not(:disabled) {
     background: var(--primary);
     color: white;
-    border-style: solid;
-    transform: scale(1.05);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
 }
 
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.pagination-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    border-color: var(--border);
+    color: var(--text-light);
 }
 
-/* === MOBILE FIX === */
+.page-info {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-light);
+    background: var(--bg);
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+/* Mobile Fix for pagination */
 @media (max-width: 600px) {
-    #story-container.grid-mode {
-        grid-template-columns: 1fr !important;
-        padding: 10px !important;
+    .pagination-container {
+        flex-direction: column;
+        gap: 10px;
     }
-    #story-container:not(.grid-mode) {
-        padding: 20px !important; /* Smaller padding for mobile reading */
+    .pagination-btn {
+        width: 100%;
+        justify-content: center;
     }
 }
