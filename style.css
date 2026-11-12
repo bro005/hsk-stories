@@ -267,3 +267,24 @@ body.dark-mode .story-item:hover { box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.
         transform: translateY(0);
     }
 }
+
+/* === MOBILE FIX === */
+@media (max-width: 600px) {
+    #story-container {
+        grid-template-columns: 1fr !important; /* Force 1 column */
+        padding: 15px !important; /* Reduce padding so it fits */
+    }
+    
+    .story-item {
+        padding: 15px !important;
+    }
+
+    body {
+        padding: 30px 10px 500px 10px; /* Reduce overall body padding */
+    }
+
+    .btn-load-more {
+        width: 100%; /* Make button full width on mobile */
+        padding: 15px;
+    }
+}
