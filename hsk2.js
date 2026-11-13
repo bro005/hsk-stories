@@ -1026,7 +1026,7 @@ window.STORIES[2].push(
     }
 );
 
-```javascript
+
 window.STORIES[2].push(
     {
         title: "买水果 (Buying Fruit)",
