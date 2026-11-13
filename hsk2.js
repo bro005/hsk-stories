@@ -242,8 +242,8 @@ window.STORIES[2].push(
 
 window.STORIES[2].push(
     {
-        title: "在图书馆学习 (Studying at the Library)",
-        description: "Two friends spend their afternoon studying Chinese and reading books at the library.",
+        title: "在教室学习 (Studying in the Classroom)",
+        description: "Two friends spend their afternoon studying Chinese and reading books.",
         chapters: [
             {
                 title: "第一章：找座位 (Chapter 1: Finding a Seat)",
@@ -261,21 +261,21 @@ window.STORIES[2].push(
                         ]
                     },
                     {
-                        en: "My classmate Wang Ming and I go to the library.",
+                        en: "My classmate Wang Ming and I go to the classroom.",
                         words: [
                             { w: "我", p: "wǒ", e: "I" },
                             { w: "和", p: "hé", e: "and" },
                             { w: "同学", p: "tóng xué", e: "classmate" },
                             { w: "王明", p: "Wáng Míng", e: "Wang Ming" },
                             { w: "去", p: "qù", e: "go" },
-                            { w: "图书馆", p: "tú shū guǎn", e: "library" },
+                            { w: "教室", p: "jiào shì", e: "classroom" },
                             { w: "。", p: "", e: "" }
                         ]
                     },
                     {
-                        en: "The library is very big and quiet.",
+                        en: "The classroom is very big and quiet.",
                         words: [
-                            { w: "图书馆", p: "tú shū guǎn", e: "library" },
+                            { w: "教室", p: "jiào shì", e: "classroom" },
                             { w: "很", p: "hěn", e: "very" },
                             { w: "大", p: "dà", e: "big" },
                             { w: "，", p: "", e: "" },
@@ -312,12 +312,12 @@ window.STORIES[2].push(
                         ]
                     },
                     {
-                        en: "The sunlight outside the window is very warm.",
+                        en: "The sun outside the window is very warm.",
                         words: [
                             { w: "窗户", p: "chuāng hu", e: "window" },
                             { w: "外面", p: "wài miàn", e: "outside" },
                             { w: "的", p: "de", e: "particle" },
-                            { w: "阳光", p: "yáng guāng", e: "sunlight" },
+                            { w: "太阳", p: "tài yáng", e: "sun" },
                             { w: "很", p: "hěn", e: "very" },
                             { w: "暖和", p: "nuǎn huo", e: "warm" },
                             { w: "。", p: "", e: "" }
@@ -475,11 +475,11 @@ window.STORIES[2].push(
                         ]
                     },
                     {
-                        en: "I put on my sports shoes and go to the park.",
+                        en: "I put on my shoes and go to the park.",
                         words: [
                             { w: "我", p: "wǒ", e: "I" },
                             { w: "穿上", p: "chuān shàng", e: "put on" },
-                            { w: "运动鞋", p: "yùn dòng xié", e: "sports shoes" },
+                            { w: "鞋", p: "xié", e: "shoes" },
                             { w: "去", p: "qù", e: "go" },
                             { w: "公园", p: "gōng yuán", e: "park" },
                             { w: "。", p: "", e: "" }
@@ -519,7 +519,7 @@ window.STORIES[2].push(
                             { w: "正在", p: "zhèng zài", e: "currently" },
                             { w: "慢慢", p: "màn màn", e: "slowly" },
                             { w: "地", p: "de", e: "particle" },
-                            { w: "散步", p: "sàn bù", e: "walk" },
+                            { w: "走走", p: "zǒu zou", e: "walk" },
                             { w: "。", p: "", e: "" }
                         ]
                     },
@@ -640,7 +640,7 @@ window.STORIES[2].push(
 
 window.STORIES[2].push(
     {
-        title: "看望爷爷奶奶 (Visiting Grandpa and Grandma)",
+        title: "看爷爷奶奶 (Seeing Grandpa and Grandma)",
         description: "A heartwarming weekend trip to visit grandparents and share a delicious family lunch.",
         chapters: [
             {
@@ -662,13 +662,13 @@ window.STORIES[2].push(
                         ]
                     },
                     {
-                        en: "Today our whole family goes to visit them.",
+                        en: "Today our whole family goes to see them.",
                         words: [
                             { w: "今天", p: "jīn tiān", e: "today" },
                             { w: "我们", p: "wǒ men", e: "our" },
                             { w: "全家", p: "quán jiā", e: "whole family" },
                             { w: "去", p: "qù", e: "go" },
-                            { w: "看望", p: "kàn wàng", e: "visit" },
+                            { w: "看", p: "kàn", e: "see" },
                             { w: "他们", p: "tā men", e: "them" },
                             { w: "。", p: "", e: "" }
                         ]
@@ -705,7 +705,7 @@ window.STORIES[2].push(
                             { w: "爷爷奶奶", p: "yé ye nǎi nai", e: "grandpa and grandma" },
                             { w: "买", p: "mǎi", e: "buy" },
                             { w: "了", p: "le", e: "particle" },
-                            { w: "茶叶", p: "chá yè", e: "tea leaves" },
+                            { w: "茶", p: "chá", e: "tea" },
                             { w: "和", p: "hé", e: "and" },
                             { w: "蛋糕", p: "dàn gāo", e: "cake" },
                             { w: "。", p: "", e: "" }
@@ -767,7 +767,7 @@ window.STORIES[2].push(
                             { w: "、", p: "", e: "" },
                             { w: "鸡肉", p: "jī ròu", e: "chicken" },
                             { w: "和", p: "hé", e: "and" },
-                            { w: "蔬菜", p: "shū cài", e: "vegetables" },
+                            { w: "菜", p: "cài", e: "vegetables" },
                             { w: "。", p: "", e: "" }
                         ]
                     },
@@ -813,7 +813,7 @@ window.STORIES[2].push(
                         en: "Grandpa praises me as a good child.",
                         words: [
                             { w: "爷爷", p: "yé ye", e: "grandpa" },
-                            { w: "夸", p: "kuā", e: "praise" },
+                            { w: "说", p: "shuō", e: "say" },
                             { w: "我", p: "wǒ", e: "me" },
                             { w: "是", p: "shì", e: "am" },
                             { w: "好孩子", p: "hǎo hái zi", e: "good child" },
@@ -837,14 +837,14 @@ window.STORIES[2].push(
                 translation: "Chapter 1: Suddenly It Rained",
                 sentences: [
                     {
-                        en: "This morning the weather was still very sunny.",
+                        en: "This morning the weather was still very good.",
                         words: [
                             { w: "今天", p: "jīn tiān", e: "today" },
                             { w: "早上", p: "zǎo shang", e: "morning" },
                             { w: "天气", p: "tiān qì", e: "weather" },
                             { w: "还", p: "hái", e: "still" },
                             { w: "很", p: "hěn", e: "very" },
-                            { w: "晴朗", p: "qíng lǎng", e: "sunny" },
+                            { w: "好", p: "hǎo", e: "good" },
                             { w: "。", p: "", e: "" }
                         ]
                     },
@@ -889,7 +889,7 @@ window.STORIES[2].push(
                         ]
                     },
                     {
-                        en: "Because it was raining, I could not go out to play football.",
+                        en: "Because it was raining, I could not go out to play ball.",
                         words: [
                             { w: "因为", p: "yīn wèi", e: "because" },
                             { w: "下雨", p: "xià yǔ", e: "rain" },
@@ -897,7 +897,7 @@ window.STORIES[2].push(
                             { w: "我", p: "wǒ", e: "I" },
                             { w: "不能", p: "bù néng", e: "cannot" },
                             { w: "出去", p: "chū qù", e: "go out" },
-                            { w: "踢足球", p: "tī zú qiú", e: "play football" },
+                            { w: "打球", p: "dǎ qiú", e: "play ball" },
                             { w: "了", p: "le", e: "particle" },
                             { w: "。", p: "", e: "" }
                         ]
@@ -1025,5 +1025,3 @@ window.STORIES[2].push(
         ]
     }
 );
-
-
