@@ -24,7 +24,7 @@ for (let i = 1; i <= 7; i++) {
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         btn.classList.add('active');
         currentLevel = i;
-        currentPage = 1; 
+        currentPage = 1; // Reset page when switching levels
         renderStoriesList();
     };
     tabsEl.appendChild(btn);
@@ -76,18 +76,24 @@ function renderStoriesList() {
         contentEl.appendChild(item);
     });
 
-    // RENDER PAGINATION BUTTONS
+    // RENDER PAGINATION BUTTONS & DROPDOWN
     if (totalPages > 1) {
         const paginationContainer = document.createElement("div");
         paginationContainer.className = "pagination-container";
         
+        // Generate options for the dropdown
+        let pageOptions = "";
+        for (let i = 1; i <= totalPages; i++) {
+            pageOptions += `<option value="${i}" ${i === currentPage ? 'selected' : ''}>Page ${i} of ${totalPages}</option>`;
+        }
+
         paginationContainer.innerHTML = `
             <button class="pagination-btn" id="btn-prev-page" ${currentPage === 1 ? 'disabled' : ''}>
                 ← Previous
             </button>
-            <div class="page-info">
-                Page ${currentPage} of ${totalPages}
-            </div>
+            <select class="page-select" id="page-select">
+                ${pageOptions}
+            </select>
             <button class="pagination-btn" id="btn-next-page" ${currentPage === totalPages ? 'disabled' : ''}>
                 Next →
             </button>
@@ -95,8 +101,10 @@ function renderStoriesList() {
         
         contentEl.appendChild(paginationContainer);
 
+        // Add event listeners for pagination
         const btnPrev = document.getElementById("btn-prev-page");
         const btnNext = document.getElementById("btn-next-page");
+        const pageSelect = document.getElementById("page-select");
 
         if (btnPrev) {
             btnPrev.addEventListener("click", () => {
@@ -115,6 +123,14 @@ function renderStoriesList() {
                     renderStoriesList();
                     scrollToTop();
                 }
+            });
+        }
+
+        if (pageSelect) {
+            pageSelect.addEventListener("change", (e) => {
+                currentPage = parseInt(e.target.value);
+                renderStoriesList();
+                scrollToTop();
             });
         }
     }
@@ -433,7 +449,6 @@ document.addEventListener('mousemove', (e) => {
         else { letter.style.transform = `translateY(0px)`; }
     });
 
-    // Added .pagination-btn here so it gets the magnetic hover effect too!
     const magneticElements = document.querySelectorAll('.btn-back, .btn-theme, .story-item, .chapter-item, .player-btn, .switch, .toggle-label, .pagination-btn');
     magneticElements.forEach(el => {
         const rect = el.getBoundingClientRect(); const centerX = rect.left + rect.width / 2; const centerY = rect.top + rect.height / 2;
@@ -445,17 +460,15 @@ document.addEventListener('mousemove', (e) => {
     });
 });
 
-// WATER SPLASH EFFECT
 document.addEventListener('click', function(e) {
     const target = e.target.closest('button, .story-item, .chapter-item, .tab, .flashcard, .switch, .pagination-btn');
-    if (!target || target.disabled) return; // Added disabled check
+    if (!target || target.disabled) return;
     
     const computedStyle = getComputedStyle(target);
     const tabColor = computedStyle.getPropertyValue('--tab-color').trim();
     const splashColor = tabColor || 'var(--primary)';
     
     const splashContainer = document.createElement('div');
-    // CHANGED TO FIXED AND CLIENTX/CLIENTY so it doesn't scroll off-screen
     splashContainer.style.position = 'fixed'; 
     splashContainer.style.left = `${e.clientX}px`; 
     splashContainer.style.top = `${e.clientY}px`;
