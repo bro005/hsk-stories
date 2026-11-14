@@ -3242,3 +3242,507 @@ words: [
 ]
 }
 );
+
+window.STORIES[2].push(
+{
+title: "去茶馆喝茶 (Going to the Teahouse)",
+description: "A traditional and peaceful afternoon drinking green tea and chatting with family.",
+chapters: [
+{
+title: "第一章：走进茶馆 (Chapter 1: Entering the Teahouse)",
+pinyin: "Dì yī zhāng: Zǒu jìn chá guǎn",
+translation: "Chapter 1: Entering the Teahouse",
+sentences: [
+{
+en: "Today afternoon is very sunny.",
+words: [
+{ w: "今天", p: "jīn tiān", e: "today" },
+{ w: "下午", p: "xià wǔ", e: "afternoon" },
+{ w: "天气", p: "tiān qì", e: "weather" },
+{ w: "非常", p: "fēi cháng", e: "very" },
+{ w: "晴朗", p: "qíng lǎng", e: "sunny" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "My father and I go to a quiet teahouse.",
+words: [
+{ w: "我和", p: "wǒ hé", e: "I and" },
+{ w: "爸爸", p: "bà ba", e: "father" },
+{ w: "去", p: "qù", e: "go" },
+{ w: "一个", p: "yí gè", e: "a" },
+{ w: "安静", p: "ān jìng", e: "quiet" },
+{ w: "的", p: "de", e: "particle" },
+{ w: "茶馆", p: "chá guǎn", e: "teahouse" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "The teahouse smells like fresh tea leaves.",
+words: [
+{ w: "茶馆", p: "chá guǎn", e: "teahouse" },
+{ w: "里", p: "lǐ", e: "inside" },
+{ w: "充满", p: "chōng mǎn", e: "full of" },
+{ w: "清香", p: "qīng xiāng", e: "fragrance" },
+{ w: "。", p: "", e: "" }
+]
+}
+]
+},
+{
+title: "第二章：品尝好茶 (Chapter 2: Tasting Good Tea)",
+pinyin: "Dì èr zhāng: Pǐn cháng hǎo chá",
+translation: "Chapter 2: Tasting Good Tea",
+sentences: [
+{
+en: "We order a pot of green tea.",
+words: [
+{ w: "我们", p: "wǒ men", e: "we" },
+{ w: "点", p: "diǎn", e: "order" },
+{ w: "了", p: "le", e: "particle" },
+{ w: "一壶", p: "yì hú", e: "a pot of" },
+{ w: "绿茶", p: "lǜ chá", e: "green tea" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "Father pours a cup of warm tea for me.",
+words: [
+{ w: "爸爸", p: "bà ba", e: "father" },
+{ w: "给", p: "gěi", e: "for" },
+{ w: "我", p: "wǒ", e: "me" },
+{ w: "倒", p: "dào", e: "pour" },
+{ w: "了一杯", p: "le yì bēi", e: "a cup of" },
+{ w: "温茶", p: "wēn chá", e: "warm tea" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "We sit together and talk happily.",
+words: [
+{ w: "我们", p: "wǒ men", e: "we" },
+{ w: "坐", p: "zuò", e: "sit" },
+{ w: "在一起", p: "zài yì qǐ", e: "together" },
+{ w: "开心地", p: "kāi xīn de", e: "happily" },
+{ w: "聊天", p: "liáo tiān", e: "chat" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "Traditional tea culture is wonderful.",
+words: [
+{ w: "传统", p: "chuán tǒng", e: "traditional" },
+{ w: "文化", p: "wén huà", e: "culture" },
+{ w: "真", p: "zhēn", e: "really" },
+{ w: "好", p: "hǎo", e: "good" },
+{ w: "。", p: "", e: "" }
+]
+}
+]
+}
+]
+}
+);
+
+window.STORIES[2].push(
+{
+title: "校园大扫除 (School General Cleaning)",
+description: "Students work together to clean their classroom and school yard.",
+chapters: [
+{
+title: "第一章：分工合作 (Chapter 1: Division of Labor)",
+pinyin: "Dì yī zhāng: Fēn gōng hé zuò",
+translation: "Chapter 1: Division of Labor",
+sentences: [
+{
+en: "Friday afternoon is school cleaning time.",
+words: [
+{ w: "星期五", p: "xīng qī wǔ", e: "Friday" },
+{ w: "下午", p: "xià wǔ", e: "afternoon" },
+{ w: "是", p: "shì", e: "is" },
+{ w: "学校", p: "xué xiào", e: "school" },
+{ w: "大扫除", p: "dà sǎo chú", e: "general cleaning" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "The teacher divides us into groups.",
+words: [
+{ w: "老师", p: "lǎo shī", e: "teacher" },
+{ w: "把", p: "bǎ", e: "particle" },
+{ w: "我们", p: "wǒ men", e: "us" },
+{ w: "分成", p: "fēn chéng", e: "divide into" },
+{ w: "几个", p: "jǐ gè", e: "several" },
+{ w: "小组", p: "xiǎo zǔ", e: "groups" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "Everyone has a clear task to do.",
+words: [
+{ w: "每个", p: "měi gè", e: "each" },
+{ w: "人", p: "rén", e: "person" },
+{ w: "都", p: "dōu", e: "all" },
+{ w: "有", p: "yǒu", e: "have" },
+{ w: "工作", p: "gōng zuò", e: "work" },
+{ w: ".", p: "", e: "" }
+]
+}
+]
+},
+{
+title: "第二章：把教室打扫干净 (Chapter 2: Cleaning the Classroom)",
+pinyin: "Dì èr zhāng: Bǎ jiào shì dǎ sǎo gān jìng",
+translation: "Chapter 2: Cleaning the Classroom",
+sentences: [
+{
+en: "Some students wipe the windows clean.",
+words: [
+{ w: "有的", p: "yǒu de", e: "some" },
+{ w: "同学", p: "tóng xué", e: "classmate" },
+{ w: "擦", p: "cā", e: "wipe" },
+{ w: "玻璃", p: "bō li", e: "glass" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "Other students sweep the floor carefully.",
+words: [
+{ w: "还有", p: "hái yǒu", e: "also have" },
+{ w: "同学", p: "tóng xué", e: "classmate" },
+{ w: "认真", p: "rèn zhēn", e: "carefully" },
+{ w: "扫地", p: "sǎo dì", e: "sweep the floor" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "Our classroom shines brightly.",
+words: [
+{ w: "我们的", p: "wǒ men de", e: "our" },
+{ w: "教室", p: "jiào shì", e: "classroom" },
+{ w: "变得", p: "biàn de", e: "become" },
+{ w: "非常", p: "fēi cháng", e: "very" },
+{ w: "干净", p: "gān jìng", e: "clean" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "We are proud of our hard work.",
+words: [
+{ w: "大家", p: "dà jiā", e: "everyone" },
+{ w: "感到", p: "gǎn dào", e: "feel" },
+{ w: "很", p: "hěn", e: "very" },
+{ w: "开心", p: "kāi xīn", e: "happy" },
+{ w: "。", p: "", e: "" }
+]
+}
+]
+}
+]
+}
+);
+
+window.STORIES[2].push(
+{
+title: "去农场摘草莓 (Picking Strawberries at the Farm)",
+description: "A fun weekend trip to a local farm to pick sweet red strawberries.",
+chapters: [
+{
+title: "第一章：到达农场 (Chapter 1: Arriving at the Farm)",
+pinyin: "Dì yī zhāng: Dào dá nóng chǎng",
+translation: "Chapter 1: Arriving at the Farm",
+sentences: [
+{
+en: "Mother and I visit a fruit farm today.",
+words: [
+{ w: "今天", p: "jīn tiān", e: "today" },
+{ w: "妈妈", p: "mā ma", e: "mother" },
+{ w: "和", p: "hé", e: "and" },
+{ w: "我", p: "wǒ", e: "I" },
+{ w: "去", p: "qù", e: "go" },
+{ w: "农场", p: "nóng chǎng", e: "farm" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "The farm has many sweet strawberries.",
+words: [
+{ w: "农场", p: "nóng chǎng", e: "farm" },
+{ w: "里", p: "lǐ", e: "inside" },
+{ w: "有", p: "yǒu", e: "have" },
+{ w: "很多", p: "hěn duō", e: "many" },
+{ w: "草莓", p: "cǎo méi", e: "strawberries" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "The air in the countryside is fresh.",
+words: [
+{ w: "乡村", p: "xiāng cūn", e: "countryside" },
+{ w: "的", p: "de", e: "particle" },
+{ w: "空气", p: "kōng qì", e: "air" },
+{ w: "特别", p: "tè bié", e: "especially" },
+{ w: "新鲜", p: "xīn xiān", e: "fresh" },
+{ w: "。", p: "", e: "" }
+]
+}
+]
+},
+{
+title: "第二章：摘草莓 (Chapter 2: Picking Strawberries)",
+pinyin: "Dì èr zhāng: Zhāi cǎo méi",
+translation: "Chapter 2: Picking Strawberries",
+sentences: [
+{
+en: "We hold baskets and pick fruit.",
+words: [
+{ w: "我们", p: "wǒ men", e: "we" },
+{ w: "拿着", p: "ná zhe", e: "holding" },
+{ w: "篮子", p: "lán zi", e: "basket" },
+{ w: "摘", p: "zhāi", e: "pick" },
+{ w: "草莓", p: "cǎo méi", e: "strawberries" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "The red strawberries look delicious.",
+words: [
+{ w: "红红的", p: "hóng hóng de", e: "red" },
+{ w: "草莓", p: "cǎo méi", e: "strawberries" },
+{ w: "看起来", p: "kàn qǐ lái", e: "look" },
+{ w: "很好吃", p: "hěn hǎo chī", e: "delicious" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "We fill the basket completely.",
+words: [
+{ w: "我们", p: "wǒ men", e: "we" },
+{ w: "把", p: "bǎ", e: "particle" },
+{ w: "篮子", p: "lán zi", e: "basket" },
+{ w: "装", p: "zhuāng", e: "fill" },
+{ w: "满", p: "mǎn", e: "full" },
+{ w: "了", p: "le", e: "particle" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "We return home with big smiles.",
+words: [
+{ w: "我们", p: "wǒ men", e: "we" },
+{ w: "开心地", p: "kāi xīn de", e: "happily" },
+{ w: "回家", p: "huí jiā", e: "go home" },
+{ w: "了", p: "le", e: "particle" },
+{ w: "。", p: "", e: "" }
+]
+}
+]
+}
+]
+}
+);
+
+window.STORIES[2].push(
+{
+title: "练习书法 (Practicing Calligraphy)",
+description: "A quiet morning spent practicing traditional Chinese calligraphy characters.",
+chapters: [
+{
+title: "第一章：准备笔墨 (Chapter 1: Preparing Brush and Ink)",
+pinyin: "Dì yī zhāng: Zhǔn bèi bǐ mò",
+translation: "Chapter 1: Preparing Brush and Ink",
+sentences: [
+{
+en: "Morning is a great time to write.",
+words: [
+{ w: "早上", p: "zǎo shang", e: "morning" },
+{ w: "是", p: "shì", e: "is" },
+{ w: "练习", p: "liàn xí", e: "practice" },
+{ w: "书法", p: "shū fǎ", e: "calligraphy" },
+{ w: "的", p: "de", e: "particle" },
+{ w: "好", p: "hǎo", e: "good" },
+{ w: "时间", p: "shí jiān", e: "time" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "I put the brush and paper on the desk.",
+words: [
+{ w: "我", p: "wǒ", e: "I" },
+{ w: "把", p: "bǎ", e: "particle" },
+{ w: "毛笔", p: "máo bǐ", e: "writing brush" },
+{ w: "和", p: "hé", e: "and" },
+{ w: "纸", p: "zhǐ", e: "paper" },
+{ w: "放在", p: "fàng zài", e: "put on" },
+{ w: "桌上", p: "zhuō shàng", e: "desk" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "The room is very peaceful.",
+words: [
+{ w: "房间", p: "fáng jiān", e: "room" },
+{ w: "里", p: "lǐ", e: "inside" },
+{ w: "非常", p: "fēi cháng", e: "very" },
+{ w: "安静", p: "ān jìng", e: "quiet" },
+{ w: "。", p: "", e: "" }
+]
+}
+]
+},
+{
+title: "第二章：认真写字 (Chapter 2: Writing Carefully)",
+pinyin: "Dì èr zhāng: Rèn zhēn xiě zì",
+translation: "Chapter 2: Writing Carefully",
+sentences: [
+{
+en: "I write Chinese characters slowly.",
+words: [
+{ w: "我", p: "wǒ", e: "I" },
+{ w: "慢慢地", p: "màn màn de", e: "slowly" },
+{ w: "写", p: "xiě", e: "write" },
+{ w: "汉字", p: "hàn zì", e: "Chinese characters" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "Calligraphy requires focus and patience.",
+words: [
+{ w: "写", p: "xiě", e: "writing" },
+{ w: "书法", p: "shū fǎ", e: "calligraphy" },
+{ w: "需要", p: "xū yào", e: "need" },
+{ w: "耐心", p: "nài xīn", e: "patience" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "My grandfather looks at my work and smiles.",
+words: [
+{ w: "爷爷", p: "yé ye", e: "grandfather" },
+{ w: "看到", p: "kàn dào", e: "see" },
+{ w: "我的", p: "wǒ de", e: "my" },
+{ w: "字", p: "zì", e: "characters" },
+{ w: "微笑着", p: "wēi xiào zhe", e: "smiling" },
+{ w: "点头", p: "diǎn tóu", e: "nod" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "I love learning traditional art.",
+words: [
+{ w: "我", p: "wǒ", e: "I" },
+{ w: "很", p: "hěn", e: "very" },
+{ w: "喜欢", p: "xǐ huan", e: "like" },
+{ w: "中国", p: "zhōng guó", e: "Chinese" },
+{ w: "文化", p: "wén huà", e: "culture" },
+{ w: "。", p: "", e: "" }
+]
+}
+]
+}
+]
+}
+);
+
+window.STORIES[2].push(
+{
+title: "去博物馆参观 (Visiting the Museum)",
+description: "A school field trip to learn about history and ancient artifacts at the museum.",
+chapters: [
+{
+title: "第一章：走进博物馆 (Chapter 1: Entering the Museum)",
+pinyin: "Dì yī zhāng: Zǒu jìn bó wù guǎn",
+translation: "Chapter 1: Entering the Museum",
+sentences: [
+{
+en: "Our class visits the history museum today.",
+words: [
+{ w: "今天", p: "jīn tiān", e: "today" },
+{ w: "我们", p: "wǒ men", e: "we" },
+{ w: "全班", p: "quán bān", e: "whole class" },
+{ w: "去", p: "qù", e: "go" },
+{ w: "历史", p: "lì shǐ", e: "history" },
+{ w: "博物馆", p: "bó wù guǎn", e: "museum" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "The museum building is very big.",
+words: [
+{ w: "博物馆", p: "bó wù guǎn", e: "museum" },
+{ w: "的", p: "de", e: "particle" },
+{ w: "建筑", p: "jiàn zhù", e: "building" },
+{ w: "非常", p: "fēi cháng", e: "very" },
+{ w: "大", p: "dà", e: "big" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "There are many historical items inside.",
+words: [
+{ w: "里面", p: "lǐ miàn", e: "inside" },
+{ w: "有", p: "yǒu", e: "have" },
+{ w: "很多", p: "hěn duō", e: "many" },
+{ w: "历史", p: "lì shǐ", e: "historical" },
+{ w: "物品", p: "wù pǐn", e: "items" },
+{ w: "。", p: "", e: "" }
+]
+}
+]
+},
+{
+title: "第二章：了解历史 (Chapter 2: Learning About History)",
+pinyin: "Dì èr zhāng: Liǎo jiě lì shǐ",
+translation: "Chapter 2: Learning About History",
+sentences: [
+{
+en: "The guide explains the stories to us.",
+words: [
+{ w: "导游", p: "dǎo yóu", e: "guide" },
+{ w: "给", p: "gěi", e: "for" },
+{ w: "我们", p: "wǒ men", e: "us" },
+{ w: "讲解", p: "jiǎng jiě", e: "explain" },
+{ w: "故事", p: "gù shi", e: "stories" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "We look at ancient books and pottery.",
+words: [
+{ w: "我们", p: "wǒ men", e: "we" },
+{ w: "看", p: "kàn", e: "look" },
+{ w: "古代", p: "gǔ dài", e: "ancient" },
+{ w: "的书籍", p: "de shū jí", e: "books" },
+{ w: "和", p: "hé", e: "and" },
+{ w: "陶器", p: "táo qì", e: "pottery" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "History helps us understand the past.",
+words: [
+{ w: "历史", p: "lì shǐ", e: "history" },
+{ w: "让", p: "ràng", e: "let" },
+{ w: "我们", p: "wǒ men", e: "us" },
+{ w: "学到", p: "xué dào", e: "learn" },
+{ w: "很多", p: "hěn duō", e: "many" },
+{ w: "知识", p: "zhī shi", e: "knowledge" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "We return to school happily.",
+words: [
+{ w: "大家", p: "dà jiā", e: "everyone" },
+{ w: "高兴地", p: "gāo xīng de", e: "happily" },
+{ w: "回", p: "huí", e: "return" },
+{ w: "学校", p: "xué xiào", e: "school" },
+{ w: "了", p: "le", e: "particle" },
+{ w: "。", p: "", e: "" }
+]
+}
+]
+}
+]
+}
+);
