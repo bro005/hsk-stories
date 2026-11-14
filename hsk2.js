@@ -1025,3 +1025,725 @@ window.STORIES[2].push(
         ]
     }
 );
+
+window.STORIES[2].push(
+    {
+        title: "准备去旅行 (Preparing for a Trip)",
+        description: "A family packs their bags and gets ready for a train trip.",
+        chapters: [
+            {
+                title: "第一章：收拾行李 (Chapter 1: Packing Luggage)",
+                pinyin: "Dì yī zhāng: Shōu shi xíng li",
+                translation: "Chapter 1: Packing Luggage",
+                sentences: [
+                    {
+                        en: "Tomorrow is the weekend.",
+                        words: [
+                            { w: "明天", p: "míng tiān", e: "tomorrow" },
+                            { w: "是", p: "shì", e: "is" },
+                            { w: "周末", p: "zhōu mò", e: "weekend" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "Our family is going to travel.",
+                        words: [
+                            { w: "我们", p: "wǒ men", e: "our" },
+                            { w: "一家人", p: "yī jiā rén", e: "whole family" },
+                            { w: "要", p: "yào", e: "will" },
+                            { w: "去", p: "qù", e: "go" },
+                            { w: "旅行", p: "lǚ xíng", e: "travel" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "Mother is packing clothes in the room.",
+                        words: [
+                            { w: "妈妈", p: "mā ma", e: "mother" },
+                            { w: "在", p: "zài", e: "in" },
+                            { w: "房间", p: "fáng jiān", e: "room" },
+                            { w: "里", p: "lǐ", e: "inside" },
+                            { w: "收拾", p: "shōu shi", e: "pack" },
+                            { w: "衣服", p: "yī fu", e: "clothes" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "I am putting my books in the schoolbag.",
+                        words: [
+                            { w: "我", p: "wǒ", e: "I" },
+                            { w: "把", p: "bǎ", e: "particle" },
+                            { w: "书", p: "shū", e: "books" },
+                            { w: "放", p: "fàng", e: "put" },
+                            { w: "进", p: "jìn", e: "into" },
+                            { w: "书包", p: "shū bāo", e: "schoolbag" },
+                            { w: "里", p: "lǐ", e: "inside" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "Father is buying train tickets on the phone.",
+                        words: [
+                            { w: "爸爸", p: "bà ba", e: "father" },
+                            { w: "正在", p: "zhèng zài", e: "currently" },
+                            { w: "用", p: "yòng", e: "use" },
+                            { w: "手机", p: "shǒu jī", e: "phone" },
+                            { w: "买", p: "mǎi", e: "buy" },
+                            { w: "火车票", p: "huǒ chē piào", e: "train ticket" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "第二章：去火车站 (Chapter 2: Going to the Train Station)",
+                pinyin: "Dì èr zhāng: Qù huǒ chē zhàn",
+                translation: "Chapter 2: Going to the Train Station",
+                sentences: [
+                    {
+                        en: "We wake up at six in the morning.",
+                        words: [
+                            { w: "早上", p: "zǎo shang", e: "morning" },
+                            { w: "六点", p: "liù diǎn", e: "six o'clock" },
+                            { w: "我们", p: "wǒ men", e: "we" },
+                            { w: "就", p: "jiù", e: "then" },
+                            { w: "起床", p: "qǐ chuáng", e: "get up" },
+                            { w: "了", p: "le", e: "particle" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "We take a taxi to the train station.",
+                        words: [
+                            { w: "我们", p: "wǒ men", e: "we" },
+                            { w: "坐", p: "zuò", e: "take" },
+                            { w: "出租车", p: "chū zū chē", e: "taxi" },
+                            { w: "去", p: "qù", e: "go" },
+                            { w: "火车站", p: "huǒ chē zhàn", e: "train station" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "The train station is very big and has many people.",
+                        words: [
+                            { w: "火车站", p: "huǒ chē zhàn", e: "train station" },
+                            { w: "很大", p: "hěn dà", e: "very big" },
+                            { w: "，", p: "", e: "" },
+                            { w: "人", p: "rén", e: "people" },
+                            { w: "也", p: "yě", e: "also" },
+                            { w: "很多", p: "hěn duō", e: "many" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "We find our seats and sit down.",
+                        words: [
+                            { w: "我们", p: "wǒ men", e: "we" },
+                            { w: "找到", p: "zhǎo dào", e: "find" },
+                            { w: "座位", p: "zuò wèi", e: "seat" },
+                            { w: "坐", p: "zuò", e: "sit" },
+                            { w: "下来", p: "xià lái", e: "down" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "The train starts moving, we are very happy.",
+                        words: [
+                            { w: "火车", p: "huǒ chē", e: "train" },
+                            { w: "开", p: "kāi", e: "start" },
+                            { w: "了", p: "le", e: "particle" },
+                            { w: "，", p: "", e: "" },
+                            { w: "我们", p: "wǒ men", e: "we" },
+                            { w: "非常", p: "fēi cháng", e: "very" },
+                            { w: "高兴", p: "gāo xìng", e: "happy" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+);
+
+window.STORIES[2].push(
+    {
+        title: "在图书馆 (At the Library)",
+        description: "A student spends a quiet afternoon reading and studying at the library.",
+        chapters: [
+            {
+                title: "第一章：找书 (Chapter 1: Looking for Books)",
+                pinyin: "Dì yī zhāng: Zhǎo shū",
+                translation: "Chapter 1: Looking for Books",
+                sentences: [
+                    {
+                        en: "Today is Tuesday, I go to the library.",
+                        words: [
+                            { w: "今天", p: "jīn tiān", e: "today" },
+                            { w: "是", p: "shì", e: "is" },
+                            { w: "星期二", p: "xīng qī èr", e: "Tuesday" },
+                            { w: "，", p: "", e: "" },
+                            { w: "我", p: "wǒ", e: "I" },
+                            { w: "去", p: "qù", e: "go" },
+                            { w: "图书馆", p: "tú shū guǎn", e: "library" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "The library is very quiet.",
+                        words: [
+                            { w: "图书馆", p: "tú shū guǎn", e: "library" },
+                            { w: "里", p: "lǐ", e: "inside" },
+                            { w: "很", p: "hěn", e: "very" },
+                            { w: "安静", p: "ān jìng", e: "quiet" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "I want to find a book about animals.",
+                        words: [
+                            { w: "我", p: "wǒ", e: "I" },
+                            { w: "想", p: "xiǎng", e: "want" },
+                            { w: "找", p: "zhǎo", e: "find" },
+                            { w: "一本", p: "yī běn", e: "one (measure word)" },
+                            { w: "关于", p: "guān yú", e: "about" },
+                            { w: "动物", p: "dòng wù", e: "animal" },
+                            { w: "的", p: "de", e: "particle" },
+                            { w: "书", p: "shū", e: "book" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "There are many books on the shelf.",
+                        words: [
+                            { w: "书架", p: "shū jià", e: "bookshelf" },
+                            { w: "上", p: "shàng", e: "on" },
+                            { w: "有", p: "yǒu", e: "have" },
+                            { w: "很", p: "hěn", e: "very" },
+                            { w: "多", p: "duō", e: "many" },
+                            { w: "书", p: "shū", e: "book" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "I find the book and sit by the window.",
+                        words: [
+                            { w: "我", p: "wǒ", e: "I" },
+                            { w: "找到", p: "zhǎo dào", e: "find" },
+                            { w: "了", p: "le", e: "particle" },
+                            { w: "书", p: "shū", e: "book" },
+                            { w: "，", p: "", e: "" },
+                            { w: "坐在", p: "zuò zài", e: "sit at" },
+                            { w: "窗户", p: "chuāng hu", e: "window" },
+                            { w: "旁边", p: "páng biān", e: "beside" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "第二章：准备回家 (Chapter 2: Preparing to Go Home)",
+                pinyin: "Dì èr zhāng: Zhǔn bèi huí jiā",
+                translation: "Chapter 2: Preparing to Go Home",
+                sentences: [
+                    {
+                        en: "I read for two hours.",
+                        words: [
+                            { w: "我", p: "wǒ", e: "I" },
+                            { w: "看", p: "kàn", e: "read" },
+                            { w: "了", p: "le", e: "particle" },
+                            { w: "两", p: "liǎng", e: "two" },
+                            { w: "个", p: "gè", e: "measure word" },
+                            { w: "小时", p: "xiǎo shí", e: "hour" },
+                            { w: "的", p: "de", e: "particle" },
+                            { w: "书", p: "shū", e: "book" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "The book is very interesting.",
+                        words: [
+                            { w: "这本", p: "zhè běn", e: "this" },
+                            { w: "书", p: "shū", e: "book" },
+                            { w: "很", p: "hěn", e: "very" },
+                            { w: "有意思", p: "yǒu yì si", e: "interesting" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "My friend calls me.",
+                        words: [
+                            { w: "我", p: "wǒ", e: "my" },
+                            { w: "的", p: "de", e: "particle" },
+                            { w: "朋友", p: "péng you", e: "friend" },
+                            { w: "给", p: "gěi", e: "to" },
+                            { w: "我", p: "wǒ", e: "me" },
+                            { w: "打", p: "dǎ", e: "make" },
+                            { w: "电话", p: "diàn huà", e: "phone call" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "He asks me to go eat noodles together.",
+                        words: [
+                            { w: "他", p: "tā", e: "he" },
+                            { w: "叫", p: "jiào", e: "ask" },
+                            { w: "我", p: "wǒ", e: "me" },
+                            { w: "一起", p: "yī qǐ", e: "together" },
+                            { w: "去", p: "qù", e: "go" },
+                            { w: "吃", p: "chī", e: "eat" },
+                            { w: "面条", p: "miàn tiáo", e: "noodles" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "I put the book back and leave the library.",
+                        words: [
+                            { w: "我", p: "wǒ", e: "I" },
+                            { w: "放", p: "fàng", e: "put" },
+                            { w: "好", p: "hǎo", e: "good" },
+                            { w: "书", p: "shū", e: "book" },
+                            { w: "，", p: "", e: "" },
+                            { w: "离开", p: "lí kāi", e: "leave" },
+                            { w: "了", p: "le", e: "particle" },
+                            { w: "图书馆", p: "tú shū guǎn", e: "library" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+);
+
+window.STORIES[2].push(
+    {
+        title: "我的新手机 (My New Phone)",
+        description: "A story about getting a new phone and using it to take photos.",
+        chapters: [
+            {
+                title: "第一章：买手机 (Chapter 1: Buying a Phone)",
+                pinyin: "Dì yī zhāng: Mǎi shǒu jī",
+                translation: "Chapter 1: Buying a Phone",
+                sentences: [
+                    {
+                        en: "My old phone is broken.",
+                        words: [
+                            { w: "我", p: "wǒ", e: "my" },
+                            { w: "的", p: "de", e: "particle" },
+                            { w: "旧", p: "jiù", e: "old" },
+                            { w: "手机", p: "shǒu jī", e: "phone" },
+                            { w: "坏", p: "huài", e: "broken" },
+                            { w: "了", p: "le", e: "particle" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "Father takes me to the store to buy a new one.",
+                        words: [
+                            { w: "爸爸", p: "bà ba", e: "father" },
+                            { w: "带", p: "dài", e: "take" },
+                            { w: "我", p: "wǒ", e: "me" },
+                            { w: "去", p: "qù", e: "go" },
+                            { w: "商店", p: "shāng diàn", e: "store" },
+                            { w: "买", p: "mǎi", e: "buy" },
+                            { w: "新", p: "xīn", e: "new" },
+                            { w: "的", p: "de", e: "particle" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "The store has many phones.",
+                        words: [
+                            { w: "商店", p: "shāng diàn", e: "store" },
+                            { w: "里", p: "lǐ", e: "inside" },
+                            { w: "有", p: "yǒu", e: "have" },
+                            { w: "很", p: "hěn", e: "very" },
+                            { w: "多", p: "duō", e: "many" },
+                            { w: "手机", p: "shǒu jī", e: "phone" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "I choose a black phone.",
+                        words: [
+                            { w: "我", p: "wǒ", e: "I" },
+                            { w: "选", p: "xuǎn", e: "choose" },
+                            { w: "了", p: "le", e: "particle" },
+                            { w: "一个", p: "yī gè", e: "one" },
+                            { w: "黑色", p: "hēi sè", e: "black" },
+                            { w: "的", p: "de", e: "particle" },
+                            { w: "手机", p: "shǒu jī", e: "phone" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "This phone is not very expensive.",
+                        words: [
+                            { w: "这", p: "zhè", e: "this" },
+                            { w: "个", p: "gè", e: "measure word" },
+                            { w: "手机", p: "shǒu jī", e: "phone" },
+                            { w: "不", p: "bù", e: "not" },
+                            { w: "太", p: "tài", e: "too" },
+                            { w: "贵", p: "guì", e: "expensive" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "第二章：拍照 (Chapter 2: Taking Photos)",
+                pinyin: "Dì èr zhāng: Pāi zhào",
+                translation: "Chapter 2: Taking Photos",
+                sentences: [
+                    {
+                        en: "The new phone is very good.",
+                        words: [
+                            { w: "新", p: "xīn", e: "new" },
+                            { w: "手机", p: "shǒu jī", e: "phone" },
+                            { w: "很", p: "hěn", e: "very" },
+                            { w: "好", p: "hǎo", e: "good" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "I use it to take photos of my family.",
+                        words: [
+                            { w: "我", p: "wǒ", e: "I" },
+                            { w: "用", p: "yòng", e: "use" },
+                            { w: "它", p: "tā", e: "it" },
+                            { w: "给", p: "gěi", e: "to" },
+                            { w: "家人", p: "jiā rén", e: "family members" },
+                            { w: "拍照", p: "pāi zhào", e: "take photos" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "I also use it to listen to music.",
+                        words: [
+                            { w: "我", p: "wǒ", e: "I" },
+                            { w: "还", p: "hái", e: "also" },
+                            { w: "用", p: "yòng", e: "use" },
+                            { w: "它", p: "tā", e: "it" },
+                            { w: "听", p: "tīng", e: "listen" },
+                            { w: "音乐", p: "yīn yuè", e: "music" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "At night, I call my friend.",
+                        words: [
+                            { w: "晚上", p: "wǎn shang", e: "night" },
+                            { w: "我", p: "wǒ", e: "I" },
+                            { w: "给", p: "gěi", e: "to" },
+                            { w: "朋友", p: "péng you", e: "friend" },
+                            { w: "打", p: "dǎ", e: "make" },
+                            { w: "电话", p: "diàn huà", e: "phone call" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "I am very happy with my new phone.",
+                        words: [
+                            { w: "我", p: "wǒ", e: "I" },
+                            { w: "非常", p: "fēi cháng", e: "very" },
+                            { w: "喜欢", p: "xǐ huan", e: "like" },
+                            { w: "我的", p: "wǒ de", e: "my" },
+                            { w: "新", p: "xīn", e: "new" },
+                            { w: "手机", p: "shǒu jī", e: "phone" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+);
+
+window.STORIES[2].push(
+    {
+        title: "学做中国菜 (Learning to Cook Chinese Food)",
+        description: "A story about learning to cook a healthy vegetable dish.",
+        chapters: [
+            {
+                title: "第一章：准备做饭 (Chapter 1: Preparing to Cook)",
+                pinyin: "Dì yī zhāng: Zhǔn bèi zuò fàn",
+                translation: "Chapter 1: Preparing to Cook",
+                sentences: [
+                    {
+                        en: "Today is Sunday, I want to learn to cook.",
+                        words: [
+                            { w: "今天", p: "jīn tiān", e: "today" },
+                            { w: "是", p: "shì", e: "is" },
+                            { w: "星期天", p: "xīng qī tiān", e: "Sunday" },
+                            { w: "，", p: "", e: "" },
+                            { w: "我", p: "wǒ", e: "I" },
+                            { w: "想", p: "xiǎng", e: "want" },
+                            { w: "学", p: "xué", e: "learn" },
+                            { w: "做饭", p: "zuò fàn", e: "cook" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "Mother teaches me to make a vegetable dish.",
+                        words: [
+                            { w: "妈妈", p: "mā ma", e: "mother" },
+                            { w: "教", p: "jiāo", e: "teach" },
+                            { w: "我", p: "wǒ", e: "me" },
+                            { w: "做", p: "zuò", e: "make" },
+                            { w: "一个", p: "yī gè", e: "one" },
+                            { w: "菜", p: "cài", e: "dish" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "We need some vegetables and eggs.",
+                        words: [
+                            { w: "我们", p: "wǒ men", e: "we" },
+                            { w: "需要", p: "xū yào", e: "need" },
+                            { w: "一些", p: "yī xiē", e: "some" },
+                            { w: "蔬菜", p: "shū cài", e: "vegetables" },
+                            { w: "和", p: "hé", e: "and" },
+                            { w: "鸡蛋", p: "jī dàn", e: "eggs" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "I wash the vegetables carefully.",
+                        words: [
+                            { w: "我", p: "wǒ", e: "I" },
+                            { w: "认真", p: "rèn zhēn", e: "carefully" },
+                            { w: "地", p: "de", e: "particle" },
+                            { w: "洗", p: "xǐ", e: "wash" },
+                            { w: "蔬菜", p: "shū cài", e: "vegetables" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "Mother cuts the vegetables.",
+                        words: [
+                            { w: "妈妈", p: "mā ma", e: "mother" },
+                            { w: "切", p: "qiē", e: "cut" },
+                            { w: "蔬菜", p: "shū cài", e: "vegetables" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "第二章：吃晚饭 (Chapter 2: Eating Dinner)",
+                pinyin: "Dì èr zhāng: Chī wǎn fàn",
+                translation: "Chapter 2: Eating Dinner",
+                sentences: [
+                    {
+                        en: "I put the vegetables in the pan.",
+                        words: [
+                            { w: "我", p: "wǒ", e: "I" },
+                            { w: "把", p: "bǎ", e: "particle" },
+                            { w: "蔬菜", p: "shū cài", e: "vegetables" },
+                            { w: "放", p: "fàng", e: "put" },
+                            { w: "在", p: "zài", e: "in" },
+                            { w: "锅", p: "guō", e: "pan" },
+                            { w: "里", p: "lǐ", e: "inside" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "The dish smells very good.",
+                        words: [
+                            { w: "菜", p: "cài", e: "dish" },
+                            { w: "闻", p: "wén", e: "smell" },
+                            { w: "起来", p: "qǐ lái", e: "appear" },
+                            { w: "很", p: "hěn", e: "very" },
+                            { w: "香", p: "xiāng", e: "fragrant" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "At six in the evening, we eat dinner.",
+                        words: [
+                            { w: "晚上", p: "wǎn shang", e: "evening" },
+                            { w: "六点", p: "liù diǎn", e: "six o'clock" },
+                            { w: "，", p: "", e: "" },
+                            { w: "我们", p: "wǒ men", e: "we" },
+                            { w: "吃", p: "chī", e: "eat" },
+                            { w: "晚饭", p: "wǎn fàn", e: "dinner" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "Father says the food is very delicious.",
+                        words: [
+                            { w: "爸爸", p: "bà ba", e: "father" },
+                            { w: "说", p: "shuō", e: "say" },
+                            { w: "饭", p: "fàn", e: "food" },
+                            { w: "很", p: "hěn", e: "very" },
+                            { w: "好吃", p: "hǎo chī", e: "delicious" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "I am very happy, because I cooked it.",
+                        words: [
+                            { w: "我", p: "wǒ", e: "I" },
+                            { w: "很", p: "hěn", e: "very" },
+                            { w: "高兴", p: "gāo xìng", e: "happy" },
+                            { w: "，", p: "", e: "" },
+                            { w: "因为", p: "yīn wèi", e: "because" },
+                            { w: "是", p: "shì", e: "is" },
+                            { w: "我", p: "wǒ", e: "I" },
+                            { w: "做", p: "zuò", e: "make" },
+                            { w: "的", p: "de", e: "particle" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+);
+
+window.STORIES[2].push(
+    {
+        title: "去书店 (Going to the Bookstore)",
+        description: "A story about buying a new dictionary and reading at a bookstore.",
+        chapters: [
+            {
+                title: "第一章：找词典 (Chapter 1: Looking for a Dictionary)",
+                pinyin: "Dì yī zhāng: Zhǎo cí diǎn",
+                translation: "Chapter 1: Looking for a Dictionary",
+                sentences: [
+                    {
+                        en: "After school, I go to the bookstore.",
+                        words: [
+                            { w: "放学", p: "fàng xué", e: "after school" },
+                            { w: "后", p: "hòu", e: "after" },
+                            { w: "，", p: "", e: "" },
+                            { w: "我", p: "wǒ", e: "I" },
+                            { w: "去", p: "qù", e: "go" },
+                            { w: "书店", p: "shū diàn", e: "bookstore" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "I want to buy a Chinese dictionary.",
+                        words: [
+                            { w: "我", p: "wǒ", e: "I" },
+                            { w: "想", p: "xiǎng", e: "want" },
+                            { w: "买", p: "mǎi", e: "buy" },
+                            { w: "一本", p: "yī běn", e: "one" },
+                            { w: "汉语", p: "hàn yǔ", e: "Chinese" },
+                            { w: "词典", p: "cí diǎn", e: "dictionary" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "The bookstore is very near the school.",
+                        words: [
+                            { w: "书店", p: "shū diàn", e: "bookstore" },
+                            { w: "离", p: "lí", e: "from" },
+                            { w: "学校", p: "xué xiào", e: "school" },
+                            { w: "很", p: "hěn", e: "very" },
+                            { w: "近", p: "jìn", e: "near" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "I look for the dictionary on the shelf.",
+                        words: [
+                            { w: "我", p: "wǒ", e: "I" },
+                            { w: "在", p: "zài", e: "on" },
+                            { w: "书架", p: "shū jià", e: "bookshelf" },
+                            { w: "上", p: "shàng", e: "on" },
+                            { w: "找", p: "zhǎo", e: "look for" },
+                            { w: "词典", p: "cí diǎn", e: "dictionary" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "The boss helps me find a good one.",
+                        words: [
+                            { w: "老板", p: "lǎo bǎn", e: "boss" },
+                            { w: "帮", p: "bāng", e: "help" },
+                            { w: "我", p: "wǒ", e: "me" },
+                            { w: "找", p: "zhǎo", e: "find" },
+                            { w: "了", p: "le", e: "particle" },
+                            { w: "一本", p: "yī běn", e: "one" },
+                            { w: "好", p: "hǎo", e: "good" },
+                            { w: "的", p: "de", e: "particle" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "第二章：看书 (Chapter 2: Reading Books)",
+                pinyin: "Dì èr zhāng: Kàn shū",
+                translation: "Chapter 2: Reading Books",
+                sentences: [
+                    {
+                        en: "There is also a small coffee shop in the bookstore.",
+                        words: [
+                            { w: "书店", p: "shū diàn", e: "bookstore" },
+                            { w: "里", p: "lǐ", e: "inside" },
+                            { w: "还", p: "hái", e: "also" },
+                            { w: "有", p: "yǒu", e: "have" },
+                            { w: "一个", p: "yī gè", e: "one" },
+                            { w: "小", p: "xiǎo", e: "small" },
+                            { w: "咖啡店", p: "kā fēi diàn", e: "coffee shop" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "I sit down and read a storybook.",
+                        words: [
+                            { w: "我", p: "wǒ", e: "I" },
+                            { w: "坐", p: "zuò", e: "sit" },
+                            { w: "下来", p: "xià lái", e: "down" },
+                            { w: "看", p: "kàn", e: "read" },
+                            { w: "故事书", p: "gù shi shū", e: "storybook" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "The story in the book is very interesting.",
+                        words: [
+                            { w: "书", p: "shū", e: "book" },
+                            { w: "里", p: "lǐ", e: "inside" },
+                            { w: "的", p: "de", e: "particle" },
+                            { w: "故事", p: "gù shi", e: "story" },
+                            { w: "很", p: "hěn", e: "very" },
+                            { w: "有意思", p: "yǒu yì si", e: "interesting" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "I read for one hour, then go home.",
+                        words: [
+                            { w: "我", p: "wǒ", e: "I" },
+                            { w: "看", p: "kàn", e: "read" },
+                            { w: "了", p: "le", e: "particle" },
+                            { w: "一个", p: "yī gè", e: "one" },
+                            { w: "小时", p: "xiǎo shí", e: "hour" },
+                            { w: "，", p: "", e: "" },
+                            { w: "然后", p: "rán hòu", e: "then" },
+                            { w: "回家", p: "huí jiā", e: "go home" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "Today is a very good day.",
+                        words: [
+                            { w: "今天", p: "jīn tiān", e: "today" },
+                            { w: "是", p: "shì", e: "is" },
+                            { w: "非常", p: "fēi cháng", e: "very" },
+                            { w: "好", p: "hǎo", e: "good" },
+                            { w: "的", p: "de", e: "particle" },
+                            { w: "一天", p: "yī tiān", e: "day" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+);
