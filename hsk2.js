@@ -6822,3 +6822,242 @@ words: [
 ]
 }
 );
+
+window.STORIES[2].push(
+    {
+        title: "下雨天画画 (Drawing on a Rainy Day)",
+        description: "A peaceful rainy weekend spent indoors drawing pictures and drinking warm tea with the family.",
+        chapters: [
+            {
+                title: "第一章：外面下雨了 (Chapter 1: It is Raining Outside)",
+                pinyin: "Dì yī zhāng: Wài miàn xià yǔ le",
+                translation: "Chapter 1: It is Raining Outside",
+                sentences: [
+                    {
+                        en: "Today is Saturday.",
+                        words: [
+                            { w: "今天", p: "jīn tiān", e: "today" },
+                            { w: "是", p: "shì", e: "is" },
+                            { w: "星期六", p: "xīng qī liù", e: "Saturday" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "The weather is not very good.",
+                        words: [
+                            { w: "天气", p: "tiān qì", e: "weather" },
+                            { w: "不", p: "bù", e: "not" },
+                            { w: "太", p: "tài", e: "too" },
+                            { w: "好", p: "hǎo", e: "good" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "In the afternoon, it starts to rain outside.",
+                        words: [
+                            { w: "下午", p: "xià wǔ", e: "afternoon" },
+                            { w: "，", p: "", e: "" },
+                            { w: "外面", p: "wài miàn", e: "outside" },
+                            { w: "开始", p: "kāi shǐ", e: "start" },
+                            { w: "下雨", p: "xià yǔ", e: "rain" },
+                            { w: "了", p: "le", e: "particle" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "There are many clouds in the sky.",
+                        words: [
+                            { w: "天上", p: "tiān shàng", e: "sky" },
+                            { w: "有", p: "yǒu", e: "have" },
+                            { w: "很多", p: "hěn duō", e: "many" },
+                            { w: "云", p: "yún", e: "clouds" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "Younger brother and I stay inside the house.",
+                        words: [
+                            { w: "弟弟", p: "dì di", e: "younger brother" },
+                            { w: "和", p: "hé", e: "and" },
+                            { w: "我", p: "wǒ", e: "I" },
+                            { w: "在", p: "zài", e: "at" },
+                            { w: "家", p: "jiā", e: "home" },
+                            { w: "里", p: "lǐ", e: "inside" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "We cannot go to the park to play.",
+                        words: [
+                            { w: "我们", p: "wǒ men", e: "we" },
+                            { w: "不能", p: "bù néng", e: "cannot" },
+                            { w: "去", p: "qù", e: "go" },
+                            { w: "公园", p: "gōng yuán", e: "park" },
+                            { w: "玩", p: "wán", e: "play" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "But we are also very happy at home.",
+                        words: [
+                            { w: "但是", p: "dàn shì", e: "but" },
+                            { w: "我们", p: "wǒ men", e: "we" },
+                            { w: "在", p: "zài", e: "at" },
+                            { w: "家", p: "jiā", e: "home" },
+                            { w: "也", p: "yě", e: "also" },
+                            { w: "很", p: "hěn", e: "very" },
+                            { w: "开心", p: "kāi xīn", e: "happy" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "We look at the trees outside the window.",
+                        words: [
+                            { w: "我们", p: "wǒ men", e: "we" },
+                            { w: "看", p: "kàn", e: "look" },
+                            { w: "窗户", p: "chuāng hu", e: "window" },
+                            { w: "外面", p: "wài miàn", e: "outside" },
+                            { w: "的", p: "de", e: "particle" },
+                            { w: "树", p: "shù", e: "trees" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "The trees are very green.",
+                        words: [
+                            { w: "树", p: "shù", e: "trees" },
+                            { w: "很", p: "hěn", e: "very" },
+                            { w: "绿", p: "lǜ", e: "green" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "第二章：画画和喝茶 (Chapter 2: Drawing and Drinking Tea)",
+                pinyin: "Dì èr zhāng: Huà huà hé hē chá",
+                translation: "Chapter 2: Drawing and Drinking Tea",
+                sentences: [
+                    {
+                        en: "I sit beside the table and prepare to draw.",
+                        words: [
+                            { w: "我", p: "wǒ", e: "I" },
+                            { w: "坐", p: "zuò", e: "sit" },
+                            { w: "在", p: "zài", e: "at" },
+                            { w: "桌子", p: "zhuō zi", e: "table" },
+                            { w: "旁边", p: "páng biān", e: "beside" },
+                            { w: "准备", p: "zhǔn bèi", e: "prepare" },
+                            { w: "画画", p: "huà huà", e: "draw" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "I want to draw the nature outside.",
+                        words: [
+                            { w: "我", p: "wǒ", e: "I" },
+                            { w: "想", p: "xiǎng", e: "want" },
+                            { w: "画", p: "huà", e: "draw" },
+                            { w: "外面", p: "wài miàn", e: "outside" },
+                            { w: "的", p: "de", e: "particle" },
+                            { w: "大自然", p: "dà zì rán", e: "nature" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "I take out white paper and colored pens.",
+                        words: [
+                            { w: "我", p: "wǒ", e: "I" },
+                            { w: "拿出", p: "ná chū", e: "take out" },
+                            { w: "白纸", p: "bái zhǐ", e: "white paper" },
+                            { w: "和", p: "hé", e: "and" },
+                            { w: "彩色", p: "cǎi sè", e: "colored" },
+                            { w: "笔", p: "bǐ", e: "pens" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "I draw a big mountain and a small river.",
+                        words: [
+                            { w: "我", p: "wǒ", e: "I" },
+                            { w: "画", p: "huà", e: "draw" },
+                            { w: "了", p: "le", e: "particle" },
+                            { w: "大山", p: "dà shān", e: "big mountain" },
+                            { w: "和", p: "hé", e: "and" },
+                            { w: "小河", p: "xiǎo hé", e: "small river" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "Mother goes to the kitchen to make hot tea.",
+                        words: [
+                            { w: "妈妈", p: "mā ma", e: "mother" },
+                            { w: "去", p: "qù", e: "go" },
+                            { w: "厨房", p: "chú fáng", e: "kitchen" },
+                            { w: "做", p: "zuò", e: "make" },
+                            { w: "热茶", p: "rè chá", e: "hot tea" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "She brings us tea and apples.",
+                        words: [
+                            { w: "她", p: "tā", e: "she" },
+                            { w: "给", p: "gěi", e: "give" },
+                            { w: "我们", p: "wǒ men", e: "us" },
+                            { w: "拿", p: "ná", e: "bring" },
+                            { w: "来", p: "lái", e: "come" },
+                            { w: "茶", p: "chá", e: "tea" },
+                            { w: "和", p: "hé", e: "and" },
+                            { w: "苹果", p: "píng guǒ", e: "apples" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "Drinking hot tea on a rainy day is very comfortable.",
+                        words: [
+                            { w: "下雨天", p: "xià yǔ tiān", e: "rainy day" },
+                            { w: "喝", p: "hē", e: "drink" },
+                            { w: "热茶", p: "rè chá", e: "hot tea" },
+                            { w: "很", p: "hěn", e: "very" },
+                            { w: "舒服", p: "shū fu", e: "comfortable" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "The whole family sits together and chats.",
+                        words: [
+                            { w: "全家人", p: "quán jiā rén", e: "whole family" },
+                            { w: "坐", p: "zuò", e: "sit" },
+                            { w: "在", p: "zài", e: "at" },
+                            { w: "一起", p: "yì qǐ", e: "together" },
+                            { w: "聊天", p: "liáo tiān", e: "chat" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "We are all very happy.",
+                        words: [
+                            { w: "我们", p: "wǒ men", e: "we" },
+                            { w: "都", p: "dōu", e: "all" },
+                            { w: "很", p: "hěn", e: "very" },
+                            { w: "高兴", p: "gāo xìng", e: "happy" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    },
+                    {
+                        en: "Today is a very good day.",
+                        words: [
+                            { w: "今天", p: "jīn tiān", e: "today" },
+                            { w: "是", p: "shì", e: "is" },
+                            { w: "非常", p: "fēi cháng", e: "very" },
+                            { w: "好", p: "hǎo", e: "good" },
+                            { w: "的", p: "de", e: "particle" },
+                            { w: "一天", p: "yì tiān", e: "day" },
+                            { w: "。", p: "", e: "" }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+);
