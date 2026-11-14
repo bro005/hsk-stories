@@ -2255,3 +2255,498 @@ words: [
 ]
 }
 );
+
+window.STORIES[2].push(
+{
+title: "在教室学习 (Studying in the Classroom)",
+description: "Two friends spend their afternoon studying Chinese and reading books together.",
+chapters: [
+{
+title: "第一章：写汉字 (Chapter 1: Writing Chinese Characters)",
+pinyin: "Dì yī zhāng: Xiě hàn zì",
+translation: "Chapter 1: Writing Chinese Characters",
+sentences: [
+{
+en: "Afternoon class begins now.",
+words: [
+{ w: "下午", p: "xià wǔ", e: "afternoon" },
+{ w: "课", p: "kè", e: "class" },
+{ w: "现在", p: "xiàn zài", e: "now" },
+{ w: "开始", p: "kāi shǐ", e: "start" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "The classroom is very quiet.",
+words: [
+{ w: "教室", p: "jiào shì", e: "classroom" },
+{ w: "里", p: "lǐ", e: "inside" },
+{ w: "非常", p: "fēi cháng", e: "very" },
+{ w: "安静", p: "ān jìng", e: "quiet" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "My friend and I write Chinese characters.",
+words: [
+{ w: "我", p: "wǒ", e: "I" },
+{ w: "和", p: "hé", e: "and" },
+{ w: "朋友", p: "péng you", e: "friend" },
+{ w: "一起", p: "yì qǐ", e: "together" },
+{ w: "写", p: "xiě", e: "write" },
+{ w: "汉字", p: "hàn zì", e: "Chinese characters" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "We help each other learn.",
+words: [
+{ w: "我们", p: "wǒ men", e: "we" },
+{ w: "互相", p: "hù xiāng", e: "each other" },
+{ w: "学习", p: "xué xí", e: "study" },
+{ w: "。", p: "", e: "" }
+]
+}
+]
+},
+{
+title: "第二章：读课文 (Chapter 2: Reading the Text)",
+pinyin: "Dì èr zhāng: Dú kè wén",
+translation: "Chapter 2: Reading the Text",
+sentences: [
+{
+en: "We open our Chinese books.",
+words: [
+{ w: "我们", p: "wǒ men", e: "we" },
+{ w: "打开", p: "dǎ kāi", e: "open" },
+{ w: "中文", p: "zhōng wén", e: "Chinese" },
+{ w: "书", p: "shū", e: "book" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "We read the text aloud.",
+words: [
+{ w: "我们", p: "wǒ men", e: "we" },
+{ w: "大声", p: "dà shēng", e: "loudly" },
+{ w: "读", p: "dú", e: "read" },
+{ w: "课文", p: "kè wén", e: "text" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "The teacher smiles and nods.",
+words: [
+{ w: "老师", p: "lǎo shī", e: "teacher" },
+{ w: "微笑着", p: "wēi xiào zhe", e: "smiling" },
+{ w: "点头", p: "diǎn tóu", e: "nod" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "Learning languages is fun.",
+words: [
+{ w: "学习", p: "xué xí", e: "studying" },
+{ w: "语言", p: "yǔ yán", e: "language" },
+{ w: "很", p: "hěn", e: "very" },
+{ w: "有意思", p: "yǒu yì si", e: "interesting" },
+{ w: "。", p: "", e: "" }
+]
+}
+]
+}
+]
+}
+);
+
+window.STORIES[2].push(
+{
+title: "下雨天 (A Rainy Day)",
+description: "A peaceful rainy afternoon spent indoors drawing pictures and drinking warm tea.",
+chapters: [
+{
+title: "第一章：外面下雨了 (Chapter 1: It is Raining Outside)",
+pinyin: "Dì yī zhāng: Wài miàn xià yǔ le",
+translation: "Chapter 1: It is Raining Outside",
+sentences: [
+{
+en: "It starts to rain in the afternoon.",
+words: [
+{ w: "下午", p: "xià wǔ", e: "afternoon" },
+{ w: "外面", p: "wài miàn", e: "outside" },
+{ w: "开始", p: "kāi shǐ", e: "start" },
+{ w: "下雨", p: "xià yǔ", e: "rain" },
+{ w: "了", p: "le", e: "particle" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "We stay inside the house.",
+words: [
+{ w: "我们", p: "wǒ men", e: "we" },
+{ w: "呆在", p: "dāi zài", e: "stay at" },
+{ w: "屋子", p: "wū zi", e: "house" },
+{ w: "里", p: "lǐ", e: "inside" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "The sound of rain is quiet.",
+words: [
+{ w: "雨声", p: "yǔ shēng", e: "sound of rain" },
+{ w: "很", p: "hěn", e: "very" },
+{ w: "轻柔", p: "qīng róu", e: "gentle" },
+{ w: "。", p: "", e: "" }
+]
+}
+]
+},
+{
+title: "第二章：画画和喝茶 (Chapter 2: Drawing and Drinking Tea)",
+pinyin: "Dì èr zhāng: Huà huà hé hē chá",
+translation: "Chapter 2: Drawing and Drinking Tea",
+sentences: [
+{
+en: "I draw pictures of nature.",
+words: [
+{ w: "我", p: "wǒ", e: "I" },
+{ w: "画", p: "huà", e: "draw" },
+{ w: "大自然", p: "dà zì rán", e: "nature" },
+{ w: "的", p: "de", e: "particle" },
+{ w: "画", p: "huà", e: "painting" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "Mother makes warm tea for us.",
+words: [
+{ w: "妈妈", p: "mā ma", e: "mother" },
+{ w: "为", p: "wèi", e: "for" },
+{ w: "我们", p: "wǒ men", e: "us" },
+{ w: "泡", p: "pào", e: "brew" },
+{ w: "热茶", p: "rè chá", e: "hot tea" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "We sit together and talk.",
+words: [
+{ w: "我们", p: "wǒ men", e: "we" },
+{ w: "坐", p: "zuò", e: "sit" },
+{ w: "在一起", p: "zài yì qǐ", e: "together" },
+{ w: "聊天", p: "liáo tiān", e: "chat" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "Rainy days are very cozy.",
+words: [
+{ w: "雨天", p: "yǔ tiān", e: "rainy day" },
+{ w: "非常", p: "fēi cháng", e: "very" },
+{ w: "舒适", p: "shū shì", e: "comfortable" },
+{ w: "。", p: "", e: "" }
+]
+}
+]
+}
+]
+}
+);
+
+window.STORIES[2].push(
+{
+title: "准备去旅行 (Preparing for a Trip)",
+description: "A family packs their bags and gets ready for a train journey.",
+chapters: [
+{
+title: "第一章：收拾行李 (Chapter 1: Packing Luggage)",
+pinyin: "Dì yī zhāng: Shōu shi xíng lǐ",
+translation: "Chapter 1: Packing Luggage",
+sentences: [
+{
+en: "Tomorrow we go on a trip.",
+words: [
+{ w: "明天", p: "míng tiān", e: "tomorrow" },
+{ w: "我们", p: "wǒ men", e: "we" },
+{ w: "去", p: "qù", e: "go" },
+{ w: "旅行", p: "lǚ xíng", e: "travel" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "Father packs the luggage bag.",
+words: [
+{ w: "爸爸", p: "bà ba", e: "father" },
+{ w: "收拾", p: "shōu shi", e: "pack" },
+{ w: "行李", p: "xíng lǐ", e: "luggage" },
+{ w: "包", p: "bāo", e: "bag" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "We put clothes and books inside.",
+words: [
+{ w: "我们", p: "wǒ men", e: "we" },
+{ w: "把", p: "bǎ", e: "particle" },
+{ w: "衣服", p: "yī fu", e: "clothes" },
+{ w: "和", p: "hé", e: "and" },
+{ w: "书", p: "shū", e: "books" },
+{ w: "放进去", p: "fàng jìn qù", e: "put in" },
+{ w: "。", p: "", e: "" }
+]
+}
+]
+},
+{
+title: "第二章：坐火车去 (Chapter 2: Going by Train)",
+pinyin: "Dì èr zhāng: Zuò huǒ chē qù",
+translation: "Chapter 2: Going by Train",
+sentences: [
+{
+en: "We will take the train.",
+words: [
+{ w: "我们", p: "wǒ men", e: "we" },
+{ w: "将", p: "jiāng", e: "will" },
+{ w: "坐", p: "zuò", e: "sit" },
+{ w: "火车站", p: "huǒ chē zhàn", e: "train station" },
+{ w: "的", p: "de", e: "particle" },
+{ w: "火车", p: "huǒ chē", e: "train" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "Traveling by train is very fast.",
+words: [
+{ w: "坐", p: "zuò", e: "take" },
+{ w: "火车", p: "huǒ chē", e: "train" },
+{ w: "旅行", p: "lǚ xíng", e: "travel" },
+{ w: "非常", p: "fēi cháng", e: "very" },
+{ w: "快", p: "kuài", e: "fast" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "We look forward to seeing mountains.",
+words: [
+{ w: "我们", p: "wǒ men", e: "we" },
+{ w: "期待", p: "qī dài", e: "look forward to" },
+{ w: "看", p: "kàn", e: "see" },
+{ w: "山", p: "shān", e: "mountains" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "Everyone is excited.",
+words: [
+{ w: "大家", p: "dà jiā", e: "everyone" },
+{ w: "都", p: "dōu", e: "all" },
+{ w: "很", p: "hěn", e: "very" },
+{ w: "兴奋", p: "xīng fèn", e: "excited" },
+{ w: "。", p: "", e: "" }
+]
+}
+]
+}
+]
+}
+);
+
+window.STORIES[2].push(
+{
+title: "我的新手机 (My New Phone)",
+description: "A story about getting a new phone and using it to take photos of nature.",
+chapters: [
+{
+title: "第一章：得到新手机 (Chapter 1: Getting a New Phone)",
+pinyin: "Dì yī zhāng: Dé dào xīn shǒu jī",
+translation: "Chapter 1: Getting a New Phone",
+sentences: [
+{
+en: "Father gives me a new phone.",
+words: [
+{ w: "爸爸", p: "bà ba", e: "father" },
+{ w: "送", p: "sòng", e: "give" },
+{ w: "给我", p: "gěi wǒ", e: "to me" },
+{ w: "一个", p: "yí gè", e: "a" },
+{ w: "新", p: "xīn", e: "new" },
+{ w: "手机", p: "shǒu jī", e: "phone" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "The phone color is blue.",
+words: [
+{ w: "手机", p: "shǒu jī", e: "phone" },
+{ w: "的", p: "de", e: "particle" },
+{ w: "颜色", p: "yán sè", e: "color" },
+{ w: "是", p: "shì", e: "is" },
+{ w: "蓝色", p: "lán sè", e: "blue" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "I am very happy with it.",
+words: [
+{ w: "我", p: "wǒ", e: "I" },
+{ w: "对", p: "duì", e: "to" },
+{ w: "它", p: "tā", e: "it" },
+{ w: "感到", p: "gǎn dào", e: "feel" },
+{ w: "很", p: "hěn", e: "very" },
+{ w: "高兴", p: "gāo xìng", e: "happy" },
+{ w: "。", p: "", e: "" }
+]
+}
+]
+},
+{
+title: "第二章：拍照留念 (Chapter 2: Taking Photos)",
+pinyin: "Dì èr zhāng: Pāi zhào liú niàn",
+translation: "Chapter 2: Taking Photos",
+sentences: [
+{
+en: "I go outside to test the camera.",
+words: [
+{ w: "我", p: "wǒ", e: "I" },
+{ w: "走到", p: "zǒu dào", e: "walk to" },
+{ w: "外面", p: "wài miàn", e: "outside" },
+{ w: "测试", p: "cè shì", e: "test" },
+{ w: "相机", p: "xiàng jī", e: "camera" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "I take pictures of beautiful flowers.",
+words: [
+{ w: "我", p: "wǒ", e: "I" },
+{ w: "拍", p: "pāi", e: "take" },
+{ w: "美丽", p: "měi lì", e: "beautiful" },
+{ w: "的", p: "de", e: "particle" },
+{ w: "花朵", p: "huā duǒ", e: "flowers" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "The photos look very clear.",
+words: [
+{ w: "照片", p: "zhào piàn", e: "photos" },
+{ w: "看起来", p: "kàn qǐ lái", e: "look" },
+{ w: "非常", p: "fēi cháng", e: "very" },
+{ w: "清楚", p: "qīng chu", e: "clear" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "Technology is very useful.",
+words: [
+{ w: "科技", p: "kē jì", e: "technology" },
+{ w: "非常", p: "fēi cháng", e: "very" },
+{ w: "有用", p: "yǒu yòng", e: "useful" },
+{ w: "。", p: "", e: "" }
+]
+}
+]
+}
+]
+}
+);
+
+window.STORIES[2].push(
+{
+title: "去书店 (Going to the Bookstore)",
+description: "A story about buying a new dictionary and reading at a bookstore.",
+chapters: [
+{
+title: "第一章：寻找字典 (Chapter 1: Finding a Dictionary)",
+pinyin: "Dì yī zhāng: Xún zhǎo zì diǎn",
+translation: "Chapter 1: Finding a Dictionary",
+sentences: [
+{
+en: "I need a new Chinese dictionary.",
+words: [
+{ w: "我", p: "wǒ", e: "I" },
+{ w: "需要", p: "xū yào", e: "need" },
+{ w: "一本", p: "yì běn", e: "a" },
+{ w: "新", p: "xīn", e: "new" },
+{ w: "字典", p: "zì diǎn", e: "dictionary" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "I walk to the bookstore near school.",
+words: [
+{ w: "我", p: "wǒ", e: "I" },
+{ w: "走到", p: "zǒu dào", e: "walk to" },
+{ w: "学校", p: "xué xiào", e: "school" },
+{ w: "旁边", p: "páng biān", e: "side" },
+{ w: "的", p: "de", e: "particle" },
+{ w: "书店", p: "shū diàn", e: "bookstore" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "The bookstore has many shelves.",
+words: [
+{ w: "书店", p: "shū diàn", e: "bookstore" },
+{ w: "里", p: "lǐ", e: "inside" },
+{ w: "有", p: "yǒu", e: "have" },
+{ w: "很多", p: "hěn duō", e: "many" },
+{ w: "书架", p: "shū jià", e: "bookshelf" },
+{ w: "。", p: "", e: "" }
+]
+}
+]
+},
+{
+title: "第二章：安静阅读 (Chapter 2: Quiet Reading)",
+pinyin: "Dì èr zhāng: Ān jìng yuè dú",
+translation: "Chapter 2: Quiet Reading",
+sentences: [
+{
+en: "I find the dictionary I want.",
+words: [
+{ w: "我", p: "wǒ", e: "I" },
+{ w: "找到", p: "zhǎo dào", e: "find" },
+{ w: "了", p: "le", e: "particle" },
+{ w: "那", p: "nà", e: "that" },
+{ w: "本", p: "běn", e: "classifier" },
+{ w: "字典", p: "zì diǎn", e: "dictionary" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "I stand by the desk and read.",
+words: [
+{ w: "我", p: "wǒ", e: "I" },
+{ w: "站在", p: "zhàn zài", e: "stand at" },
+{ w: "桌子", p: "zhuō zi", e: "desk" },
+{ w: "旁", p: "páng", e: "side" },
+{ w: "读书", p: "dú shū", e: "read books" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "Reading brings great joy.",
+words: [
+{ w: "阅读", p: "yuè dú", e: "reading" },
+{ w: "带给", p: "dài gěi", e: "bring to" },
+{ w: "我", p: "wǒ", e: "me" },
+{ w: "很多", p: "hěn duō", e: "much" },
+{ w: "快乐", p: "kuài lè", e: "joy" },
+{ w: "。", p: "", e: "" }
+]
+},
+{
+en: "I pay money and go home.",
+words: [
+{ w: "我", p: "wǒ", e: "I" },
+{ w: "付钱", p: "fù qián", e: "pay money" },
+{ w: "然后", p: "rán hòu", e: "then" },
+{ w: "回家", p: "huí jiā", e: "go home" },
+{ w: "。", p: "", e: "" }
+]
+}
+]
+}
+]
+}
+);
